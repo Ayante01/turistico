@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">PrimerApp</string>
+    <string name="names">Name</string>
+    <string name="lastname">Last name</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="confirm_pass">Confirm password</string>
+    <string name="login">Login</string>
+    <string name="sign_up">Sign up</string>
+    <string name="go_to_register">Go to register</string>
+    <string name="go_to_login">Go to login</string>
+
+    <!--errors-->
+    <string name="error_email">Email is required</string>
+    <string name="error_password">Password is required</string>
+    <string name="error_confirm_pass">Password doesnt match</string>
+    <string name="error_name">Name required</string>
+    <string name="error_lastname">Lastname required</string>
+    <string name="logged_in">Logged in</string>
+    <string name="no_match">No match</string>
+
+    <string name="task_name">Task name</string>
+    <string name="add">Add</string>
+    <string name="cancel">Cancel</string>
+    <string name="yes">Yes</string>
+    <string name="clean_list">clean</string>
+    <string name="forgot_password">Forgot your password?</string>
+    <string name="dont_have_account">Don´t have account?</string>
+    <string name="create_one_now">Create one now!</string>
+    <string name="log_in">Log In</string>
+    <string name="register">Register</string>
+    <string name="already_an_account">You´re already singed up</string>
+</resources>
