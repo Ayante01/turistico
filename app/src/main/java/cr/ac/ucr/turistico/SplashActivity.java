@@ -3,7 +3,6 @@ package cr.ac.ucr.turistico;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import cr.ac.ucr.turistico.utils.AppPreferences;
@@ -25,7 +24,7 @@ public class SplashActivity extends AppCompatActivity {
         if(isLoggedIn){
             intent = new Intent(this, MainActivity.class);
         } else {
-            intent = new Intent(this, LoginActivity.class);
+            intent = new Intent(this, SelectActivity.class);
         }
 
         startActivity(intent);

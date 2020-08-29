@@ -2,7 +2,6 @@ package cr.ac.ucr.turistico;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -31,7 +30,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             case R.id.btn_login:
                 login();
                 break;
-            case R.id.btn_go_to_register:
+            case R.id.btn_go_to_register_two:
                 goToRegister();
                 break;
             case R.id.btn_forgot_password:

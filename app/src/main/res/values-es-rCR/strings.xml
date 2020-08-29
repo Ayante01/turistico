@@ -1,35 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Primera App</string>
+    <string name="app_name">Turistico</string>
     <string name="names">Nombre</string>
-    <string name="lastname">Apellido</string>
+    <string name="last_name">Apellido</string>
     <string name="email">Correo Electronico</string>
     <string name="password">Contraseña</string>
     <string name="confirm_pass">Confirmar contraseña</string>
     <string name="login">Iniciar Sesión</string>
     <string name="sign_up">Registrarse</string>
-    <string name="go_to_register">Ir a registro</string>
-    <string name="go_to_login">Ir a inicio de sesión</string>
 
     <!--errors-->
     <string name="error_email">Email es requerido</string>
     <string name="error_password">Contraseña es requerida</string>
     <string name="error_confirm_pass">La contraseña no coincide</string>
     <string name="error_name">Nombre es requerido</string>
-    <string name="error_lastname">Apellido es requerido</string>
+    <string name="error_last_name">Apellido es requerido</string>
     <string name="logged_in">Logueado</string>
     <string name="no_match">No coinciden los datos</string>
 
-    <string name="task_name">Nombre de la tarea</string>
-    <string name="add">Agregar</string>
-    <string name="cancel">Cancelar</string>
-    <string name="yes">Yes</string>
-    <string name="clean_list">clean</string>
     <string name="forgot_password">Olvidaste tu contraseña?</string>
     <string name="dont_have_account">No tienes cuenta?</string>
     <string name="create_one_now">Crea una ahora mismo!</string>
     <string name="log_in">Inicia Sesión</string>
     <string name="register">Regístrate</string>
     <string name="already_an_account">Ya estas registrado?</string>
+    <string name="dont_want_register">No te deseas registrar?</string>
+    <string name="sing_in_as_a_guest">Ingresa como invitado</string>
 
 </resources>

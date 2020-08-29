@@ -34,7 +34,7 @@ public class RegisterActivity extends AppCompatActivity implements OnClickListen
             case R.id.btn_sign_up:
                 signUp();
                 break;
-            case R.id.btn_login:
+            case R.id.btn_go_to_register_two:
                 goToLogin();
                 break;
 
@@ -56,7 +56,7 @@ public class RegisterActivity extends AppCompatActivity implements OnClickListen
         }
 
         if(lastName.isEmpty()){
-            edLastName.setError(getString(R.string.error_lastname));
+            edLastName.setError(getString(R.string.error_last_name));
             return;
         }
 
