@@ -5,46 +5,42 @@
     android:layout_height="match_parent"
     tools:context=".LoginActivity"
     android:orientation="vertical">
-
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp">
-
+        android:layout_marginBottom="30dp"
+        android:layout_marginTop="30dp"
+      >
         <ImageView
             android:id="@+id/iv_logo"
             android:layout_width="match_parent"
-            android:layout_height="160dp"
+            android:layout_height="140dp"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="80dp"
             android:layout_marginBottom="40dp"
             android:contentDescription="@string/app_name"
             android:src="@drawable/toucan" />
-
         <TextView
             android:id="@+id/tv_log_in_logo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="90dp"
+            android:layout_marginTop="60dp"
             android:layout_gravity="center"
             android:text="@string/log_in"
             android:fontFamily="@font/spooky_cat"
-            android:textSize="45dp"
+            android:textSize="40dp"
             android:textColor="@color/darkPurple"/>
-
     </FrameLayout>
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:paddingRight="30dp"
-        android:paddingLeft="30dp">
-
+        android:paddingLeft="30dp"
+        >
         <EditText
             android:id="@+id/ed_email"
             android:layout_width="match_parent"
-            android:layout_height="60dp"
+            android:layout_height="55dp"
             android:paddingLeft="25dp"
             android:textSize="12sp"
             android:hint="@string/email"
@@ -52,11 +48,10 @@
             android:layout_marginBottom="10dp"
             android:background="@drawable/text_area"
             android:fontFamily="@font/quicksand_variablefont"/>
-
         <EditText
             android:id="@+id/ed_password"
             android:layout_width="match_parent"
-            android:layout_height="60dp"
+            android:layout_height="55dp"
             android:paddingLeft="25dp"
             android:textSize="12sp"
             android:hint="@string/password"
@@ -64,7 +59,6 @@
             android:layout_marginBottom="15dp"
             android:background="@drawable/text_area"
             android:fontFamily="@font/quicksand_variablefont"/>
-
         <Button
             android:id="@+id/btn_forgot_password"
             android:layout_width="wrap_content"
@@ -78,7 +72,6 @@
             android:textColor="@color/purple"
             android:textSize="12dp" />
     </LinearLayout>
-
     <Button
         android:id="@+id/btn_login"
         android:layout_width="match_parent"
@@ -97,33 +90,35 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center"
-        android:layout_marginTop="100dp">
-
-        <TextView
-            android:id="@+id/tv_dont_have_account"
-            android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="bottom">
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/dont_have_account"
-            android:fontFamily="@font/quicksand_variablefont"
-            android:textSize="12dp"
-            android:layout_marginEnd="6dp"
-            android:textColor="@color/purple"/>
-
-        <Button
-            android:id="@+id/btn_go_to_register_two"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@android:color/transparent"
-            android:fontFamily="@font/quicksandbold_regular"
-            android:onClick="onClick"
-            android:textAllCaps="false"
-            android:textColor="@color/purple"
-            android:textSize="12dp"
-            android:text="@string/create_one_now"/>
-
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_marginBottom="20dp">
+            <TextView
+                android:id="@+id/tv_dont_have_account"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/dont_have_account"
+                android:fontFamily="@font/quicksand_variablefont"
+                android:textSize="12dp"
+                android:layout_marginEnd="6dp"
+                android:textColor="@color/purple"/>
+            <Button
+                android:id="@+id/btn_go_to_register_two"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:fontFamily="@font/quicksandbold_regular"
+                android:onClick="onClick"
+                android:textAllCaps="false"
+                android:textColor="@color/purple"
+                android:textSize="12dp"
+                android:text="@string/create_one_now"/>
+        </LinearLayout>
     </LinearLayout>
-
 </LinearLayout>

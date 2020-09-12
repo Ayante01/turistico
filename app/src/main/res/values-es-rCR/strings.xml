@@ -26,5 +26,20 @@
     <string name="already_an_account">Ya estas registrado?</string>
     <string name="dont_want_register">No te deseas registrar?</string>
     <string name="sing_in_as_a_guest">Ingresa como invitado</string>
+    <string name="user_name">Juancho Villa.</string>
+    <string name="medals">Medallas</string>
+    <string name="settings">Configuración</string>
+    <string name="waterfalls">Cataratas</string>
+    <string name="hills">Cerros</string>
+    <string name="beaches">Playas</string>
+    <string name="edit_profile">Editar Perfil</string>
+    <string name="share_app">Compartir el app</string>
+    <string name="contact_us">Ponerse en contacto</string>
+    <string name="logout">Cerrar Sesión</string>
+
+    <string name="home">Inicio</string>
+    <string name="search">Buscar</string>
+    <string name="favorites">Lugares Favoritos</string>
+    <string name="profile">Perfil</string>
 
 </resources>

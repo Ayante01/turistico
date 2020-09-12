@@ -8,14 +8,11 @@ public class AppPreferences {
     private final String PREFERENCES = "primeraapp_preferences";
     private SharedPreferences sharedPreferences;
     private SharedPreferences.Editor editor;
-
     private static AppPreferences preferences;
 
     public static class Keys{
-
         public static final String IS_LOGGED_IN = "is_logged_in";
         public static final String ITEMS= "items";
-
     }
 
     private AppPreferences(Context context) {
@@ -28,8 +25,6 @@ public class AppPreferences {
         }
         return preferences;
     }
-
-    // Metodos Put
 
     public void put(String key, String value){
         doEdit();
@@ -63,8 +58,6 @@ public class AppPreferences {
         editor.putFloat(key, value);
         commit();
     }
-
-    //Metodos Get
 
     public String getString(String key){
         return sharedPreferences.getString(key, "");
