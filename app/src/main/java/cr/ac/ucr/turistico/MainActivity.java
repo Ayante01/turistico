@@ -1,5 +1,15 @@
+/**
+ * La aplicación turistico será una con la cual los usuarios podrán encontrar distintos destinos turísticos
+ * de Costa Rica, asi como tomar fotos a estos y subirlas para ganar medallas
+ *
+ * La clase Main activity se encarga de unir los diferentes Fragments en una solo pantalla la cual posee un menu
+ * infeorior para navegar entre estos
+ *
+ * @author  Olman Castro
+ * @version 1.0
+ * @since   2020-09-24
+ */
 package cr.ac.ucr.turistico;
-
 
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -17,11 +27,19 @@ import cr.ac.ucr.turistico.fragments.HomeFragment;
 import cr.ac.ucr.turistico.fragments.ProfileFragment;
 import cr.ac.ucr.turistico.fragments.SearchFragment;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+public class MainActivity extends AppCompatActivity{
+    /**
+     * Variables
+     */
     private  ViewPager pager;
     private BottomNavigationView bottomNavigationView;
     private MenuItem prevMenuItem;
-
+    /**
+     * Metodo onCreate
+     * Este metodo es ejecutrado al crearse la clase dentro de la aplicación
+     *
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,8 +52,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setUpViewPagerListener();
         setUpBottomNavViewListener();
     }
-
-    private  void setUpViewPager(){
+    /**
+     * Metodo setUpViewPager
+     * Este metodo es utilizado para inicializar los fragments que seran utulizados en la vista del Main Activity,
+     * ademas se crea un MainViewPagerAdapter y se agrega como adapter por medio de pager
+     */
+    private void setUpViewPager(){
         ArrayList<Fragment> fragments = new ArrayList<>();
 
         fragments.add(HomeFragment.newInstance());
@@ -46,7 +68,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         MainViewPagerAdapter mainViewPagerAdapter = new MainViewPagerAdapter(getSupportFragmentManager(), fragments);
         pager.setAdapter(mainViewPagerAdapter);
     }
-
+    /**
+     * Metodo setUpBottomNavViewListener
+     * Se utiliza como Listener y navegador del menu bajo, cada vez que se selecccione un item este metodo se encargara
+     * de desplazar la vista hacia ese fragment
+     */
     private void setUpBottomNavViewListener() {
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -70,7 +96,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
         });
     }
-
+    /**
+     * Metodo setUpViewPagerListener
+     * Se utilza para navegar por medio de slice entre los diferentes fragments del Main Activity
+     */
     private void setUpViewPagerListener() {
         pager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
@@ -89,9 +118,4 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
         });
     }
-
-    @Override
-    public void onClick(View view) {
-    }
-
 }
