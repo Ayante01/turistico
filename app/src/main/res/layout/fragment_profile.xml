@@ -38,8 +38,8 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="15dp"
         android:text="@string/user_name"
-        android:textSize="28dp"
-        android:fontFamily="@font/quicksandbold_regular"
+        android:textSize="28sp"
+        android:fontFamily="@font/quicksand_bold"
         android:textColor="@color/black"
         android:layout_below="@id/cv_user_image"/>
 
@@ -58,11 +58,12 @@
             android:layout_weight="1"
             android:text="@string/medals"
             android:textColor="@color/purple"
-            android:textSize="20dp"
+            android:textSize="22sp"
             android:background="@drawable/account_button_white"
             android:textAllCaps="false"
             android:paddingTop="15dp"
-            android:paddingBottom="15dp"/>
+            android:paddingBottom="15dp"
+            android:fontFamily="@font/quicksand_bold"/>
         <Button
             android:id="@+id/btn_settings"
             android:layout_width="match_parent"
@@ -70,11 +71,12 @@
             android:layout_weight="1"
             android:text="@string/settings"
             android:textColor="@color/white"
-            android:textSize="20dp"
+            android:textSize="22sp"
             android:background="@drawable/account_button_gray"
             android:textAllCaps="false"
             android:paddingTop="15dp"
-            android:paddingBottom="15dp" />
+            android:paddingBottom="15dp"
+            android:fontFamily="@font/quicksand_bold"/>
     </LinearLayout>
     <ScrollView
         android:id="@+id/sv_settings"
@@ -93,10 +95,12 @@
                 android:background="@android:color/transparent"
                 android:text="@string/edit_profile"
                 android:textAllCaps="false"
-                android:textSize="16dp"
+                android:textSize="20sp"
                 android:layout_marginTop="16dp"
                 android:layout_marginStart="54dp"
-                android:onClick="onClick"/>
+                android:onClick="onClick"
+                android:fontFamily="@font/quicksand_regular"/>
+
             <ImageView
                 android:id="@+id/iv_edit_line"
                 android:layout_width="wrap_content"
@@ -104,6 +108,7 @@
                 android:background="@drawable/line"
                 android:layout_below="@id/btn_edit_profile"
                 android:layout_centerHorizontal="true"/>
+
             <Button
                 android:id="@+id/btn_share_profile"
                 android:layout_width="wrap_content"
@@ -111,11 +116,13 @@
                 android:background="@android:color/transparent"
                 android:text="@string/share_app"
                 android:textAllCaps="false"
-                android:textSize="16dp"
+                android:textSize="20sp"
                 android:layout_below="@+id/iv_edit_line"
                 android:layout_marginTop="16dp"
                 android:layout_marginStart="54dp"
-                android:onClick="onClick"/>
+                android:onClick="onClick"
+                android:fontFamily="@font/quicksand_regular"/>
+
             <ImageView
                 android:id="@+id/iv_share_line"
                 android:layout_width="wrap_content"
@@ -123,6 +130,7 @@
                 android:background="@drawable/line"
                 android:layout_below="@id/btn_share_profile"
                 android:layout_centerHorizontal="true"/>
+
             <Button
                 android:id="@+id/btn_contact_profile"
                 android:layout_width="wrap_content"
@@ -130,11 +138,13 @@
                 android:background="@android:color/transparent"
                 android:text="@string/contact_us"
                 android:textAllCaps="false"
-                android:textSize="16dp"
+                android:textSize="20sp"
                 android:layout_below="@+id/iv_share_line"
                 android:layout_marginTop="16dp"
                 android:layout_marginStart="54dp"
-                android:onClick="onClick"/>
+                android:onClick="onClick"
+                android:fontFamily="@font/quicksand_regular"/>
+
             <ImageView
                 android:id="@+id/iv_contact_line"
                 android:layout_width="wrap_content"
@@ -142,6 +152,7 @@
                 android:background="@drawable/line"
                 android:layout_below="@id/btn_contact_profile"
                 android:layout_centerHorizontal="true"/>
+
             <Button
                 android:id="@+id/btn_logout"
                 android:layout_width="match_parent"
@@ -151,15 +162,16 @@
                 android:layout_marginStart="40dp"
                 android:layout_marginEnd="40dp"
                 android:layout_marginBottom="60dp"
-                android:textSize="16dp"
+                android:textSize="16sp"
                 android:background="@drawable/button"
                 android:text="@string/logout"
                 android:textColor="@color/white"
-                android:fontFamily="@font/quicksandbold_regular"
+                android:fontFamily="@font/quicksand_bold"
                 android:textAllCaps="false"
                 android:layout_below="@id/iv_contact_line"/>
         </RelativeLayout>
     </ScrollView>
+
     <ScrollView
         android:id="@+id/sv_medals"
         android:layout_width="match_parent"
@@ -177,10 +189,11 @@
                 android:layout_height="wrap_content"
                 android:text="@string/waterfalls"
                 android:gravity="center"
-                android:textSize="20dp"
-                android:fontFamily="@font/quicksand_variablefont"
+                android:textSize="20sp"
+                android:fontFamily="@font/quicksand_light"
                 android:textColor="@color/black"
                 android:layout_marginTop="16dp"/>
+
             <LinearLayout
                 android:id="@+id/ly_waterfall"
                 android:layout_width="match_parent"
@@ -189,6 +202,7 @@
                 android:gravity="center"
                 android:layout_below="@id/tv_waterfall"
                 android:layout_marginTop="16dp">
+
                 <Button
                     android:id="@+id/iv_waterfall_bronze"
                     android:layout_width="125dp"
@@ -204,7 +218,9 @@
                     android:layout_width="125dp"
                     android:layout_height="100dp"
                     android:background="@drawable/gold"/>
+
             </LinearLayout>
+
             <ImageView
                 android:id="@+id/iv_waterfall_line"
                 android:layout_width="wrap_content"
@@ -220,8 +236,8 @@
                 android:layout_height="wrap_content"
                 android:text="@string/hills"
                 android:gravity="center"
-                android:textSize="20dp"
-                android:fontFamily="@font/quicksand_variablefont"
+                android:textSize="20sp"
+                android:fontFamily="@font/quicksand_light"
                 android:textColor="@color/black"
                 android:layout_marginTop="16dp"
                 android:layout_below="@id/iv_waterfall_line"/>
@@ -264,8 +280,8 @@
                 android:layout_height="wrap_content"
                 android:text="@string/beaches"
                 android:gravity="center"
-                android:textSize="20dp"
-                android:fontFamily="@font/quicksand_variablefont"
+                android:textSize="20sp"
+                android:fontFamily="@font/quicksand_light"
                 android:textColor="@color/black"
                 android:layout_marginTop="16dp"
                 android:layout_below="@id/iv_hill_line"/>

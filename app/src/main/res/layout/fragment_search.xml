@@ -7,100 +7,98 @@
     <FrameLayout
         android:id="@+id/fl_top"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/manzanillo"/>
+        android:layout_height="300dp"
+        android:background="@drawable/river">
         <EditText
             android:id="@+id/ed_search"
             android:layout_width="match_parent"
             android:layout_height="45dp"
             android:layout_margin="38dp"
-            android:textSize="14sp"
-            android:textColorHint="@color/darkPurple"
+            android:paddingRight="14dp"
+            android:background="@drawable/white_bar"
+            android:fontFamily="@font/quicksand_regular"
+            android:gravity="right|center"
             android:hint="@string/which_place"
             android:inputType="text"
-            android:background="@drawable/white_bar"
-            android:fontFamily="@font/quicksand_variablefont"
-            android:gravity="center"/>
+            android:textColorHint="@color/darkPurple"
+            android:textSize="16sp"/>
         <ImageView
             android:id="@+id/ic_search"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="58dp"
             android:layout_marginTop="50dp"
-            android:layout_marginStart="64dp"
             android:background="@drawable/ic_search_red"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_marginTop="140dp"
             android:layout_marginStart="24dp"
+            android:layout_marginTop="200dp"
             android:layout_marginEnd="24dp"
-            android:textSize="28dp"
-            android:textColor="@color/white"
-            android:fontFamily="@font/quicksand_variablefont"
+            android:fontFamily="@font/quicksand_bold"
+            android:gravity="center"
             android:text="@string/discover"
-            android:gravity="center"/>
+            android:textColor="@color/white"
+            android:textSize="28dp"/>
     </FrameLayout>
         <HorizontalScrollView
             android:id="@+id/hsv_buttons"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingTop="16dp"
-            android:paddingBottom="8dp"
             android:layout_below="@+id/fl_top"
-            android:fillViewport="true">
+            android:fillViewport="true"
+            android:paddingTop="16dp"
+            android:paddingBottom="8dp">
             <LinearLayout
                 android:id="@+id/ly_buttons"
                 android:layout_width="match_parent"
-                android:paddingBottom="8dp"
                 android:layout_height="match_parent"
+                android:gravity="center"
                 android:orientation="horizontal"
-                android:gravity="center">
+                android:paddingBottom="8dp">
                 <Button
                     android:id="@+id/btn_waterfall"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:background="@drawable/button"
+                    android:fontFamily="@font/quicksand_regular"
                     android:paddingStart="32dp"
                     android:paddingEnd="32dp"
-                    android:layout_marginEnd="8dp"
-                    android:layout_marginStart="8dp"
                     android:text="@string/waterfalls"
-                    android:textSize="12dp"
-                    android:textColor="@color/white"
-                    android:background="@drawable/button"
                     android:textAllCaps="false"
-                    android:fontFamily="@font/quicksand_variablefont"/>
+                    android:textColor="@color/white"
+                    android:textSize="18dp"/>
                 <Button
                     android:id="@+id/btn_hill"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:paddingTop="18dp"
-                    android:paddingBottom="18dp"
-                    android:paddingStart="36dp"
-                    android:paddingEnd="36dp"
                     android:layout_marginEnd="8dp"
-                    android:text="@string/hills"
-                    android:textSize="12dp"
-                    android:textColor="@color/black"
                     android:background="@drawable/text_area"
+                    android:fontFamily="@font/quicksand_regular"
+                    android:paddingStart="36dp"
+                    android:paddingTop="18dp"
+                    android:paddingEnd="36dp"
+                    android:paddingBottom="18dp"
+                    android:text="@string/hills"
                     android:textAllCaps="false"
-                    android:fontFamily="@font/quicksand_variablefont"/>
+                    android:textColor="@color/black"
+                    android:textSize="18dp"/>
                 <Button
                     android:id="@+id/btn_beach"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:paddingTop="18dp"
-                    android:paddingBottom="18dp"
-                    android:paddingStart="36dp"
-                    android:paddingEnd="36dp"
-                    android:text="@string/beaches"
-                    android:textSize="12dp"
-                    android:textColor="@color/black"
                     android:background="@drawable/text_area"
+                    android:fontFamily="@font/quicksand_regular"
+                    android:paddingStart="36dp"
+                    android:paddingTop="18dp"
+                    android:paddingEnd="36dp"
+                    android:paddingBottom="18dp"
+                    android:text="@string/beaches"
                     android:textAllCaps="false"
-                    android:fontFamily="@font/quicksand_variablefont"/>
+                    android:textColor="@color/black"
+                    android:textSize="18dp"/>
             </LinearLayout>
         </HorizontalScrollView>
 

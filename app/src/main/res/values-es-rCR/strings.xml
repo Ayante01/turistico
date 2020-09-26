@@ -43,5 +43,22 @@
     <string name="profile">Perfil</string>
     <string name="which_place">Que lugar quisieras conocer?</string>
     <string name="discover">Descubre Costa Rica, apoya el turismo nacional</string>
-
+    <string name="description">Encuentra un lugar para vacacionar con tu burbuja mediante TurisTico Recuerda que el turismo nacional se ha visto afectado debido a la situación de emergencia provocada por el COVID-19</string>
+    <string name="medals_subtitle">Gana medallas visitando el país</string>
+    <string name="gold_description">Visita 6 lugares de una misma categoría</string>
+    <string name="silver_description">Visita 3 lugares de una misma categoría</string>
+    <string name="bronze_description">Visita 2 lugares de una misma categoría</string>
+    <string name="instructions_subtitle">Instrucciones</string>
+    <string name="footer_text">¡Da click en el área de Explora para empezar a descrubir Costa Rica!</string>
+    <string name="btn_protocol">VER PROTOCOLOS</string>
+    <string name="protocol_subtitle">Infórmate acerca de los protocolos regidos por el Ministerio de Salud</string>
+    <string name="owner_text">Por @daniela.alarcon</string>
+    <string name="bestphoto_subtitle">Publicaremos las mejores fotos tomadas por los usuarios</string>
+    <string name="instructionfour">Puedes ver las medallas que has ganado en tu perfil.</string>
+    <string name="instructionthree">Nuestro equipo verificará que la fotografía sea del mismo lugar y que sea de tu propiedad.</string>
+    <string name="instructiontwo">Da click al + en la galería y sube una fotografía del lugar.</string>
+    <string name="instructionone">Ve a la seccion Descubre de cada lugar que hayas visitado.</string>
+    <string name="silver">Plata</string>
+    <string name="bronze">Bronce</string>
+    <string name="gold">Oro</string>
 </resources>

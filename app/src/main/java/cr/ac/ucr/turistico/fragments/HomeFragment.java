@@ -14,6 +14,11 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ScrollView;
+import android.widget.TextView;
 
 import cr.ac.ucr.turistico.R;
 
@@ -55,6 +60,22 @@ public class HomeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
+        FrameLayout flHeader = view.findViewById(R.id.fl_header);
+        TextView tvHeaderTitle = view.findViewById(R.id.tv_header_title);
+        TextView tvMedalsSubtitle = view.findViewById(R.id.tv_medals_subtitle);
+        LinearLayout llyMedalsContainer = view.findViewById(R.id.lly_medals_container);
+        LinearLayout llyBronze = view.findViewById(R.id.lly_bronze);
+        ImageView ivBronze = view.findViewById(R.id.iv_bronze);
+        TextView tvBronze = view.findViewById(R.id.tv_bronze);
+        TextView tvBronzeDescription = view.findViewById(R.id.tv_bronze_description);
+        LinearLayout llySilver = view.findViewById(R.id.lly_silver);
+        ImageView ivSilver = view.findViewById(R.id.iv_silver);
+        TextView tvSilver = view.findViewById(R.id.tv_silver);
+        TextView tvSilverDescription = view.findViewById(R.id.tv_silver_description);
+        LinearLayout llyGold = view.findViewById(R.id.lly_gold);
+        ImageView ivGold = view.findViewById(R.id.iv_gold);
+        TextView tvGold = view.findViewById(R.id.tv_gold);
+        TextView tvGoldDescription = view.findViewById(R.id.tv_gold_description);
         return view;
     }
 }

@@ -6,13 +6,13 @@
     <string name="email">Email</string>
     <string name="password">Password</string>
     <string name="confirm_pass">Confirm password</string>
-    <string name="login">Login</string>
-    <string name="sign_up">Sign up</string>
+    <string name="login">LOGIN</string>
+    <string name="sign_up">SIGN UP</string>
 
     <!--errors-->
     <string name="error_email">Email is required</string>
     <string name="error_password">Password is required</string>
-    <string name="error_confirm_pass">Password doesnt match</string>
+    <string name="error_confirm_pass">Password doesn´t match</string>
     <string name="error_name">Name required</string>
     <string name="error_last_name">Last Name required</string>
     <string name="logged_in">Logged in</string>
@@ -22,7 +22,7 @@
     <string name="dont_have_account">Don´t have account?</string>
     <string name="create_one_now">Create one now!</string>
     <string name="log_in">Log In</string>
-    <string name="register">Register</string>
+    <string name="register">REGISTER</string>
     <string name="already_an_account">You´re already singed up</string>
     <string name="dont_want_register">Don´t you want to register?</string>
     <string name="sing_in_as_a_guest">Sing in as a guest</string>
@@ -35,7 +35,7 @@
     <string name="edit_profile">Edit Profile</string>
     <string name="share_app">Share the app</string>
     <string name="contact_us">Contact Us</string>
-    <string name="logout">Logout</string>
+    <string name="logout">LOGOUT</string>
 
     <string name="home">Home</string>
     <string name="search">Search</string>
@@ -44,4 +44,22 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="which_place">Which place do you want to know?</string>
     <string name="discover">Discover Costa Rica, supports national tourism</string>
+    <string name="description">Find a place to vacation with your bubble through TurisTico Remember that national tourism has been affected beacuse of COVID-19</string>
+    <string name="medals_subtitle">Earn medals by visiting the country</string>
+    <string name="gold_description">Visit 6 places of the same category</string>
+    <string name="silver_description">Visit 3 places of the same category</string>
+    <string name="bronze_description">Visit 2 places of the same category</string>
+    <string name="instructions_subtitle">Instructions</string>
+    <string name="footer_text">Click on the Explore area to start discovering Costa Rica!</string>
+    <string name="btn_protocol">SEE PROTOCOLS</string>
+    <string name="protocol_subtitle">Find out about the protocols governed by the Ministry of Health</string>
+    <string name="owner_text">By @daniela.alarcon</string>
+    <string name="bestphoto_subtitle">We will publish the best photos taken by users</string>
+    <string name="instructionfour">You can see the medals you have earned on your profile.</string>
+    <string name="instructionthree">Our team will verify that the photo is from the same place and that it of your property.</string>
+    <string name="instructiontwo">Click on the + in the gallery and upload a photo of the place.</string>
+    <string name="instructionone">Go to the Discover section of each place you have visited.</string>
+    <string name="silver">Silver</string>
+    <string name="bronze">Bronze</string>
+    <string name="gold">Gold</string>
 </resources>
