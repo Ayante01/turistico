@@ -10,7 +10,7 @@
     <string name="sign_up">SIGN UP</string>
 
     <!--errors-->
-    <string name="error_email">Email is required</string>
+    <string name="error_email"></string>
     <string name="error_password">Password is required</string>
     <string name="error_confirm_pass">Password doesn´t match</string>
     <string name="error_name">Name required</string>

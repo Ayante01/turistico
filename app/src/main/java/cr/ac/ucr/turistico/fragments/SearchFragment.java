@@ -8,11 +8,13 @@
 package cr.ac.ucr.turistico.fragments;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.FrameLayout;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -27,6 +29,8 @@ public class SearchFragment extends Fragment implements View.OnClickListener{
     private Button btnWaterfalls;
     private Button btnHills;
     private Button btnBeaches;
+    private FrameLayout flHeader;
+
     /**
      * Constructor
      */
@@ -65,6 +69,7 @@ public class SearchFragment extends Fragment implements View.OnClickListener{
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_search, container, false);
 
+        flHeader = view.findViewById(R.id.fl_header);
         btnWaterfalls = view.findViewById(R.id.btn_waterfall);
         btnHills =  view.findViewById(R.id.btn_hill);
         btnBeaches =  view.findViewById(R.id.btn_beach);
@@ -103,12 +108,15 @@ public class SearchFragment extends Fragment implements View.OnClickListener{
         switch (view.getId()){
             case R.id.btn_waterfall:
                 changeToWaterFall();
+                flHeader.setBackgroundResource(R.drawable.river);
                 break;
             case R.id.btn_hill:
                 changeToHills();
+                flHeader.setBackgroundResource(R.drawable.pelado);
                 break;
             case R.id.btn_beach:
                 changeToBeaches();
+                flHeader.setBackgroundResource(R.drawable.manzanillo);
                 break;
             default:
                 break;

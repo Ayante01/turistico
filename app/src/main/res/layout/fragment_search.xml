@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     tools:context=".fragments.HomeFragment">
     <FrameLayout
-        android:id="@+id/fl_top"
+        android:id="@+id/fl_header"
         android:layout_width="match_parent"
         android:layout_height="300dp"
         android:background="@drawable/river">
@@ -45,7 +45,7 @@
             android:id="@+id/hsv_buttons"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/fl_top"
+            android:layout_below="@+id/fl_header"
             android:fillViewport="true"
             android:paddingTop="16dp"
             android:paddingBottom="8dp">
@@ -54,22 +54,23 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"
+                android:layout_marginLeft="10dp"
                 android:orientation="horizontal"
                 android:paddingBottom="8dp">
                 <Button
-                    android:id="@+id/btn_waterfall"
+                    android:id="@+id/btn_beach"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginEnd="8dp"
                     android:background="@drawable/button"
                     android:fontFamily="@font/quicksand_regular"
-                    android:paddingStart="32dp"
-                    android:paddingEnd="32dp"
-                    android:text="@string/waterfalls"
+                    android:paddingStart="36dp"
+                    android:paddingTop="15dp"
+                    android:paddingEnd="36dp"
+                    android:paddingBottom="15dp"
+                    android:text="@string/beaches"
                     android:textAllCaps="false"
                     android:textColor="@color/white"
-                    android:textSize="18dp"/>
+                    android:textSize="18sp"/>
                 <Button
                     android:id="@+id/btn_hill"
                     android:layout_width="wrap_content"
@@ -78,27 +79,28 @@
                     android:background="@drawable/text_area"
                     android:fontFamily="@font/quicksand_regular"
                     android:paddingStart="36dp"
-                    android:paddingTop="18dp"
+                    android:paddingTop="20dp"
                     android:paddingEnd="36dp"
                     android:paddingBottom="18dp"
                     android:text="@string/hills"
                     android:textAllCaps="false"
                     android:textColor="@color/black"
-                    android:textSize="18dp"/>
+                    android:textSize="18sp"/>
                 <Button
-                    android:id="@+id/btn_beach"
+                    android:id="@+id/btn_waterfall"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
                     android:background="@drawable/text_area"
                     android:fontFamily="@font/quicksand_regular"
                     android:paddingStart="36dp"
-                    android:paddingTop="18dp"
+                    android:paddingTop="20dp"
                     android:paddingEnd="36dp"
                     android:paddingBottom="18dp"
-                    android:text="@string/beaches"
+                    android:text="@string/waterfalls"
                     android:textAllCaps="false"
                     android:textColor="@color/black"
-                    android:textSize="18dp"/>
+                    android:textSize="18sp"/>
             </LinearLayout>
         </HorizontalScrollView>
 
