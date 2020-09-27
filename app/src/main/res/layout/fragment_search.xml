@@ -8,7 +8,7 @@
         android:id="@+id/fl_header"
         android:layout_width="match_parent"
         android:layout_height="300dp"
-        android:background="@drawable/river">
+        android:background="@drawable/manzanillo">
         <EditText
             android:id="@+id/ed_search"
             android:layout_width="match_parent"
