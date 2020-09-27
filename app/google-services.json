@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "915330966188",
+    "firebase_url": "https://turistico-7290f.firebaseio.com",
+    "project_id": "turistico-7290f",
+    "storage_bucket": "turistico-7290f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:915330966188:android:ae25e01b669a9c1ff33509",
+        "android_client_info": {
+          "package_name": "cr.ac.ucr.turistico"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "915330966188-9mls485i128j2tcn6a2ttjnf4nd6ajvn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAbQnyUkOmTt6340Mr25yL4FBYP79FyD0s"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "915330966188-9mls485i128j2tcn6a2ttjnf4nd6ajvn.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

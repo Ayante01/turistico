@@ -14,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.FrameLayout;
 
 import androidx.annotation.NonNull;
@@ -30,6 +31,8 @@ public class SearchFragment extends Fragment implements View.OnClickListener{
     private Button btnHills;
     private Button btnBeaches;
     private FrameLayout flHeader;
+
+    private EditText edSearch;
 
     /**
      * Constructor
@@ -74,12 +77,15 @@ public class SearchFragment extends Fragment implements View.OnClickListener{
         btnHills =  view.findViewById(R.id.btn_hill);
         btnBeaches =  view.findViewById(R.id.btn_beach);
 
+        edSearch = view.findViewById(R.id.ed_search);
+
         btnWaterfalls.setOnClickListener(this);
         btnHills.setOnClickListener(this);
         btnBeaches.setOnClickListener(this);
 
         return view;
     }
+
     /**
      * Metodo onAttach
      * @param context
