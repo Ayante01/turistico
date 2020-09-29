@@ -42,7 +42,7 @@
     <string name="favorites">Favorite Places</string>
     <string name="profile">Profile</string>
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="which_place">Which place do you want to know?</string>
+    <string name="which_place">Search a good place</string>
     <string name="discover">Discover Costa Rica, supports national tourism</string>
     <string name="description">Find a place to vacation with your bubble through TurisTico Remember that national tourism has been affected beacuse of COVID-19</string>
     <string name="medals_subtitle">Earn medals by visiting the country</string>

@@ -3,31 +3,34 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragments.HomeFragment">
+    tools:context=".fragments.SearchFragment">
     <FrameLayout
         android:id="@+id/fl_header"
         android:layout_width="match_parent"
         android:layout_height="300dp"
         android:background="@drawable/manzanillo">
-        <EditText
-            android:id="@+id/ed_search"
+
+        <SearchView
+            style="@android:style/Widget.Material.Light.SearchView"
+            android:id="@+id/sv_search"
             android:layout_width="match_parent"
-            android:layout_height="45dp"
-            android:layout_margin="38dp"
-            android:paddingLeft="42dp"
-            android:background="@drawable/white_bar"
-            android:fontFamily="@font/quicksand_regular"
-            android:hint="@string/which_place"
-            android:inputType="text"
-            android:textColorHint="@color/darkPurple"
-            android:textSize="16sp" />
-        <ImageView
-            android:id="@+id/ic_search"
-            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="50dp"
-            android:layout_marginTop="50dp"
-            android:background="@drawable/ic_search_red"/>
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginRight="30dp"
+            android:background="@drawable/white_bar"
+            android:backgroundTint="#FFFFFF"
+            android:focusable="auto"
+            android:focusableInTouchMode="true"
+            android:fontFamily="@font/quicksand_regular"
+            android:iconifiedByDefault="false"
+            android:queryHint="@string/which_place"
+            android:searchHintIcon="@drawable/ic_search_red"
+            android:searchIcon="@drawable/ic_search_red"
+            android:textColorHint="@color/darkPurple">
+
+        </SearchView>
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
@@ -38,7 +41,10 @@
             android:gravity="center"
             android:text="@string/discover"
             android:textColor="@color/white"
-            android:textSize="28dp"/>
+            android:textSize="28sp"/>
+
+
+
     </FrameLayout>
         <HorizontalScrollView
             android:id="@+id/hsv_buttons"
@@ -51,30 +57,29 @@
             <LinearLayout
                 android:id="@+id/ly_buttons"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center"
+                android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"
-                android:orientation="horizontal"
-                android:paddingBottom="8dp">
+                android:gravity="center"
+                android:orientation="horizontal">
                 <Button
                     android:id="@+id/btn_beach"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginRight="10dp"
                     android:background="@drawable/button"
                     android:fontFamily="@font/quicksand_regular"
                     android:paddingStart="36dp"
-                    android:paddingTop="15dp"
+                    android:paddingTop="20dp"
                     android:paddingEnd="36dp"
-                    android:paddingBottom="15dp"
+                    android:paddingBottom="20dp"
                     android:text="@string/beaches"
                     android:textAllCaps="false"
-                    android:layout_marginRight="10dp"
                     android:textColor="@color/white"
                     android:textSize="18sp"/>
                 <Button
                     android:id="@+id/btn_hill"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_marginEnd="8dp"
                     android:background="@drawable/text_area"
                     android:fontFamily="@font/quicksand_regular"
@@ -89,7 +94,7 @@
                 <Button
                     android:id="@+id/btn_waterfall"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_marginEnd="8dp"
                     android:background="@drawable/text_area"
                     android:fontFamily="@font/quicksand_regular"
