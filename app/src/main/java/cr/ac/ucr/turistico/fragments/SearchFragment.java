@@ -97,7 +97,7 @@ public class SearchFragment extends Fragment implements View.OnClickListener{
         textView.setTextColor(Color.BLACK);
         textView.setHintTextColor(Color.LTGRAY);
 
-        textView.setTypeface(ResourcesCompat.getFont(activity, R.font.quicksand_regular));
+        textView.setTypeface(ResourcesCompat.getFont(activity, R.font.poppins_regular));
 
         return view;
     }

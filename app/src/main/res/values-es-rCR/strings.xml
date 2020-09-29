@@ -10,11 +10,11 @@
     <string name="sign_up">Registrarse</string>
 
     <!--errors-->
-    <string name="error_email">Email es requerido</string>
-    <string name="error_password">Contraseña es requerida</string>
+    <string name="error_email">Tu email es requerido</string>
+    <string name="error_password">La contraseña es requerida</string>
     <string name="error_confirm_pass">La contraseña no coincide</string>
-    <string name="error_name">Nombre es requerido</string>
-    <string name="error_last_name">Apellido es requerido</string>
+    <string name="error_name">Tu nombre es requerido</string>
+    <string name="error_last_name">Tu apellido es requerido</string>
     <string name="logged_in">Logueado</string>
     <string name="no_match">No coinciden los datos</string>
 
@@ -26,6 +26,7 @@
     <string name="already_an_account">Ya estas registrado?</string>
     <string name="dont_want_register">No te deseas registrar?</string>
     <string name="sing_in_as_a_guest">Ingresa como invitado</string>
+
     <string name="user_name">Juancho Villa.</string>
     <string name="medals">Medallas</string>
     <string name="settings">Configuración</string>
@@ -61,4 +62,11 @@
     <string name="silver">Plata</string>
     <string name="bronze">Bronce</string>
     <string name="gold">Oro</string>
+    <string name="divisor_line">Linea divisora</string>
+    <string name="best_photo">Mejor foto</string>
+    <string name="toucan_bullet_point">Viñeta de tucán</string>
+    <string name="gold_medal_content">Medalla de oro</string>
+    <string name="silver_medal_content">Medalla de plata</string>
+    <string name="bronze_medal_content">Medalla de bronce</string>
+    <string name="likes_number">2304</string>
 </resources>

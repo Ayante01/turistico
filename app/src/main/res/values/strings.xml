@@ -62,4 +62,11 @@
     <string name="silver">Silver</string>
     <string name="bronze">Bronze</string>
     <string name="gold">Gold</string>
+    <string name="divisor_line">Divisor line</string>
+    <string name="best_photo">Best photo</string>
+    <string name="toucan_bullet_point">Toucan bullet point</string>
+    <string name="gold_medal_content">Gold medal</string>
+    <string name="silver_medal_content">Silver medal</string>
+    <string name="bronze_medal_content">Bronze medal</string>
+    <string name="likes_number">2304</string>
 </resources>
