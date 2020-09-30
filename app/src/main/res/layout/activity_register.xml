@@ -142,7 +142,7 @@
                 android:textSize="14sp"/>
             <Button
                 android:id="@+id/btn_go_to_register_two"
-                android:layout_width="80dp"
+                android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:background="@android:color/transparent"
                 android:fontFamily="@font/poppins_semibold"

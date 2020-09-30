@@ -15,17 +15,20 @@ import androidx.fragment.app.FragmentPagerAdapter;
 import java.util.ArrayList;
 
 public class MainViewPagerAdapter extends FragmentPagerAdapter {
+
     /**
      * Variables
      */
-    private final ArrayList<Fragment> fragments;
     /**
      * Metodo MainViewPagerAdapter
      * @param fragmentManager
      * @param fragments
      */
+
+    private final ArrayList<Fragment> fragments;
+
     public MainViewPagerAdapter(@NonNull FragmentManager fragmentManager,@NonNull ArrayList<Fragment> fragments){
-        super(fragmentManager);
+                super(fragmentManager);
         this.fragments = fragments;
     }
     /**
