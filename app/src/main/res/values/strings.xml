@@ -16,7 +16,7 @@
     <string name="error_name">Name required</string>
     <string name="error_last_name">Last Name required</string>
     <string name="logged_in">Logged in</string>
-    <string name="no_match">No match</string>
+    <string name="no_match">Incorrect email or password</string>
 
     <string name="forgot_password">Forgot your password?</string>
     <string name="dont_have_account">Don´t have account?</string>
@@ -69,4 +69,6 @@
     <string name="silver_medal_content">Silver medal</string>
     <string name="bronze_medal_content">Bronze medal</string>
     <string name="likes_number">2304</string>
+    <string name="no_register">Email its already used</string>
+    <string name="siggned_in">Registered</string>
 </resources>

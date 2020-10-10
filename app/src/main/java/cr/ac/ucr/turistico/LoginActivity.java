@@ -8,23 +8,47 @@
  */
 package cr.ac.ucr.turistico;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
+
 import cr.ac.ucr.turistico.utils.AppPreferences;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener{
+
     /**
      * Variables
      */
     private EditText edEmail;
     private EditText edPassword;
+    ArrayList<String> dbEmails;
+    ArrayList<String> dbPasswords;
+    int position = 1;
+
+    /**
+     * inicializacion de la base de datos
+     */
+
+    FirebaseAuth aAuth;
+    FirebaseDatabase fbDatabase;
+    DatabaseReference myRef;
+
     /**
      * Metodo onCreate
      * Este metodo es ejecutrado al crearse la clase dentro de la aplicación
@@ -36,8 +60,33 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        fbDatabase = FirebaseDatabase.getInstance();
+        myRef = fbDatabase.getReference("users");
+        dbEmails = new ArrayList<>();
+        dbPasswords = new ArrayList<>();
+
          edEmail = findViewById(R.id.ed_email);
          edPassword = findViewById(R.id.ed_password);
+
+        myRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for(DataSnapshot ds : snapshot.getChildren()){
+                    String mail = ds.child("email").getValue(String.class);
+                    String password = ds.child("password").getValue(String.class);
+                    dbEmails.add(mail);
+                    dbPasswords.add(password);
+                    Log.d("TAG ", mail +" "+ password);
+                }
+
+                Log.d("DataSnapshot: ", String.valueOf(dbEmails));
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Log.i("DataSnapshot: ", error.getMessage());
+            }
+        });
     }
     /**
      * Metodo onClick
@@ -60,6 +109,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 break;
         }
     }
+
     /**
      * Metodo login
      * En este metodo seran realizadas las validaciones necesarias para que el usuario pueda logear
@@ -68,6 +118,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private void login() {
         String email = edEmail.getText().toString().trim();
         String password = edPassword.getText().toString().trim();
+        boolean userMailMatch = false;
+        boolean userPassMatch = false;
 
         if(email.isEmpty()){
             edEmail.setError(getString(R.string.error_email));
@@ -77,7 +129,20 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             edPassword.setError(getString(R.string.error_password));
             return;
         }
-        if(email.equalsIgnoreCase("test@gmail.com") && "123".equalsIgnoreCase(password)){
+
+        for(String mail: dbEmails){
+            if(email.equals(mail)) {
+                userMailMatch = true;
+                position = dbEmails.indexOf(email);
+                Log.i(" Nada ", " "+position);
+            }
+        }
+
+        if(dbPasswords.get(position).equals(password)){
+            userPassMatch = true;
+        }
+
+        if(userMailMatch && userPassMatch){
             AppPreferences.getInstance(this).put(AppPreferences.Keys.IS_LOGGED_IN, true);
 
             Toast.makeText(this, R.string.logged_in, Toast.LENGTH_SHORT).show();
