@@ -9,16 +9,11 @@ package cr.ac.ucr.turistico.fragments;
 
 import android.content.Context;
 import android.graphics.Color;
-import android.graphics.Rect;
-import android.graphics.Typeface;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.text.Html;
+import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
@@ -31,7 +26,16 @@ import androidx.core.content.ContextCompat;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
+
 import cr.ac.ucr.turistico.R;
+import cr.ac.ucr.turistico.models.Lugar;
 
 public class SearchFragment extends Fragment implements View.OnClickListener{
 
@@ -42,6 +46,12 @@ public class SearchFragment extends Fragment implements View.OnClickListener{
     private FrameLayout flHeader;
     private EditText edSearch;
     private SearchView svSearch;
+
+    FirebaseDatabase fbDatabase;
+    DatabaseReference myRef;
+
+    ArrayList<Lugar> dbPlaces;
+    ArrayList<String> dbPlaceCategory;
 
     /**
      * Constructor
@@ -88,6 +98,10 @@ public class SearchFragment extends Fragment implements View.OnClickListener{
        /* edSearch = view.findViewById(R.id.ed_search);*/
         svSearch = view.findViewById(R.id.sv_search);
 
+        dbPlaces = new ArrayList<>();
+        dbPlaceCategory = new ArrayList<>();
+        fbDatabase = FirebaseDatabase.getInstance();
+        myRef = fbDatabase.getReference("places");
 
         btnWaterfalls.setOnClickListener(this);
         btnHills.setOnClickListener(this);
@@ -98,6 +112,49 @@ public class SearchFragment extends Fragment implements View.OnClickListener{
         textView.setHintTextColor(Color.LTGRAY);
 
         textView.setTypeface(ResourcesCompat.getFont(activity, R.font.poppins_regular));
+
+        myRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for(DataSnapshot ds : snapshot.getChildren()){
+                    boolean beach = ds.child("beach").getValue(boolean.class);
+                    boolean wifi = ds.child("wifi").getValue(boolean.class);
+                    boolean restaurant = ds.child("restaurant").getValue(boolean.class);
+                    boolean transport = ds.child("transport").getValue(boolean.class);
+                    boolean coffee = ds.child("coffeeShop").getValue(boolean.class);
+                    String category = ds.child("category").getValue(String.class);
+                    String image = ds.child("image").getValue(String.class);
+                    String info = ds.child("info").getValue(String.class);
+                    String place = ds.child("place").getValue(String.class);
+                    String province = ds.child("province").getValue(String.class);
+                    String ubication = ds.child("ubication").getValue(String.class);
+
+                    Lugar lugar = new Lugar();
+                    lugar.setPlace(place);
+                    lugar.setInfo(info);
+                    lugar.setProvince(province);
+                    lugar.setUbication(ubication);
+                    lugar.setImage(image);
+                    lugar.setCategory(category);
+                    lugar.setCoffeeShop(coffee);
+                    lugar.setTransport(transport);
+                    lugar.setRestaurant(restaurant);
+                    lugar.setWifi(wifi);
+                    lugar.setBeach(beach);
+
+                    dbPlaces.add(lugar);
+                    dbPlaceCategory.add(place);
+                    Log.d("TAG ", ""+dbPlaces   );
+                }
+
+                Log.d("DataSnapshot: ", String.valueOf(dbPlaces));
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Log.i("DataSnapshot: ", error.getMessage());
+            }
+        });
 
         return view;
     }
