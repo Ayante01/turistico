@@ -14,6 +14,7 @@ import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.text.Html;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -26,12 +27,25 @@ import android.widget.SearchView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import java.util.ArrayList;
 
 import cr.ac.ucr.turistico.R;
+import cr.ac.ucr.turistico.adapters.PlaceAdapter;
+import cr.ac.ucr.turistico.api.PlacesService;
+import cr.ac.ucr.turistico.api.RetrofitBuilder;
+import cr.ac.ucr.turistico.models.Place;
+import cr.ac.ucr.turistico.models.PlaceResponse;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class SearchFragment extends Fragment implements View.OnClickListener{
 
@@ -42,6 +56,10 @@ public class SearchFragment extends Fragment implements View.OnClickListener{
     private FrameLayout flHeader;
     private EditText edSearch;
     private SearchView svSearch;
+
+    private final String TAG = "PlaceFragment";
+    private ArrayList<Place> places;
+    private PlaceAdapter placeAdapter;
 
     /**
      * Constructor
@@ -99,7 +117,66 @@ public class SearchFragment extends Fragment implements View.OnClickListener{
 
         textView.setTypeface(ResourcesCompat.getFont(activity, R.font.poppins_regular));
 
+
+        //Recycler Place
+        RecyclerView rvCharacters = view.findViewById(R.id.rv_places);
+
+        placeAdapter = new PlaceAdapter(activity);
+
+        rvCharacters.setAdapter(placeAdapter);
+        rvCharacters.setHasFixedSize(true);
+
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(activity);
+        // GridLayoutManager gridLayoutManager = new GridLayoutManager(activity, 3);
+
+        rvCharacters.setLayoutManager(linearLayoutManager);
+
+        // TODO: Descomentar cuando este lista la api
+        //placeAdapter.addCharacters(places);
+
         return view;
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        //TODO: se hace la lógica
+
+        // TODO: Descomentar cuando este lista la api
+       // getPlacesInfo();
+    }
+    private void getPlacesInfo() {
+        PlacesService characterService = RetrofitBuilder.createService(PlacesService.class);
+
+        Call<PlaceResponse> response = characterService.getPlaces();
+
+        response.enqueue(new Callback<PlaceResponse>() {
+
+            @Override
+            public void onResponse(@NonNull Call<PlaceResponse> call, @NonNull Response<PlaceResponse> response) {
+                if(response.isSuccessful()){
+
+                    PlaceResponse placeResponse = response.body();
+
+                    ArrayList<Place> places = placeResponse.getResults();
+
+                    for(Place place: places){
+                        Log.i(TAG, "Character: " + place.getName());
+                    }
+
+                    placeAdapter.addCharacters(places);
+
+                } else{
+                    Log.e(TAG, "onError: " + response.errorBody());
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<PlaceResponse> call, @NonNull Throwable t) {
+                throw new RuntimeException(t);
+            }
+        });
     }
 
     /**

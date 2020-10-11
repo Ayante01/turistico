@@ -3,33 +3,40 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_height="match_parent">
 
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical"
-    tools:context=".fragments.HomeFragment">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        tools:context=".fragments.HomeFragment">
 
         <FrameLayout
-        android:id="@+id/fl_header"
-        android:layout_width="match_parent"
-        android:layout_height="350dp"
-        android:background="@drawable/river">
+            android:id="@+id/fl_header"
+            android:layout_width="match_parent"
+            android:layout_height="350dp"
+            android:background="@drawable/river">
+
+            <ImageView
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_gravity="top|center"
+                android:background="@drawable/toucan"
+                android:layout_marginTop="100dp"/>
 
             <TextView
                 android:id="@+id/tv_header_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom|center"
-                android:layout_marginBottom="20dp"
-                android:layout_marginEnd="20dp"
                 android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginBottom="20dp"
                 android:fontFamily="@font/poppins_semibold"
                 android:text="@string/description"
                 android:textAlignment="center"
                 android:textColor="@color/white"
-                android:textSize="22sp" />
+                android:textSize="16sp" />
         </FrameLayout>
 
         <LinearLayout
@@ -42,13 +49,13 @@
                 android:id="@+id/tv_medals_subtitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="30dp"
-                android:layout_marginTop="20dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="16dp"
                 android:fontFamily="@font/poppins_regular"
                 android:text="@string/medals_subtitle"
-                android:textAlignment="textStart"
                 android:textColor="@color/black"
-                android:textSize="20sp" />
+                android:textSize="16sp" />
 
             <LinearLayout
                 android:id="@+id/lly_medals_container"
@@ -67,31 +74,29 @@
                     <ImageView
                         android:id="@+id/iv_bronze"
                         android:layout_width="100dp"
-                        android:layout_height="100dp"
-                        android:layout_marginTop="-10dp"
-                        android:src="@drawable/bronze"
-                        android:contentDescription="@string/bronze_medal_content"/>
+                        android:layout_height="80dp"
+                        android:contentDescription="@string/bronze_medal_content"
+                        android:src="@drawable/bronze" />
 
                     <TextView
                         android:id="@+id/tv_bronze"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:layout_marginTop="-20dp"
+                        android:layout_marginTop="-8dp"
                         android:fontFamily="@font/poppins_medium"
                         android:text="@string/bronze"
-                        android:textAlignment="center"
                         android:textColor="@color/black"
-                        android:textSize="20sp"/>
+                        android:textSize="16sp" />
 
                     <TextView
                         android:id="@+id/tv_bronze_description"
-                        android:layout_width="130dp"
+                        android:layout_width="120dp"
                         android:layout_height="match_parent"
                         android:fontFamily="@font/poppins_regular"
                         android:text="@string/bronze_description"
                         android:textAlignment="center"
                         android:textColor="@color/black"
-                        android:textSize="18sp" />
+                        android:textSize="16sp" />
 
                 </LinearLayout>
 
@@ -105,31 +110,29 @@
                     <ImageView
                         android:id="@+id/iv_silver"
                         android:layout_width="100dp"
-                        android:layout_height="100dp"
-                        android:layout_marginTop="-10dp"
-                        android:src="@drawable/silver"
-                        android:contentDescription="@string/silver_medal_content"/>
+                        android:layout_height="80dp"
+                        android:contentDescription="@string/silver_medal_content"
+                        android:src="@drawable/silver" />
 
                     <TextView
                         android:id="@+id/tv_silver"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:layout_marginTop="-20dp"
+                        android:layout_marginTop="-8dp"
                         android:fontFamily="@font/poppins_medium"
                         android:text="@string/silver"
-                        android:textAlignment="center"
                         android:textColor="@color/black"
-                        android:textSize="20sp"/>
+                        android:textSize="16sp" />
 
                     <TextView
                         android:id="@+id/tv_silver_description"
-                        android:layout_width="130dp"
+                        android:layout_width="120dp"
                         android:layout_height="match_parent"
                         android:fontFamily="@font/poppins_regular"
                         android:text="@string/silver_description"
                         android:textAlignment="center"
                         android:textColor="@color/black"
-                        android:textSize="18sp" />
+                        android:textSize="16sp" />
 
                 </LinearLayout>
 
@@ -143,62 +146,59 @@
                     <ImageView
                         android:id="@+id/iv_gold"
                         android:layout_width="100dp"
-                        android:layout_height="100dp"
-                        android:layout_marginTop="-10dp"
-                        android:src="@drawable/gold"
-                        android:contentDescription="@string/gold_medal_content"/>
+                        android:layout_height="80dp"
+                        android:contentDescription="@string/gold_medal_content"
+                        android:src="@drawable/gold" />
 
                     <TextView
                         android:id="@+id/tv_gold"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:layout_marginTop="-20dp"
+                        android:layout_marginTop="-8dp"
                         android:fontFamily="@font/poppins_medium"
                         android:text="@string/gold"
-                        android:textAlignment="center"
                         android:textColor="@color/black"
-                        android:textSize="20sp"/>
+                        android:textSize="16sp" />
 
                     <TextView
                         android:id="@+id/tv_gold_description"
-                        android:layout_width="130dp"
+                        android:layout_width="120dp"
                         android:layout_height="match_parent"
                         android:fontFamily="@font/poppins_regular"
                         android:text="@string/gold_description"
                         android:textAlignment="center"
                         android:textColor="@color/black"
-                        android:textSize="18sp" />
-
+                        android:textSize="16sp" />
                 </LinearLayout>
-
             </LinearLayout>
+
             <ImageView
                 android:id="@+id/iv_line"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/line"
                 android:layout_gravity="center"
                 android:layout_marginTop="16dp"
-                android:contentDescription="@string/divisor_line"/>
+                android:background="@drawable/line"
+                android:contentDescription="@string/divisor_line" />
 
             <LinearLayout
                 android:id="@+id/instructions_section"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
+
                 <TextView
                     android:id="@+id/tv_instructions"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="30dp"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginBottom="10dp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginBottom="16dp"
                     android:fontFamily="@font/poppins_regular"
                     android:text="@string/instructions_subtitle"
-                    android:textAlignment="center"
                     android:textColor="@color/black"
-                    android:textSize="20sp"
-                    app:layout_constraintTop_toBottomOf="@+id/fl_header"/>
+                    android:textSize="16sp"
+                    app:layout_constraintTop_toBottomOf="@+id/fl_header" />
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -208,9 +208,16 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:paddingLeft="50dp"
-                        android:paddingRight="50dp">
+                        android:layout_gravity="center"
+                        android:layout_marginStart="24dp"
+                        android:layout_marginEnd="24dp"
+                        android:gravity="center"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/toucan_small" />
 
                         <TextView
                             android:id="@+id/tv_first_instruction"
@@ -218,22 +225,25 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="15dp"
                             android:fontFamily="@font/poppins_regular"
-                            android:gravity="center"
                             android:text="@string/instructionone"
-                            android:textAlignment="textStart"
                             android:textColor="@color/black"
-                            android:textSize="16sp"
-                            app:drawableLeftCompat="@drawable/toucan_small"/>
-
+                            android:textSize="16sp" />
                     </LinearLayout>
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginStart="24dp"
                         android:layout_marginTop="5dp"
-                        android:orientation="horizontal"
-                        android:paddingLeft="50dp"
-                        android:paddingRight="50dp">
+                        android:layout_marginEnd="24dp"
+                        android:gravity="center"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/toucan_small" />
 
                         <TextView
                             android:id="@+id/tv_second_instruction"
@@ -241,22 +251,26 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="15dp"
                             android:fontFamily="@font/poppins_regular"
-                            android:gravity="center"
                             android:text="@string/instructiontwo"
-                            android:textAlignment="textStart"
                             android:textColor="@color/black"
-                            android:textSize="16sp"
-                            app:drawableLeftCompat="@drawable/toucan_small" />
+                            android:textSize="16sp" />
 
                     </LinearLayout>
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginStart="24dp"
                         android:layout_marginTop="5dp"
-                        android:orientation="horizontal"
-                        android:paddingLeft="50dp"
-                        android:paddingRight="50dp">
+                        android:layout_marginEnd="24dp"
+                        android:gravity="center"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/toucan_small" />
 
                         <TextView
                             android:id="@+id/tv_third_instruction"
@@ -264,22 +278,26 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="15dp"
                             android:fontFamily="@font/poppins_regular"
-                            android:gravity="center"
                             android:text="@string/instructionthree"
-                            android:textAlignment="textStart"
                             android:textColor="@color/black"
-                            android:textSize="16sp"
-                            app:drawableStartCompat="@drawable/toucan_small" />
+                            android:textSize="16sp" />
 
                     </LinearLayout>
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginStart="24dp"
                         android:layout_marginTop="5dp"
-                        android:orientation="horizontal"
-                        android:paddingLeft="50dp"
-                        android:paddingRight="50dp">
+                        android:layout_marginEnd="24dp"
+                        android:gravity="center"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/toucan_small" />
 
                         <TextView
                             android:id="@+id/tv_fourth_instruction"
@@ -287,18 +305,12 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="15dp"
                             android:fontFamily="@font/poppins_regular"
-                            android:gravity="center"
                             android:text="@string/instructionfour"
-                            android:textAlignment="textStart"
                             android:textColor="@color/black"
-                            android:textSize="16sp"
-                            app:drawableLeftCompat="@drawable/toucan_small" />
-
+                            android:textSize="16sp" />
                     </LinearLayout>
-
+                </LinearLayout>
             </LinearLayout>
-
-        </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/lly_bestphoto"
@@ -310,28 +322,28 @@
                     android:id="@+id/iv_secondline"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/line"
                     android:layout_gravity="center"
                     android:layout_marginTop="16dp"
-                    android:contentDescription="@string/divisor_line"/>
+                    android:background="@drawable/line"
+                    android:contentDescription="@string/divisor_line" />
+
                 <TextView
                     android:id="@+id/tv_photo_subtitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="30dp"
-                    android:layout_marginTop="20dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginBottom="16dp"
                     android:fontFamily="@font/poppins_regular"
+                    android:gravity="center"
                     android:text="@string/bestphoto_subtitle"
-                    android:textAlignment="textStart"
                     android:textColor="@color/black"
-                    android:textSize="20sp"/>
+                    android:textSize="16sp" />
 
                 <androidx.cardview.widget.CardView
                     android:id="@+id/cv_content_image"
                     android:layout_width="300dp"
                     android:layout_height="200dp"
                     android:layout_gravity="center"
-                    android:layout_marginTop="10dp"
                     app:cardCornerRadius="20dp"
                     app:cardElevation="0dp">
 
@@ -339,8 +351,9 @@
                         android:id="@+id/iv_bestphoto"
                         android:layout_width="wrap_content"
                         android:layout_height="200dp"
-                        android:src="@drawable/nauyaca"
-                        android:contentDescription="@string/best_photo"/>
+                        android:contentDescription="@string/best_photo"
+                        android:src="@drawable/nauyaca" />
+
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -352,7 +365,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="15dp"
-                            android:layout_marginBottom="5dp"
+                            android:layout_marginBottom="8dp"
                             android:fontFamily="@font/quicksand_bold"
                             android:text="@string/likes_number"
                             android:textColor="@color/white"
@@ -368,22 +381,22 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="end"
-                    android:layout_marginTop="2dp"
+                    android:layout_marginTop="8dp"
                     android:layout_marginEnd="52dp"
                     android:fontFamily="@font/poppins_light"
                     android:text="@string/owner_text"
                     android:textAlignment="textEnd"
                     android:textColor="@color/black"
-                    android:textSize="14sp"/>
+                    android:textSize="8sp" />
 
                 <ImageView
                     android:id="@+id/iv_thirdline"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/line"
                     android:layout_gravity="center"
                     android:layout_marginTop="16dp"
-                    android:contentDescription="@string/divisor_line"/>
+                    android:background="@drawable/line"
+                    android:contentDescription="@string/divisor_line" />
 
 
             </LinearLayout>
@@ -395,22 +408,22 @@
 
                 <TextView
                     android:id="@+id/tv_protocolos_subtitle"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="30dp"
-                    android:layout_marginTop="20dp"
+                    android:layout_marginTop="16dp"
                     android:fontFamily="@font/poppins_regular"
+                    android:gravity="center"
                     android:text="@string/protocol_subtitle"
-                    android:textAlignment="textStart"
                     android:textColor="@color/black"
-                    android:textSize="20sp" />
+                    android:textSize="16sp" />
+
                 <Button
                     android:id="@+id/btn_login"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:layout_marginStart="80dp"
-                    android:layout_marginTop="20dp"
+                    android:layout_marginTop="16dp"
                     android:layout_marginEnd="80dp"
                     android:background="@drawable/button"
                     android:fontFamily="@font/poppins_bold"
@@ -418,7 +431,7 @@
                     android:text="@string/btn_protocol"
                     android:textAllCaps="false"
                     android:textColor="@color/white"
-                    android:textSize="16sp"/>
+                    android:textSize="16sp" />
 
             </LinearLayout>
 
@@ -435,17 +448,17 @@
                     android:layout_width="350dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="bottom|center"
-                    android:layout_marginBottom="20dp"
+                    android:layout_marginBottom="16dp"
                     android:fontFamily="@font/poppins_semibold"
                     android:text="@string/footer_text"
                     android:textAlignment="center"
                     android:textColor="@color/white"
-                    android:textSize="22sp" />
+                    android:textSize="24sp" />
 
             </FrameLayout>
 
         </LinearLayout>
 
-</LinearLayout>
+    </LinearLayout>
 
 </ScrollView>

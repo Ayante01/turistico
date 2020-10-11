@@ -41,7 +41,7 @@
     <string name="search">Search</string>
     <string name="favorites">Favorite Places</string>
     <string name="profile">Profile</string>
-    <!-- TODO: Remove or change this placeholder text -->
+
     <string name="which_place">Search a good place</string>
     <string name="discover">Discover Costa Rica, supports national tourism</string>
     <string name="description">Find a place to vacation with your bubble through TurisTico Remember that national tourism has been affected beacuse of COVID-19</string>
@@ -69,4 +69,7 @@
     <string name="silver_medal_content">Silver medal</string>
     <string name="bronze_medal_content">Bronze medal</string>
     <string name="likes_number">2304</string>
+
+    <string name="place_id">place_id</string>
+    <string name="place_name">place_name</string>
 </resources>

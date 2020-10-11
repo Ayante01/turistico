@@ -69,4 +69,7 @@
     <string name="silver_medal_content">Medalla de plata</string>
     <string name="bronze_medal_content">Medalla de bronce</string>
     <string name="likes_number">2304</string>
+
+    <string name="place_id">place_id</string>
+    <string name="place_name">place_name</string>
 </resources>

@@ -29,19 +29,30 @@
         android:layout_height="wrap_content"
         android:background="@drawable/watermark"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="12dp"/>
+        android:layout_marginTop="8dp"/>
 
     <TextView
         android:id="@+id/tv_user_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="8dp"
         android:text="@string/user_name"
-        android:textSize="28sp"
+        android:textSize="24sp"
         android:fontFamily="@font/poppins_semibold"
         android:textColor="@color/black"
         android:layout_below="@id/cv_user_image"/>
+
+    <TextView
+        android:id="@+id/tv_medals_subtitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:text="Medallas : 0"
+        android:textSize="16dp"
+        android:fontFamily="@font/poppins_semibold"
+        android:textColor="@color/black"
+        android:layout_below="@id/tv_user_name"/>
 
     <LinearLayout
         android:id="@+id/account_nav"
@@ -50,15 +61,15 @@
         android:orientation="horizontal"
         android:weightSum="2"
         android:layout_below="@+id/tv_user_name"
-        android:layout_marginTop="34dp">
+        android:layout_marginTop="40dp">
         <Button
             android:id="@+id/btn_medals"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="55dp"
             android:layout_weight="1"
             android:text="@string/medals"
             android:textColor="@color/purple"
-            android:textSize="22sp"
+            android:textSize="16sp"
             android:background="@drawable/account_button_white"
             android:textAllCaps="false"
             android:paddingTop="15dp"
@@ -67,11 +78,11 @@
         <Button
             android:id="@+id/btn_settings"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="55dp"
             android:layout_weight="1"
             android:text="@string/settings"
             android:textColor="@color/white"
-            android:textSize="22sp"
+            android:textSize="16sp"
             android:background="@drawable/account_button_gray"
             android:textAllCaps="false"
             android:paddingTop="15dp"
@@ -95,8 +106,8 @@
                 android:background="@android:color/transparent"
                 android:text="@string/edit_profile"
                 android:textAllCaps="false"
-                android:textSize="20sp"
-                android:layout_marginTop="16dp"
+                android:textSize="16sp"
+                android:layout_marginTop="24dp"
                 android:layout_marginStart="54dp"
                 android:onClick="onClick"
                 android:fontFamily="@font/poppins_regular"/>
@@ -116,7 +127,7 @@
                 android:background="@android:color/transparent"
                 android:text="@string/share_app"
                 android:textAllCaps="false"
-                android:textSize="20sp"
+                android:textSize="16sp"
                 android:layout_below="@+id/iv_edit_line"
                 android:layout_marginTop="16dp"
                 android:layout_marginStart="54dp"
@@ -138,7 +149,7 @@
                 android:background="@android:color/transparent"
                 android:text="@string/contact_us"
                 android:textAllCaps="false"
-                android:textSize="20sp"
+                android:textSize="16sp"
                 android:layout_below="@+id/iv_share_line"
                 android:layout_marginTop="16dp"
                 android:layout_marginStart="54dp"
@@ -171,7 +182,6 @@
                 android:layout_below="@id/iv_contact_line"/>
         </RelativeLayout>
     </ScrollView>
-
     <ScrollView
         android:id="@+id/sv_medals"
         android:layout_width="match_parent"
@@ -189,7 +199,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/waterfalls"
                 android:gravity="center"
-                android:textSize="20sp"
+                android:textSize="16sp"
                 android:fontFamily="@font/poppins_light"
                 android:textColor="@color/black"
                 android:layout_marginTop="16dp"/>
@@ -205,18 +215,18 @@
 
                 <Button
                     android:id="@+id/iv_waterfall_bronze"
-                    android:layout_width="125dp"
-                    android:layout_height="100dp"
+                    android:layout_width="100dp"
+                    android:layout_height="80dp"
                     android:background="@drawable/bronze"/>
                 <Button
                     android:id="@+id/iv_waterfall_silver"
-                    android:layout_width="125dp"
-                    android:layout_height="100dp"
+                    android:layout_width="100dp"
+                    android:layout_height="80dp"
                     android:background="@drawable/silver" />
                 <Button
                     android:id="@+id/iv_waterfall_gold"
-                    android:layout_width="125dp"
-                    android:layout_height="100dp"
+                    android:layout_width="100dp"
+                    android:layout_height="80dp"
                     android:background="@drawable/gold"/>
 
             </LinearLayout>
@@ -236,7 +246,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/hills"
                 android:gravity="center"
-                android:textSize="20sp"
+                android:textSize="16sp"
                 android:fontFamily="@font/poppins_light"
                 android:textColor="@color/black"
                 android:layout_marginTop="16dp"
@@ -251,18 +261,18 @@
                 android:layout_marginTop="16dp">
                 <ImageView
                     android:id="@+id/iv_hill_bronze"
-                    android:layout_width="125dp"
-                    android:layout_height="100dp"
+                    android:layout_width="100dp"
+                    android:layout_height="80dp"
                     android:background="@drawable/bronze"/>
                 <ImageView
                     android:id="@+id/iv_hill_silver"
-                    android:layout_width="125dp"
-                    android:layout_height="100dp"
+                    android:layout_width="100dp"
+                    android:layout_height="80dp"
                     android:background="@drawable/silver"/>
                 <ImageView
                     android:id="@+id/iv_hill_gold"
-                    android:layout_width="125dp"
-                    android:layout_height="100dp"
+                    android:layout_width="100dp"
+                    android:layout_height="80dp"
                     android:background="@drawable/gold"/>
             </LinearLayout>
             <ImageView
@@ -280,7 +290,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/beaches"
                 android:gravity="center"
-                android:textSize="20sp"
+                android:textSize="16sp"
                 android:fontFamily="@font/poppins_light"
                 android:textColor="@color/black"
                 android:layout_marginTop="16dp"
@@ -295,18 +305,18 @@
                 android:layout_marginTop="16dp">
                 <ImageView
                     android:id="@+id/iv_beach_bronze"
-                    android:layout_width="125dp"
-                    android:layout_height="100dp"
+                    android:layout_width="100dp"
+                    android:layout_height="80dp"
                     android:background="@drawable/bronze"/>
                 <ImageView
                     android:id="@+id/iv_beach_silver"
-                    android:layout_width="125dp"
-                    android:layout_height="100dp"
+                    android:layout_width="100dp"
+                    android:layout_height="80dp"
                     android:background="@drawable/silver"/>
                 <ImageView
                     android:id="@+id/iv_beach_gold"
-                    android:layout_width="125dp"
-                    android:layout_height="100dp"
+                    android:layout_width="100dp"
+                    android:layout_height="80dp"
                     android:background="@drawable/gold"/>
             </LinearLayout>
             <ImageView
