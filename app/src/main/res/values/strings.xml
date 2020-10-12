@@ -16,7 +16,7 @@
     <string name="error_name">Name required</string>
     <string name="error_last_name">Last Name required</string>
     <string name="logged_in">Logged in</string>
-    <string name="no_match">No match</string>
+    <string name="no_match">Incorrect email or password</string>
 
     <string name="forgot_password">Forgot your password?</string>
     <string name="dont_have_account">Don´t have account?</string>
@@ -72,4 +72,7 @@
 
     <string name="place_id">place_id</string>
     <string name="place_name">place_name</string>
+    <string name="no_register">Email its already used</string>
+    <string name="siggned_in">Registered</string>
+
 </resources>

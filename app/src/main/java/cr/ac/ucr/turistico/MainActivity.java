@@ -24,6 +24,7 @@ import java.util.ArrayList;
 import cr.ac.ucr.turistico.adapters.MainViewPagerAdapter;
 import cr.ac.ucr.turistico.fragments.FavoritePlacesFragment;
 import cr.ac.ucr.turistico.fragments.HomeFragment;
+import cr.ac.ucr.turistico.fragments.PlaceFragment;
 import cr.ac.ucr.turistico.fragments.ProfileFragment;
 import cr.ac.ucr.turistico.fragments.SearchFragment;
 

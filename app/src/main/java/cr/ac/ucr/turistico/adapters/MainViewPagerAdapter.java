@@ -31,6 +31,7 @@ public class MainViewPagerAdapter extends FragmentPagerAdapter {
                 super(fragmentManager);
         this.fragments = fragments;
     }
+
     /**
      * Metodo getItem
      * @param position

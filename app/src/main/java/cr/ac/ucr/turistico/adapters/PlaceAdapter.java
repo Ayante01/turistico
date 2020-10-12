@@ -19,23 +19,22 @@ import java.util.ArrayList;
 
 import cr.ac.ucr.turistico.PlaceActivity;
 import cr.ac.ucr.turistico.R;
-import cr.ac.ucr.turistico.models.Place;
+import cr.ac.ucr.turistico.models.Lugar;
 
 public class PlaceAdapter extends RecyclerView.Adapter<PlaceAdapter.ViewHolder> implements ItemClickListener {
     private Context context;
-    private ArrayList<Place> places;
+    private ArrayList<Lugar> places = new ArrayList<>();
 
-    public PlaceAdapter(Context context, ArrayList<Character> characters) {
+    public PlaceAdapter(Context context, ArrayList<Lugar> places) {
         this.context = context;
         this.places = places;
     }
 
     public PlaceAdapter(Context context) {
-        this.context = context;
         this.places = new ArrayList<>();
+        this.context = context;
     }
 
-    // Carga el layout
     @NonNull
     @Override
     public PlaceAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -43,17 +42,16 @@ public class PlaceAdapter extends RecyclerView.Adapter<PlaceAdapter.ViewHolder> 
         return new ViewHolder(view, this);
     }
 
-    // Habilita los elementos
     @Override
     public void onBindViewHolder(@NonNull PlaceAdapter.ViewHolder holder, int position) {
-        Place place = places.get(position);
+        Lugar place = places.get(position);
 
-        holder.tvPlaceName.setText("PlaceName");
-        holder.tvProvince.setText("Province");
-        holder.tvLikes.setText(0);
+        holder.tvPlaceName.setText(place.getPlace());
+        holder.tvProvince.setText(place.getProvince());
+        holder.tvLikes.setText("0");
 
         Glide.with(context)
-                .load(R.drawable.manzanillo)
+                .load(place.getImage())
                 .centerCrop()
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(holder.ivPlace);
@@ -65,8 +63,10 @@ public class PlaceAdapter extends RecyclerView.Adapter<PlaceAdapter.ViewHolder> 
         return places != null ? places.size() : 0;
     }
 
-    public void addCharacters(ArrayList<Place> places) {
+    public void addPlaces(ArrayList<Lugar> places) {
+
         this.places.addAll(places);
+
         notifyDataSetChanged();
     }
 
@@ -74,10 +74,9 @@ public class PlaceAdapter extends RecyclerView.Adapter<PlaceAdapter.ViewHolder> 
     public void onClick(View view, int position) {
         Intent intent = new Intent(context, PlaceActivity.class);
 
-        Place place = places.get(position);
+        Lugar place = places.get(position);
 
-        intent.putExtra(context.getString(R.string.place_id), place.getId());
-        intent.putExtra(context.getString(R.string.place_name), place.getName());
+        intent.putExtra(context.getString(R.string.place_name), place.getPlace());
 
         context.startActivity(intent);
     }

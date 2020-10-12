@@ -7,108 +7,91 @@
     <FrameLayout
         android:id="@+id/fl_header"
         android:layout_width="match_parent"
-        android:layout_height="300dp"
+        android:layout_height="200dp"
         android:background="@drawable/manzanillo">
-
-        <SearchView
-            style="@android:style/Widget.Material.Light.SearchView"
-            android:id="@+id/sv_search"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
-            android:layout_marginTop="32dp"
-            android:layout_marginEnd="32dp"
-            android:background="@drawable/white_bar"
-            android:backgroundTint="#FFFFFF"
-            android:focusable="auto"
-            android:focusableInTouchMode="true"
-            android:fontFamily="@font/quicksand_regular"
-            android:iconifiedByDefault="false"
-            android:queryHint="@string/which_place"
-            android:searchHintIcon="@drawable/ic_search_red"
-            android:searchIcon="@drawable/ic_search_red"
-            android:textColorHint="@color/darkPurple">
-        </SearchView>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="152dp"
-            android:layout_marginEnd="16dp"
-            android:fontFamily="@font/poppins_semibold"
-            android:gravity="center"
-            android:text="@string/discover"
-            android:textColor="@color/white"
-            android:textSize="24sp"/>
-
-    </FrameLayout>
-        <HorizontalScrollView
-            android:id="@+id/hsv_buttons"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/fl_header"
-            android:fillViewport="true"
-            android:paddingTop="16dp"
-            android:paddingBottom="16dp">
-            <LinearLayout
-                android:id="@+id/ly_buttons"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
-                android:gravity="center"
-                android:orientation="horizontal">
-
-                <Button
-                    style="?android:attr/buttonBarButtonStyle"
-                    android:id="@+id/btn_beach"
+                <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:layout_marginEnd="8dp"
-                    android:background="@drawable/button"
-                    android:fontFamily="@font/poppins_regular"
-                    android:paddingStart="32dp"
-                    android:paddingEnd="32dp"
-                    android:text="@string/beaches"
-                    android:textAllCaps="false"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="100dp"
+                    android:layout_marginEnd="16dp"
+                    android:fontFamily="@font/poppins_semibold"
+                    android:gravity="center"
+                    android:text="@string/discover"
                     android:textColor="@color/white"
-                    android:textSize="16sp" />
+                    android:textSize="24sp"/>
 
-                <Button
-                    style="?android:attr/buttonBarButtonStyle"
-                    android:id="@+id/btn_hill"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_marginEnd="8dp"
-                    android:background="@drawable/text_area"
-                    android:fontFamily="@font/poppins_regular"
-                    android:paddingStart="32dp"
-                    android:paddingEnd="32dp"
-                    android:text="@string/hills"
-                    android:textAllCaps="false"
-                    android:textColor="@color/black"
-                    android:textSize="16sp"/>
-                <Button
-                    style="?android:attr/buttonBarButtonStyle"
-                    android:id="@+id/btn_waterfall"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_marginEnd="8dp"
-                    android:background="@drawable/text_area"
-                    android:fontFamily="@font/poppins_regular"
-                    android:paddingStart="32dp"
-                    android:paddingEnd="32dp"
+            </FrameLayout>
+                <HorizontalScrollView
+                    android:id="@+id/hsv_buttons"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/fl_header"
+                    android:fillViewport="true"
+                    android:paddingTop="16dp"
+                    android:paddingBottom="16dp">
+                    <LinearLayout
+                        android:id="@+id/ly_buttons"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="5dp"
+                        android:gravity="center"
+                        android:orientation="horizontal">
 
-                    android:text="@string/waterfalls"
-                    android:textAllCaps="false"
-                    android:textColor="@color/black"
-                    android:textSize="16sp"/>
+                        <Button
+                            style="?android:attr/buttonBarButtonStyle"
+                            android:id="@+id/btn_beach"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_marginEnd="8dp"
+                            android:background="@drawable/button"
+                            android:fontFamily="@font/poppins_regular"
+                            android:paddingStart="32dp"
+                            android:paddingEnd="32dp"
+                            android:text="@string/beaches"
+                            android:textAllCaps="false"
+                            android:textColor="@color/white"
+                            android:textSize="16sp" />
+
+                        <Button
+                            style="?android:attr/buttonBarButtonStyle"
+                            android:id="@+id/btn_hill"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_marginEnd="8dp"
+                            android:background="@drawable/text_area"
+                            android:fontFamily="@font/poppins_regular"
+                            android:paddingStart="32dp"
+                            android:paddingEnd="32dp"
+                            android:text="@string/hills"
+                            android:textAllCaps="false"
+                            android:textColor="@color/black"
+                            android:textSize="16sp"/>
+                        <Button
+                            style="?android:attr/buttonBarButtonStyle"
+                            android:id="@+id/btn_waterfall"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_marginEnd="8dp"
+                            android:background="@drawable/text_area"
+                            android:fontFamily="@font/poppins_regular"
+                            android:paddingStart="32dp"
+                            android:paddingEnd="32dp"
+
+                            android:text="@string/waterfalls"
+                            android:textAllCaps="false"
+                            android:textColor="@color/black"
+                            android:textSize="16sp"/>
+                    </LinearLayout>
+                </HorizontalScrollView>
+
+            <LinearLayout
+                android:id="@+id/ly_places"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_below="@+id/hsv_buttons"
+                android:paddingBottom="50dp">
+
             </LinearLayout>
-        </HorizontalScrollView>
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_places"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/hsv_buttons"/>
-</RelativeLayout>
+        </RelativeLayout>
