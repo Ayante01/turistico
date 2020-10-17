@@ -75,6 +75,7 @@
     <string name="no_register">Email its already used</string>
     <string name="siggned_in">Registered</string>
     <string name="google_maps_key">AIzaSyA5ffxZ9js7tBDj0DezyF-pQmiWhdrc0fg</string>
+    <string name="title_activity_maps">Map</string>
     <!-- TODO: Remove or change this placeholder text -->
 
 </resources>
