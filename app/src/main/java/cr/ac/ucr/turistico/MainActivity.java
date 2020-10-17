@@ -13,18 +13,19 @@ package cr.ac.ucr.turistico;
 
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
+
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+
 import java.util.ArrayList;
+
 import cr.ac.ucr.turistico.adapters.MainViewPagerAdapter;
 import cr.ac.ucr.turistico.fragments.FavoritePlacesFragment;
 import cr.ac.ucr.turistico.fragments.HomeFragment;
-import cr.ac.ucr.turistico.fragments.PlaceFragment;
 import cr.ac.ucr.turistico.fragments.ProfileFragment;
 import cr.ac.ucr.turistico.fragments.SearchFragment;
 
@@ -52,6 +53,7 @@ public class MainActivity extends AppCompatActivity{
         bottomNavigationView = findViewById(R.id.bnv_btn_menu);
         setUpViewPagerListener();
         setUpBottomNavViewListener();
+
     }
     /**
      * Metodo setUpViewPager

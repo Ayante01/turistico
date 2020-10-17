@@ -76,5 +76,6 @@
 
     <string name="no_register"> Este correo ya esta registrado</string>
     <string name="siggned_in">Registrado</string>
+    <string name="google_maps_key">AIzaSyA5ffxZ9js7tBDj0DezyF-pQmiWhdrc0fg</string>
 
 </resources>

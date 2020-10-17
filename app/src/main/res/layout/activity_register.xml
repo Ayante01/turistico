@@ -35,38 +35,34 @@
         android:orientation="vertical"
         android:paddingLeft="30dp"
         android:paddingRight="30dp">
-        <LinearLayout
+        <EditText
+            android:id="@+id/ed_name"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-            <EditText
-                android:id="@+id/ed_name"
-                android:layout_width="wrap_content"
-                android:layout_height="55dp"
-                android:layout_marginBottom="5dp"
-                android:background="@drawable/text_area"
-                android:ems="8"
-                android:fontFamily="@font/poppins_light"
-                android:hint="@string/names"
-                android:inputType="textPersonName"
-                android:paddingLeft="25dp"
-                android:paddingRight="25dp"
-                android:textColor="@color/colorPrimaryDark"
-                android:textSize="14sp"/>
-            <EditText
-                android:id="@+id/ed_last_name"
-                android:layout_width="wrap_content"
-                android:layout_height="55dp"
-                android:layout_marginBottom="5dp"
-                android:background="@drawable/text_area"
-                android:ems="16"
-                android:fontFamily="@font/poppins_light"
-                android:hint="@string/last_name"
-                android:inputType="textPersonName"
-                android:paddingLeft="25dp"
-                android:paddingRight="25dp"
-                android:textColor="@color/colorPrimaryDark"
-                android:textSize="14sp"/>
-        </LinearLayout>
+            android:layout_height="55dp"
+            android:layout_marginBottom="5dp"
+            android:background="@drawable/text_area"
+            android:ems="16"
+            android:fontFamily="@font/poppins_light"
+            android:hint="@string/names"
+            android:inputType="textPersonName"
+            android:paddingLeft="25dp"
+            android:paddingRight="25dp"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="14sp"/>
+        <EditText
+            android:id="@+id/ed_last_name"
+            android:layout_width="wrap_content"
+            android:layout_height="55dp"
+            android:layout_marginBottom="5dp"
+            android:background="@drawable/text_area"
+            android:ems="16"
+            android:fontFamily="@font/poppins_light"
+            android:hint="@string/last_name"
+            android:inputType="textPersonName"
+            android:paddingLeft="25dp"
+            android:paddingRight="25dp"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="14sp"/>
         <EditText
             android:id="@+id/ed_email"
             android:layout_width="match_parent"
@@ -115,7 +111,7 @@
         android:layout_marginTop="20dp"
         android:layout_marginEnd="80dp"
         android:background="@drawable/button"
-        android:fontFamily="@font/poppins_bold"
+        android:fontFamily="@font/poppins_semibold"
         android:onClick="onClick"
         android:text="@string/sign_up"
         android:textAllCaps="false"

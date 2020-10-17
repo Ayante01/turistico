@@ -22,7 +22,7 @@
     <string name="dont_have_account">Don´t have account?</string>
     <string name="create_one_now">Create one now!</string>
     <string name="log_in">Log In</string>
-    <string name="register">REGISTER</string>
+    <string name="register">Register</string>
     <string name="already_an_account">You´re already singed up</string>
     <string name="dont_want_register">Don´t you want to register?</string>
     <string name="sing_in_as_a_guest">Sing in as a guest</string>
@@ -74,5 +74,7 @@
     <string name="place_name">place_name</string>
     <string name="no_register">Email its already used</string>
     <string name="siggned_in">Registered</string>
+    <string name="google_maps_key">AIzaSyA5ffxZ9js7tBDj0DezyF-pQmiWhdrc0fg</string>
+    <!-- TODO: Remove or change this placeholder text -->
 
 </resources>

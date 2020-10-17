@@ -9,12 +9,12 @@
         android:id="@+id/cv_user_image"
         android:layout_width="140dp"
         android:layout_height="140dp"
+        android:layout_centerHorizontal="true"
         android:layout_marginTop="55dp"
+        app:cardCornerRadius="75dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:cardCornerRadius="75dp"
-        android:layout_centerHorizontal="true"
         >
         <ImageView
             android:id="@+id/iv_image_profile"
@@ -27,67 +27,67 @@
         android:id="@+id/iv_watermark"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/watermark"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="8dp"/>
+        android:layout_marginTop="8dp"
+        android:background="@drawable/watermark"/>
 
     <TextView
         android:id="@+id/tv_user_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@id/cv_user_image"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="8dp"
+        android:fontFamily="@font/poppins_medium"
         android:text="@string/user_name"
-        android:textSize="24sp"
-        android:fontFamily="@font/poppins_semibold"
         android:textColor="@color/black"
-        android:layout_below="@id/cv_user_image"/>
+        android:textSize="24sp"/>
 
     <TextView
         android:id="@+id/tv_medals_subtitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@id/tv_user_name"
         android:layout_centerHorizontal="true"
+        android:fontFamily="@font/poppins_medium"
         android:text="Medallas : 0"
-        android:textSize="16dp"
-        android:fontFamily="@font/poppins_semibold"
         android:textColor="@color/black"
-        android:layout_below="@id/tv_user_name"/>
+        android:textSize="16dp"/>
 
     <LinearLayout
         android:id="@+id/account_nav"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:weightSum="2"
         android:layout_below="@+id/tv_user_name"
-        android:layout_marginTop="40dp">
+        android:layout_marginTop="40dp"
+        android:orientation="horizontal"
+        android:weightSum="2">
         <Button
             android:id="@+id/btn_medals"
             android:layout_width="match_parent"
             android:layout_height="55dp"
             android:layout_weight="1"
-            android:text="@string/medals"
-            android:textColor="@color/purple"
-            android:textSize="16sp"
             android:background="@drawable/account_button_white"
-            android:textAllCaps="false"
+            android:fontFamily="@font/poppins_semibold"
             android:paddingTop="15dp"
             android:paddingBottom="15dp"
-            android:fontFamily="@font/poppins_semibold"/>
+            android:text="@string/medals"
+            android:textAllCaps="false"
+            android:textColor="@color/purple"
+            android:textSize="16sp"/>
         <Button
             android:id="@+id/btn_settings"
             android:layout_width="match_parent"
             android:layout_height="55dp"
             android:layout_weight="1"
-            android:text="@string/settings"
-            android:textColor="@color/white"
-            android:textSize="16sp"
             android:background="@drawable/account_button_gray"
-            android:textAllCaps="false"
+            android:fontFamily="@font/poppins_semibold"
             android:paddingTop="15dp"
             android:paddingBottom="15dp"
-            android:fontFamily="@font/poppins_semibold"/>
+            android:text="@string/settings"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="16sp"/>
     </LinearLayout>
     <ScrollView
         android:id="@+id/sv_settings"
@@ -103,83 +103,83 @@
                 android:id="@+id/btn_edit_profile"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="54dp"
+                android:layout_marginTop="24dp"
                 android:background="@android:color/transparent"
+                android:fontFamily="@font/poppins_regular"
+                android:onClick="onClick"
                 android:text="@string/edit_profile"
                 android:textAllCaps="false"
-                android:textSize="16sp"
-                android:layout_marginTop="24dp"
-                android:layout_marginStart="54dp"
-                android:onClick="onClick"
-                android:fontFamily="@font/poppins_regular"/>
+                android:textSize="16sp"/>
 
             <ImageView
                 android:id="@+id/iv_edit_line"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/line"
                 android:layout_below="@id/btn_edit_profile"
-                android:layout_centerHorizontal="true"/>
+                android:layout_centerHorizontal="true"
+                android:background="@drawable/line"/>
 
             <Button
                 android:id="@+id/btn_share_profile"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_below="@+id/iv_edit_line"
+                android:layout_marginStart="54dp"
+                android:layout_marginTop="16dp"
                 android:background="@android:color/transparent"
+                android:fontFamily="@font/poppins_regular"
+                android:onClick="onClick"
                 android:text="@string/share_app"
                 android:textAllCaps="false"
-                android:textSize="16sp"
-                android:layout_below="@+id/iv_edit_line"
-                android:layout_marginTop="16dp"
-                android:layout_marginStart="54dp"
-                android:onClick="onClick"
-                android:fontFamily="@font/poppins_regular"/>
+                android:textSize="16sp"/>
 
             <ImageView
                 android:id="@+id/iv_share_line"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/line"
                 android:layout_below="@id/btn_share_profile"
-                android:layout_centerHorizontal="true"/>
+                android:layout_centerHorizontal="true"
+                android:background="@drawable/line"/>
 
             <Button
                 android:id="@+id/btn_contact_profile"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_below="@+id/iv_share_line"
+                android:layout_marginStart="54dp"
+                android:layout_marginTop="16dp"
                 android:background="@android:color/transparent"
+                android:fontFamily="@font/poppins_regular"
+                android:onClick="onClick"
                 android:text="@string/contact_us"
                 android:textAllCaps="false"
-                android:textSize="16sp"
-                android:layout_below="@+id/iv_share_line"
-                android:layout_marginTop="16dp"
-                android:layout_marginStart="54dp"
-                android:onClick="onClick"
-                android:fontFamily="@font/poppins_regular"/>
+                android:textSize="16sp"/>
 
             <ImageView
                 android:id="@+id/iv_contact_line"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/line"
                 android:layout_below="@id/btn_contact_profile"
-                android:layout_centerHorizontal="true"/>
+                android:layout_centerHorizontal="true"
+                android:background="@drawable/line"/>
 
             <Button
                 android:id="@+id/btn_logout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_below="@id/iv_contact_line"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginTop="34dp"
                 android:layout_marginStart="40dp"
+                android:layout_marginTop="34dp"
                 android:layout_marginEnd="40dp"
                 android:layout_marginBottom="60dp"
-                android:textSize="16sp"
                 android:background="@drawable/button"
+                android:fontFamily="@font/poppins_semibold"
                 android:text="@string/logout"
-                android:textColor="@color/white"
-                android:fontFamily="@font/poppins_bold"
                 android:textAllCaps="false"
-                android:layout_below="@id/iv_contact_line"/>
+                android:textColor="@color/white"
+                android:textSize="16sp"/>
         </RelativeLayout>
     </ScrollView>
     <ScrollView
@@ -197,21 +197,21 @@
                 android:id="@+id/tv_waterfall"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/waterfalls"
-                android:gravity="center"
-                android:textSize="16sp"
+                android:layout_marginTop="16dp"
                 android:fontFamily="@font/poppins_light"
+                android:gravity="center"
+                android:text="@string/waterfalls"
                 android:textColor="@color/black"
-                android:layout_marginTop="16dp"/>
+                android:textSize="16sp"/>
 
             <LinearLayout
                 android:id="@+id/ly_waterfall"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center"
                 android:layout_below="@id/tv_waterfall"
-                android:layout_marginTop="16dp">
+                android:layout_marginTop="16dp"
+                android:gravity="center"
+                android:orientation="horizontal">
 
                 <Button
                     android:id="@+id/iv_waterfall_bronze"
@@ -235,30 +235,30 @@
                 android:id="@+id/iv_waterfall_line"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/line"
                 android:layout_below="@id/ly_waterfall"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="16dp"/>
+                android:layout_marginTop="16dp"
+                android:background="@drawable/line"/>
             <!--HILLS-->
             <TextView
                 android:id="@+id/tv_hill"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/hills"
-                android:gravity="center"
-                android:textSize="16sp"
-                android:fontFamily="@font/poppins_light"
-                android:textColor="@color/black"
+                android:layout_below="@id/iv_waterfall_line"
                 android:layout_marginTop="16dp"
-                android:layout_below="@id/iv_waterfall_line"/>
+                android:fontFamily="@font/poppins_light"
+                android:gravity="center"
+                android:text="@string/hills"
+                android:textColor="@color/black"
+                android:textSize="16sp"/>
             <LinearLayout
                 android:id="@+id/ly_hill"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center"
                 android:layout_below="@id/tv_hill"
-                android:layout_marginTop="16dp">
+                android:layout_marginTop="16dp"
+                android:gravity="center"
+                android:orientation="horizontal">
                 <ImageView
                     android:id="@+id/iv_hill_bronze"
                     android:layout_width="100dp"
@@ -279,30 +279,30 @@
                 android:id="@+id/iv_hill_line"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/line"
                 android:layout_below="@id/ly_hill"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="16dp"/>
+                android:layout_marginTop="16dp"
+                android:background="@drawable/line"/>
             <!--BEACHES-->
             <TextView
                 android:id="@+id/tv_beach"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/beaches"
-                android:gravity="center"
-                android:textSize="16sp"
-                android:fontFamily="@font/poppins_light"
-                android:textColor="@color/black"
+                android:layout_below="@id/iv_hill_line"
                 android:layout_marginTop="16dp"
-                android:layout_below="@id/iv_hill_line"/>
+                android:fontFamily="@font/poppins_light"
+                android:gravity="center"
+                android:text="@string/beaches"
+                android:textColor="@color/black"
+                android:textSize="16sp"/>
             <LinearLayout
                 android:id="@+id/ly_beach"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center"
                 android:layout_below="@id/tv_beach"
-                android:layout_marginTop="16dp">
+                android:layout_marginTop="16dp"
+                android:gravity="center"
+                android:orientation="horizontal">
                 <ImageView
                     android:id="@+id/iv_beach_bronze"
                     android:layout_width="100dp"
@@ -323,11 +323,11 @@
                 android:id="@+id/iv_beach_line"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/line"
                 android:layout_below="@id/ly_beach"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="16dp"
-                android:layout_marginBottom="60dp"/>
+                android:layout_marginBottom="60dp"
+                android:background="@drawable/line"/>
         </RelativeLayout>
     </ScrollView>
 

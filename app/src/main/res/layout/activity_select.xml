@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SelectActivity"
+    tools:context="."
     android:orientation="vertical">
 
     <FrameLayout
@@ -47,7 +47,7 @@
         android:onClick="onClick"
         android:text="@string/login"
         android:textColor="@color/white"
-        android:fontFamily="@font/poppins_bold"
+        android:fontFamily="@font/poppins_semibold"
         android:textAllCaps="false"/>
 
     <Button
@@ -61,9 +61,9 @@
         android:textSize="16sp"
         android:background="@drawable/button"
         android:onClick="onClick"
-        android:text="@string/register"
+        android:text="@string/sign_up"
         android:textColor="@color/white"
-        android:fontFamily="@font/poppins_bold"
+        android:fontFamily="@font/poppins_semibold"
         android:textAllCaps="false"/>
     <LinearLayout
         android:layout_width="match_parent"
