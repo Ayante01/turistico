@@ -1,14 +1,97 @@
+/**
+ * Place Activity
+ *
+ * @author  Daniela Alarcón
+ * @version 1.0
+ * @since   2020-10-17
+ */
 package cr.ac.ucr.turistico;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.GridView;
 
-public class PlaceActivity extends AppCompatActivity {
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 
+import cr.ac.ucr.turistico.adapters.ImageAdapter;
+
+public class PlaceActivity extends AppCompatActivity implements OnMapReadyCallback {
+    /**
+     * Variable tipo GoogleMap
+     */
+    private GoogleMap mMap;
+
+    /**
+     * Método onCreate
+     * Este metodo es ejecutado al crearse la clase dentro de la aplicación
+     *
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_place);
+
+        // Obtain the SupportMapFragment and get notified when the map is ready to be used.
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
+                .findFragmentById(R.id.map);
+        mapFragment.getMapAsync(this);
+
+        GridView gridView = (GridView) findViewById(R.id.gridView);
+        gridView.setAdapter(new ImageAdapter(this));
+        gridView.setVerticalScrollBarEnabled(false);
+        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+    /**
+     * Método onItemClick
+     * Este método abre la imagen en grande al darle click en la galería
+     *
+     * @param adapterView
+     * @param view
+     * @param i
+     * @param l
+     *
+     */
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Intent intent = new Intent(getApplicationContext(), FullImageActivity.class);
+                intent.putExtra("id", i);
+                startActivity(intent);
+            }
+        });
+    }
+    /**
+     * Método onMapReady
+     *
+     * Manipula el mapa una vez que se ha creado.
+     * Este callback se activa cuando el mapa está listo para usarse.
+     * Aquí es donde podemos agregar marcadores o líneas, agregar oyentes o mover la cámara. En este caso,
+     * Solo agregamos un marcador del lugar requerido y además aumentamos el zoom de la cámara
+     * Si los servicios de Google Play no están instalados en el dispositivo, se le pedirá al usuario que instale
+     * dentro del SupportMapFragment. Este método solo se activará una vez que el usuario haya
+     * instaado los servicios de Google Play y regrese a la aplicación.
+     *
+     * @param googleMap
+     *
+     */
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+        mMap = googleMap;
+
+        // Add a marker in Quesada and move the camera
+        LatLng nauyaca = new LatLng(9.2731049,  -83.8224666);
+        mMap.addMarker(new MarkerOptions().position(nauyaca).title("Marker in Nauyaca Waterfalls"));
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(nauyaca));
+        mMap.moveCamera(CameraUpdateFactory.zoomTo((float) 14.0));
+        mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
     }
 }

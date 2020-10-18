@@ -2,6 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="cr.ac.ucr.turistico">
 
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
     <!--
          The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
          Google Maps Android API v2, but you must specify either coarse or fine
@@ -18,7 +19,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
+        <!--
+               Set to true if your app is Standalone, that is, it does not require the handheld
+               app to run.
+        -->
+        <meta-data
+            android:name="com.google.android.wearable.standalone"
+            android:value="true" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
@@ -29,29 +36,24 @@
         -->
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyA5ffxZ9js7tBDj0DezyF-pQmiWhdrc0fg"/>
+            android:value="AIzaSyA5ffxZ9js7tBDj0DezyF-pQmiWhdrc0fg" />
 
-        <!-- <activity
-            android:name=".MapsActivity"
-            android:label="@string/title_activity_maps">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity> -->
-
-        <activity android:name=".PlaceActivity"></activity>
+        <!--Splash Activity-->
         <activity
             android:name=".SplashActivity"
             android:theme="@style/AppTheme.Splash">
-            <intent-filter>
+           <!-- <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+            </intent-filter>-->
         </activity>
+
+        <!--Select Activity, muestra las opciones de loguearse, registrarse o ingresar como invitado-->
         <activity
             android:name=".SelectActivity"
             android:theme="@style/AppTheme.NoActionBar" />
+
+        <!--Main Activity-->
         <activity
             android:name=".MainActivity"
             android:theme="@style/AppTheme.NoActionBar"
@@ -59,11 +61,12 @@
             <intent-filter>
                 <action android:name="android.intent.action.SEARCH" />
             </intent-filter>
-
             <meta-data
                 android:name="android.app.searchable"
                 android:resource="@xml/searchable" />
         </activity>
+
+        <!--Login Activity-->
         <activity
             android:name=".LoginActivity"
             android:theme="@style/AppTheme.NoActionBar">
@@ -71,6 +74,8 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".SelectActivity" />
         </activity>
+
+        <!--Register Activity-->
         <activity
             android:name=".RegisterActivity"
             android:theme="@style/AppTheme.NoActionBar">
@@ -78,6 +83,28 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".SelectActivity" />
         </activity>
+
+        <!--FullImage Activity muestra las imagenes de la galería en grande-->
+        <activity
+            android:name=".FullImageActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".PlaceActivity" />
+        </activity>
+
+        <!--Place Activity, muestra la info de cada lugar cuando se le da click al card-->
+        <activity
+            android:name=".PlaceActivity"
+            android:label="Place"
+            android:launchMode="singleTop"
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                 <action android:name="android.intent.action.MAIN" />
+                 <category android:name="android.intent.category.LAUNCHER" />
+             </intent-filter>
+        </activity>
+
     </application>
 
 </manifest>

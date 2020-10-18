@@ -78,4 +78,18 @@
     <string name="siggned_in">Registrado</string>
     <string name="google_maps_key">AIzaSyA5ffxZ9js7tBDj0DezyF-pQmiWhdrc0fg</string>
 
+    <string name="hello_world">Hello Square World!</string>
+
+    <string name="place_information">Las Cataratas Nauyaca se encuentran en un cañón de aproximadamente ochenta metros de ancho. Una de las cataratas mide cuarenta y cinco metros de altura en caída libre y la otra veinte metros de altura en caída escalonada, formando al pie de esta, una poza de mil metros cuadrados y seis metros de profundidad. Tambien hay otras piscinas naturales de menor tamaño.</string>
+    <string name="information_title">Cataratas Nauyaca</string>
+    <string name="information">Información</string>
+    <string name="ubication">Ubicación</string>
+    <string name="gallery">Galería</string>
+    <string name="near_services">Servicios cerca</string>
+    <string name="transport">Transporte</string>
+    <string name="wi_fi">Wi-fi</string>
+    <string name="near_beaches">Playas</string>
+    <string name="coffee_service">Cafeterías</string>
+    <string name="restaurants">Restaurantes</string>
+
 </resources>

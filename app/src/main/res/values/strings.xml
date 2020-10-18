@@ -75,7 +75,23 @@
     <string name="no_register">Email its already used</string>
     <string name="siggned_in">Registered</string>
     <string name="google_maps_key">AIzaSyA5ffxZ9js7tBDj0DezyF-pQmiWhdrc0fg</string>
-    <string name="title_activity_maps">Map</string>
+    <!--
+    This string is used for square devices and overridden by hello_world in
+    values-round/strings.xml for round devices.
+    -->
+    <string name="hello_world">Hello Square World!</string>
+
+    <string name="place_information">The Nauyaca Falls are located in a canyon of approximately eighty meters wide. One of the falls is 45 meters high in free fall and the other is 20 meters high in staggered fall, forming at the foot of it, a pool of 1,000 square meters and six meters deep. There are also other smaller natural pools.</string>
+    <string name="information_title">The Nauyaca Falls</string>
+    <string name="information">Information</string>
+    <string name="ubication">Ubication</string>
+    <string name="gallery">Gallery</string>
+    <string name="near_services">Near services</string>
+    <string name="transport">Transport</string>
+    <string name="wi_fi">Wi-fi</string>
+    <string name="near_beaches">Beaches</string>
+    <string name="coffee_service">Cafeteria</string>
+    <string name="restaurants">Restaurants</string>
     <!-- TODO: Remove or change this placeholder text -->
 
 </resources>
