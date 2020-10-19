@@ -34,7 +34,7 @@ public class PlaceFragment extends Fragment {
     private AppCompatActivity activity;
     private PlaceAdapter placeAdapter;
 
-    FirebaseDatabase fbDatabase;
+    FirebaseDatabase fbDatabase;;
     DatabaseReference myRef;
 
     private ArrayList<Lugar> auxArray = new ArrayList<>();

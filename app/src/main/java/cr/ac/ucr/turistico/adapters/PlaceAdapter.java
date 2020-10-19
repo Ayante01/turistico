@@ -103,6 +103,8 @@ public class PlaceAdapter extends RecyclerView.Adapter<PlaceAdapter.ViewHolder> 
             tvPlaceName = view.findViewById(R.id.tv_place_name);
             tvProvince = view.findViewById(R.id.tv_place_province);
             tvLikes = view.findViewById(R.id.tv_likes);
+
+            cvPlaceCard.setOnClickListener(this);
         }
         @Override
         public void onClick(View view) {

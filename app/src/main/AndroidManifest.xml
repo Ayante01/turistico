@@ -42,10 +42,10 @@
         <activity
             android:name=".SplashActivity"
             android:theme="@style/AppTheme.Splash">
-           <!-- <intent-filter>
+            <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>-->
+            </intent-filter>
         </activity>
 
         <!--Select Activity, muestra las opciones de loguearse, registrarse o ingresar como invitado-->
@@ -99,10 +99,12 @@
             android:label="Place"
             android:launchMode="singleTop"
             android:theme="@style/AppTheme.NoActionBar">
+            <!--
             <intent-filter>
                  <action android:name="android.intent.action.MAIN" />
                  <category android:name="android.intent.category.LAUNCHER" />
              </intent-filter>
+             -->
         </activity>
 
     </application>

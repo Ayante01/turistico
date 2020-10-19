@@ -7,20 +7,31 @@
  */
 package cr.ac.ucr.turistico;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
+import android.widget.ImageView;
+import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import cr.ac.ucr.turistico.adapters.ImageAdapter;
 
@@ -29,6 +40,14 @@ public class PlaceActivity extends AppCompatActivity implements OnMapReadyCallba
      * Variable tipo GoogleMap
      */
     private GoogleMap mMap;
+    FirebaseDatabase fbDatabase;;
+    DatabaseReference myRef;
+
+    ImageView placeImg;
+    TextView headerTitle;
+    TextView informationBody;
+
+    private PlaceActivity activity;
 
     /**
      * Método onCreate
@@ -40,6 +59,19 @@ public class PlaceActivity extends AppCompatActivity implements OnMapReadyCallba
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_place);
+
+        activity = this;
+
+        placeImg = findViewById(R.id.iv_place_img);
+        headerTitle = findViewById(R.id.tv_header_title);
+        informationBody = findViewById(R.id.tv_information_body);
+
+        Intent intent = getIntent();
+
+        if (intent != null) {
+            String placeName = intent.getStringExtra(getString(R.string.place_name));
+            setPlaceInfo(placeName);
+        }
 
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
@@ -93,5 +125,47 @@ public class PlaceActivity extends AppCompatActivity implements OnMapReadyCallba
         mMap.moveCamera(CameraUpdateFactory.newLatLng(nauyaca));
         mMap.moveCamera(CameraUpdateFactory.zoomTo((float) 14.0));
         mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+    }
+
+    public void setPlaceInfo(final String placeName){
+        fbDatabase = FirebaseDatabase.getInstance();
+        myRef = fbDatabase.getReference("places");
+
+        myRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot ds : snapshot.getChildren()) {
+                    if(ds.child("place").getValue(String.class).equals(placeName)){
+
+                        Glide.with(activity)
+                                .load(ds.child("image").getValue(String.class))
+                                .centerCrop()
+                                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                                .into(placeImg);
+
+                        headerTitle.setText(ds.child("place").getValue(String.class));
+                        informationBody.setText(ds.child("info").getValue(String.class));
+
+                    }
+                    /*
+                    boolean beach = ds.child("beach").getValue(boolean.class);
+                    boolean wifi = ds.child("wifi").getValue(boolean.class);
+                    boolean restaurant = ds.child("restaurant").getValue(boolean.class);
+                    boolean transport = ds.child("transport").getValue(boolean.class);
+                    boolean coffee = ds.child("coffeeShop").getValue(boolean.class);
+                    String category = ds.child("category").getValue(String.class);
+                    String image = ds.child("image").getValue(String.class);
+                    String info = ds.child("info").getValue(String.class);
+                    String place = ds.child("place").getValue(String.class);
+                    String province = ds.child("province").getValue(String.class);
+                    String ubication = ds.child("ubication").getValue(String.class);
+                    */
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Log.i("DataSnapshot: ", error.getMessage());
+            }
+        });
     }
 }
