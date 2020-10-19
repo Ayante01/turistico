@@ -91,5 +91,6 @@
     <string name="near_beaches">Playas</string>
     <string name="coffee_service">Cafeterías</string>
     <string name="restaurants">Restaurantes</string>
+    <string name="error_password_length"> Contraseña muy corta, debe utilizar al menos 6 caracteres </string>
 
 </resources>

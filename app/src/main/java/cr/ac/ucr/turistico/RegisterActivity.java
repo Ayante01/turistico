@@ -19,6 +19,9 @@ import android.view.View.OnClickListener;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -150,6 +153,10 @@ public class RegisterActivity extends AppCompatActivity implements OnClickListen
             edPassword.setError(getString(R.string.error_confirm_pass));
             return;
         }
+        if(confirmPassword.length()<6){
+            edPassword.setError(getString(R.string.error_password_length));
+            return;
+        }
         if(!confirmPassword.equalsIgnoreCase(password)){
             edPassword.setError(getString(R.string.no_match));
             return;
@@ -163,18 +170,30 @@ public class RegisterActivity extends AppCompatActivity implements OnClickListen
     }
 
     private void registerUser() {
-        User user = new User();
-        user.setNombre(name);
-        user.setApellido(lastName);
-        user.setEmail(email);
-        user.setPassword(password);
-        user.setImgPerfil("src/main/res/drawable-v24/user.png");
+        aAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                if(task.isSuccessful()){
+                    String id = aAuth.getCurrentUser().getUid();
 
-        myRef.child(name).setValue(user);
-        Toast.makeText(this, R.string.siggned_in, Toast.LENGTH_SHORT).show();
-        Intent intent= new Intent(this, MainActivity.class);
-        startActivity(intent);
-        finish();
+                    User user = new User();
+                    user.setNombre(name);
+                    user.setApellido(lastName);
+                    user.setEmail(email);
+                    user.setPassword(password);
+                    user.setImgPerfil("src/main/res/drawable-v24/user.png");
+
+                    myRef.child(name).setValue(user);
+                    Toast.makeText(RegisterActivity.this, R.string.siggned_in, Toast.LENGTH_SHORT).show();
+                    Intent intent= new Intent(RegisterActivity.this, MainActivity.class);
+                    startActivity(intent);
+                    finish();
+
+                } else {
+                    Toast.makeText(RegisterActivity.this, R.string.no_register, Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
     }
 
     private boolean isUsed() {
