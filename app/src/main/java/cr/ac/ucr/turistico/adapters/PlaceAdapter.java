@@ -28,8 +28,8 @@ public class PlaceAdapter extends RecyclerView.Adapter<PlaceAdapter.ViewHolder> 
 
     private Context context;
     private ArrayList<Lugar> places = new ArrayList<>();
-    PlaceAdapter.ViewHolder holder;
     boolean liked = false;
+    private ArrayList<Button> buttons = new ArrayList<>();
 
     public PlaceAdapter(Context context, ArrayList<Lugar> places) {
         this.context = context;
@@ -50,7 +50,6 @@ public class PlaceAdapter extends RecyclerView.Adapter<PlaceAdapter.ViewHolder> 
 
     @Override
     public void onBindViewHolder(@NonNull PlaceAdapter.ViewHolder holder, int position) {
-        this.holder = holder;
         Lugar place = places.get(position);
 
         holder.tvPlaceName.setText(place.getPlace());
@@ -86,10 +85,10 @@ public class PlaceAdapter extends RecyclerView.Adapter<PlaceAdapter.ViewHolder> 
                 break;
             case R.id.btn_like:
                 if (liked == false) {
-                    holder.btnLike.setBackground(ContextCompat.getDrawable(context, R.drawable.ic_heart_red));
+                    buttons.get(position).setBackground(ContextCompat.getDrawable(context, R.drawable.ic_heart_red));
                     liked = true;
                 }else {
-                    holder.btnLike.setBackground(ContextCompat.getDrawable(context, R.drawable.ic_heart));
+                    buttons.get(position).setBackground(ContextCompat.getDrawable(context, R.drawable.ic_heart));
                     liked = false;
                 }
                 break;
@@ -121,7 +120,7 @@ public class PlaceAdapter extends RecyclerView.Adapter<PlaceAdapter.ViewHolder> 
             tvProvince = view.findViewById(R.id.tv_place_province);
             tvLikes = view.findViewById(R.id.tv_likes);
             btnLike = view.findViewById(R.id.btn_like);
-
+            buttons.add(btnLike);
             cvPlaceCard.setOnClickListener(this);
             btnLike.setOnClickListener(this);
         }
