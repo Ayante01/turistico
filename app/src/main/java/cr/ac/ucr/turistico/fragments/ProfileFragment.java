@@ -21,6 +21,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
+import com.google.firebase.auth.FirebaseAuth;
+
 import cr.ac.ucr.turistico.LoginActivity;
 import cr.ac.ucr.turistico.R;
 import cr.ac.ucr.turistico.utils.AppPreferences;
@@ -33,6 +35,8 @@ public class ProfileFragment extends Fragment implements View.OnClickListener{
     private Button btnLogout;
     private ScrollView scrollViewMedals;
     private ScrollView scrollViewSettings;
+
+    FirebaseAuth aAuth;
     /**
      * Constructor
      */
@@ -74,6 +78,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener{
         scrollViewMedals = view.findViewById(R.id.sv_medals);
         scrollViewSettings = view.findViewById(R.id.sv_settings);
         scrollViewSettings.setVisibility(View.GONE);
+        aAuth = FirebaseAuth.getInstance();
 
         //Listener
         btnMedals.setOnClickListener(this);
@@ -149,6 +154,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener{
      * Cierra la sesion del usuario que se encuentre activo y redirige la aplicacion al Login Activity
      */
     private void logout() {
+        aAuth.signOut();
         AppPreferences.getInstance(activity).clear();
         Intent intent = new Intent(activity, LoginActivity.class);
         startActivity(intent);
