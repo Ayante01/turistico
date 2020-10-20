@@ -10,11 +10,13 @@ package cr.ac.ucr.turistico.fragments;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ScrollView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -22,6 +24,14 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
 
 import cr.ac.ucr.turistico.LoginActivity;
 import cr.ac.ucr.turistico.R;
@@ -36,7 +46,18 @@ public class ProfileFragment extends Fragment implements View.OnClickListener{
     private ScrollView scrollViewMedals;
     private ScrollView scrollViewSettings;
 
+    ArrayList<String> dbUsers;
+    ArrayList<String> dbName;
+    ArrayList<String> dbLastName;
+    DatabaseReference myRef;
+    FirebaseDatabase fbDatabase;
     FirebaseAuth aAuth;
+    FirebaseUser user;
+
+    TextView userName;
+
+    private int position = 0;
+
     /**
      * Constructor
      */
@@ -60,7 +81,20 @@ public class ProfileFragment extends Fragment implements View.OnClickListener{
      * @param savedInstanceState
      */
     @Override
-    public void onCreate(Bundle savedInstanceState) { super.onCreate(savedInstanceState); }
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        aAuth = FirebaseAuth.getInstance();
+        fbDatabase = FirebaseDatabase.getInstance();
+        myRef = fbDatabase.getReference("users");
+        user = FirebaseAuth.getInstance().getCurrentUser();
+
+        dbUsers = new ArrayList<>();
+        dbName = new ArrayList<>();
+        dbLastName = new ArrayList<>();
+        setName();
+    }
+
     /**
      * Metodo onCreateView
      * @param inflater
@@ -78,7 +112,8 @@ public class ProfileFragment extends Fragment implements View.OnClickListener{
         scrollViewMedals = view.findViewById(R.id.sv_medals);
         scrollViewSettings = view.findViewById(R.id.sv_settings);
         scrollViewSettings.setVisibility(View.GONE);
-        aAuth = FirebaseAuth.getInstance();
+
+        userName = view.findViewById(R.id.tv_user_name);
 
         //Listener
         btnMedals.setOnClickListener(this);
@@ -86,6 +121,36 @@ public class ProfileFragment extends Fragment implements View.OnClickListener{
         btnLogout.setOnClickListener(this);
         return view;
     }
+
+    private void setName() {
+        myRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot ds : snapshot.getChildren()) {
+                    String uid = ds.child("uid").getValue(String.class);
+                    String name = ds.child("nombre").getValue(String.class);
+                    String lastName = ds.child("apellido").getValue(String.class);
+                    dbUsers.add(uid);
+                    dbName.add(name);
+                    dbLastName.add(lastName);
+                    String userID = user.getUid();
+
+                    Log.d("TAG ", String.valueOf(user));
+                    position = dbUsers.indexOf(userID);
+                    userName.setText(dbName.get(position)+" "+dbLastName.get(position));
+
+                }
+
+                Log.d("DataSnapshot: ", String.valueOf(dbUsers));
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Log.i("DataSnapshot: ", error.getMessage());
+            }
+        });
+    }
+
     /**
      * Metodo onAttach
      * @param context

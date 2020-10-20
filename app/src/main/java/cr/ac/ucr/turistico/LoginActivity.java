@@ -121,8 +121,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private void login() {
         String email = edEmail.getText().toString().trim();
         String password = edPassword.getText().toString().trim();
-        boolean userMailMatch = false;
-        boolean userPassMatch = false;
 
         if(email.isEmpty()){
             edEmail.setError(getString(R.string.error_email));

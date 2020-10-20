@@ -51,6 +51,7 @@ public class RegisterActivity extends AppCompatActivity implements OnClickListen
     String password;
     String confirmPassword;
     ArrayList<String> dbEmail;
+    String uId;
 
     /**
      * inicializacion de la base de datos
@@ -174,16 +175,18 @@ public class RegisterActivity extends AppCompatActivity implements OnClickListen
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()){
-                    String id = aAuth.getCurrentUser().getUid();
+                    uId = aAuth.getCurrentUser().getUid();
 
+                    Log.e("user ",uId);
                     User user = new User();
+                    user.setUId(uId);
                     user.setNombre(name);
                     user.setApellido(lastName);
                     user.setEmail(email);
                     user.setPassword(password);
                     user.setImgPerfil("src/main/res/drawable-v24/user.png");
 
-                    myRef.child(name).setValue(user);
+                    myRef.child(uId).setValue(user);
                     Toast.makeText(RegisterActivity.this, R.string.siggned_in, Toast.LENGTH_SHORT).show();
                     Intent intent= new Intent(RegisterActivity.this, MainActivity.class);
                     startActivity(intent);
