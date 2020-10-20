@@ -8,6 +8,8 @@ public class Lugar {
     String ubication;
     String category;
     String image;
+    String latitude;
+    String longitude;
 
     boolean transport;
     boolean wifi;
@@ -18,13 +20,15 @@ public class Lugar {
     public Lugar() {
     }
 
-    public Lugar(String place, String province, String info, String ubication, String category, String image, boolean transport, boolean wifi, boolean beach, boolean restaurant, boolean coffeeShop) {
+    public Lugar(String place, String province, String info, String ubication, String category, String image, String latitude, String longitude, boolean transport, boolean wifi, boolean beach, boolean restaurant, boolean coffeeShop) {
         this.place = place;
         this.province = province;
         this.info = info;
         this.ubication = ubication;
         this.category = category;
         this.image = image;
+        this.latitude = latitude;
+        this.longitude = longitude;
         this.transport = transport;
         this.wifi = wifi;
         this.beach = beach;
@@ -80,6 +84,22 @@ public class Lugar {
         this.image = image;
     }
 
+    public String getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(String latitude) {
+        this.latitude = latitude;
+    }
+
+    public String getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(String longitude) {
+        this.longitude = longitude;
+    }
+
     public boolean isTransport() {
         return transport;
     }
@@ -129,6 +149,8 @@ public class Lugar {
                 ", ubication='" + ubication + '\'' +
                 ", category='" + category + '\'' +
                 ", image='" + image + '\'' +
+                ", latitude='" + latitude + '\'' +
+                ", longitude='" + longitude + '\'' +
                 ", transport=" + transport +
                 ", wifi=" + wifi +
                 ", beach=" + beach +

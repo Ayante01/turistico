@@ -9,6 +9,7 @@ package cr.ac.ucr.turistico;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -41,27 +42,30 @@ public class PlaceActivity extends AppCompatActivity implements OnMapReadyCallba
      * Variable tipo GoogleMap
      */
     private GoogleMap mMap;
-    FirebaseDatabase fbDatabase;
+    private FirebaseDatabase fbDatabase;
 
-    DatabaseReference myRef;
+    private DatabaseReference myRef;
 
-    ImageView placeImg;
-    TextView headerTitle;
-    TextView informationBody;
+    private ImageView placeImg;
+    private TextView headerTitle;
+    private TextView informationBody;
 
-    LinearLayout firstService;
-    LinearLayout secondService;
-    LinearLayout thirdService;
-    LinearLayout fourthService;
-    LinearLayout fifthService;
+    private LinearLayout firstService;
+    private LinearLayout secondService;
+    private LinearLayout thirdService;
+    private LinearLayout fourthService;
+    private LinearLayout fifthService;
 
-    ImageView lineFirstService;
-    ImageView lineSecondService;
-    ImageView lineThirdService;
-    ImageView lineFourthService;
+    private ImageView lineFirstService;
+    private ImageView lineSecondService;
+    private ImageView lineThirdService;
+    private ImageView lineFourthService;
 
+    private double latitude;
+    private double longitude;
 
     private PlaceActivity context;
+    private Toolbar tToolbar;
 
     /**
      * Método onCreate
@@ -125,6 +129,12 @@ public class PlaceActivity extends AppCompatActivity implements OnMapReadyCallba
                 startActivity(intent);
             }
         });
+
+        tToolbar = findViewById(R.id.t_toolbar);
+        tToolbar.setTitle("");
+
+        setSupportActionBar(tToolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
     /**
@@ -144,11 +154,12 @@ public class PlaceActivity extends AppCompatActivity implements OnMapReadyCallba
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
+    }
 
-        // Add a marker in Quesada and move the camera
-        LatLng nauyaca = new LatLng(9.2731049, -83.8224666);
-        mMap.addMarker(new MarkerOptions().position(nauyaca).title("Marker in Nauyaca Waterfalls"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(nauyaca));
+    public void mapRefresh(String placeName){
+        LatLng latLng = new LatLng(latitude, longitude);
+        mMap.addMarker(new MarkerOptions().position(latLng).title("Marker in "+ placeName));
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
         mMap.moveCamera(CameraUpdateFactory.zoomTo((float) 14.0));
         mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
     }
@@ -156,12 +167,15 @@ public class PlaceActivity extends AppCompatActivity implements OnMapReadyCallba
     public void setPlaceInfo(final String placeName) {
         fbDatabase = FirebaseDatabase.getInstance();
         myRef = fbDatabase.getReference("places");
-
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot ds : snapshot.getChildren()) {
                     if (ds.child("place").getValue(String.class).equals(placeName)) {
+                        latitude =  ds.child("latitude").getValue(Double.class);
+                        longitude = ds.child("longitude").getValue(Double.class);
+
+                        mapRefresh(placeName);
 
                         Glide.with(context)
                                 .load(ds.child("image").getValue(String.class))
