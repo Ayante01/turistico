@@ -49,12 +49,14 @@ public class ProfileFragment extends Fragment implements View.OnClickListener{
     ArrayList<String> dbUsers;
     ArrayList<String> dbName;
     ArrayList<String> dbLastName;
+
     DatabaseReference myRef;
     FirebaseDatabase fbDatabase;
     FirebaseAuth aAuth;
     FirebaseUser user;
 
     TextView userName;
+    String userID = "";
 
     private int position = 0;
 
@@ -92,7 +94,6 @@ public class ProfileFragment extends Fragment implements View.OnClickListener{
         dbUsers = new ArrayList<>();
         dbName = new ArrayList<>();
         dbLastName = new ArrayList<>();
-        setName();
     }
 
     /**
@@ -119,6 +120,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener{
         btnMedals.setOnClickListener(this);
         btnSettings.setOnClickListener(this);
         btnLogout.setOnClickListener(this);
+        setName();
         return view;
     }
 
@@ -133,10 +135,16 @@ public class ProfileFragment extends Fragment implements View.OnClickListener{
                     dbUsers.add(uid);
                     dbName.add(name);
                     dbLastName.add(lastName);
-                    String userID = user.getUid();
+                    userID = user.getUid();
 
                     Log.d("TAG ", String.valueOf(user));
-                    position = dbUsers.indexOf(userID);
+
+                    for(String id: dbUsers){
+                        if(userID.equals(id)) {
+                            position = dbUsers.indexOf(userID);
+                            Log.e(" Nada ", " "+position);
+                        }
+                    }
                     userName.setText(dbName.get(position)+" "+dbLastName.get(position));
 
                 }
