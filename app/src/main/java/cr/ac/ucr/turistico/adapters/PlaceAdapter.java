@@ -5,11 +5,14 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -22,8 +25,11 @@ import cr.ac.ucr.turistico.R;
 import cr.ac.ucr.turistico.models.Lugar;
 
 public class PlaceAdapter extends RecyclerView.Adapter<PlaceAdapter.ViewHolder> implements ItemClickListener {
+
     private Context context;
     private ArrayList<Lugar> places = new ArrayList<>();
+    PlaceAdapter.ViewHolder holder;
+    boolean liked = false;
 
     public PlaceAdapter(Context context, ArrayList<Lugar> places) {
         this.context = context;
@@ -44,6 +50,7 @@ public class PlaceAdapter extends RecyclerView.Adapter<PlaceAdapter.ViewHolder> 
 
     @Override
     public void onBindViewHolder(@NonNull PlaceAdapter.ViewHolder holder, int position) {
+        this.holder = holder;
         Lugar place = places.get(position);
 
         holder.tvPlaceName.setText(place.getPlace());
@@ -55,7 +62,6 @@ public class PlaceAdapter extends RecyclerView.Adapter<PlaceAdapter.ViewHolder> 
                 .centerCrop()
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(holder.ivPlace);
-
     }
 
     @Override
@@ -64,7 +70,6 @@ public class PlaceAdapter extends RecyclerView.Adapter<PlaceAdapter.ViewHolder> 
     }
 
     public void addPlaces(ArrayList<Lugar> places) {
-
         this.places.addAll(places);
 
         notifyDataSetChanged();
@@ -72,16 +77,27 @@ public class PlaceAdapter extends RecyclerView.Adapter<PlaceAdapter.ViewHolder> 
 
     @Override
     public void onClick(View view, int position) {
-        Intent intent = new Intent(context, PlaceActivity.class);
-
-        Lugar place = places.get(position);
-
-        intent.putExtra(context.getString(R.string.place_name), place.getPlace());
-
-        context.startActivity(intent);
+        switch (view.getId()){
+            case R.id.cv_place_card:
+                Intent intent = new Intent(context, PlaceActivity.class);
+                Lugar place = places.get(position);
+                intent.putExtra(context.getString(R.string.place_name), place.getPlace());
+                context.startActivity(intent);
+                break;
+            case R.id.btn_like:
+                if (liked == false) {
+                    holder.btnLike.setBackground(ContextCompat.getDrawable(context, R.drawable.ic_heart_red));
+                    liked = true;
+                }else {
+                    holder.btnLike.setBackground(ContextCompat.getDrawable(context, R.drawable.ic_heart));
+                    liked = false;
+                }
+                break;
+            default:
+                break;
+        }
     }
 
-    // Esta clase se encarga de obtener los elementos del layout
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         private ItemClickListener listener;
@@ -90,6 +106,7 @@ public class PlaceAdapter extends RecyclerView.Adapter<PlaceAdapter.ViewHolder> 
         private final TextView tvPlaceName;
         private final TextView tvProvince;
         private final TextView tvLikes;
+        public final Button btnLike;
 
         public ViewHolder(@NonNull View view, ItemClickListener listener) {
             super(view);
@@ -103,8 +120,10 @@ public class PlaceAdapter extends RecyclerView.Adapter<PlaceAdapter.ViewHolder> 
             tvPlaceName = view.findViewById(R.id.tv_place_name);
             tvProvince = view.findViewById(R.id.tv_place_province);
             tvLikes = view.findViewById(R.id.tv_likes);
+            btnLike = view.findViewById(R.id.btn_like);
 
             cvPlaceCard.setOnClickListener(this);
+            btnLike.setOnClickListener(this);
         }
         @Override
         public void onClick(View view) {
