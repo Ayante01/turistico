@@ -18,6 +18,9 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -60,6 +63,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         setContentView(R.layout.activity_login);
 
         fbDatabase = FirebaseDatabase.getInstance();
+        aAuth = FirebaseAuth.getInstance();
         myRef = fbDatabase.getReference("users");
         dbEmails = new ArrayList<>();
         dbPasswords = new ArrayList<>();
@@ -129,29 +133,22 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             return;
         }
 
-        for(String mail: dbEmails){
-            if(email.equals(mail)) {
-                userMailMatch = true;
-                position = dbEmails.indexOf(email);
-                Log.i(" Nada ", " "+position);
+        aAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                if (task.isSuccessful()){
+                    AppPreferences.getInstance(LoginActivity.this).put(AppPreferences.Keys.IS_LOGGED_IN, true);
+
+                    Toast.makeText(LoginActivity.this, R.string.logged_in, Toast.LENGTH_SHORT).show();
+
+                    Intent intent= new Intent(LoginActivity.this, MainActivity.class);
+                    startActivity(intent);
+                    finish();
+                }else{
+                    Toast.makeText(LoginActivity.this, R.string.no_match,Toast.LENGTH_SHORT).show();
+                }
             }
-        }
-
-        if(dbPasswords.get(position).equals(password)){
-            userPassMatch = true;
-        }
-
-        if(userMailMatch && userPassMatch){
-            AppPreferences.getInstance(this).put(AppPreferences.Keys.IS_LOGGED_IN, true);
-
-            Toast.makeText(this, R.string.logged_in, Toast.LENGTH_SHORT).show();
-
-            Intent intent= new Intent(this, MainActivity.class);
-            startActivity(intent);
-            finish();
-        }else{
-            Toast.makeText(this, R.string.no_match, Toast.LENGTH_SHORT).show();
-        }
+        });
     }
 
     /**

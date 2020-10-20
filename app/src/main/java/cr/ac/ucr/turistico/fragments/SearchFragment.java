@@ -111,6 +111,7 @@ public class SearchFragment extends Fragment implements View.OnClickListener{
         super.onDetach();
         activity = null;
     }
+
     /**
      * Metodo onClick
      * Este metodo sera utilizado para escuchar a los botones creados en el XML y realizar acciones dependiendo
@@ -137,6 +138,7 @@ public class SearchFragment extends Fragment implements View.OnClickListener{
                 break;
         }
     }
+
     /**
      * Metodo changeToWaterFall
      * Cambia el color de los botones y la tipografia
@@ -150,6 +152,7 @@ public class SearchFragment extends Fragment implements View.OnClickListener{
         btnBeaches.setBackground(ContextCompat.getDrawable(activity, R.drawable.text_area));
         btnBeaches.setTextColor(ContextCompat.getColor(activity.getApplicationContext(), R.color.black));
     }
+
     /**
      * Metodo changeToHills
      * Cambia el color de los botones y la tipografia
@@ -164,6 +167,7 @@ public class SearchFragment extends Fragment implements View.OnClickListener{
         btnBeaches.setTextColor(ContextCompat.getColor(activity.getApplicationContext(), R.color.black));
 
     }
+
     /**
      * Metodo changeToBeaches
      * Cambia el color de los botones y la tipografia
