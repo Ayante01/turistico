@@ -15,6 +15,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
@@ -23,6 +24,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -34,6 +37,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 
 import cr.ac.ucr.turistico.LoginActivity;
+import cr.ac.ucr.turistico.PlaceActivity;
 import cr.ac.ucr.turistico.R;
 import cr.ac.ucr.turistico.utils.AppPreferences;
 
@@ -49,6 +53,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener{
     ArrayList<String> dbUsers;
     ArrayList<String> dbName;
     ArrayList<String> dbLastName;
+    ArrayList<String> dbImg;
 
     DatabaseReference myRef;
     FirebaseDatabase fbDatabase;
@@ -56,7 +61,10 @@ public class ProfileFragment extends Fragment implements View.OnClickListener{
     FirebaseUser user;
 
     TextView userName;
+    ImageView imgProfile;
     String userID = "";
+
+    private ProfileFragment context;
 
     private int position = 0;
 
@@ -91,9 +99,12 @@ public class ProfileFragment extends Fragment implements View.OnClickListener{
         myRef = fbDatabase.getReference("users");
         user = FirebaseAuth.getInstance().getCurrentUser();
 
+        context = this;
+
         dbUsers = new ArrayList<>();
         dbName = new ArrayList<>();
         dbLastName = new ArrayList<>();
+        dbImg = new ArrayList<>();
     }
 
     /**
@@ -115,6 +126,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener{
         scrollViewSettings.setVisibility(View.GONE);
 
         userName = view.findViewById(R.id.tv_user_name);
+        imgProfile = view.findViewById(R.id.iv_image_profile);
 
         //Listener
         btnMedals.setOnClickListener(this);
@@ -124,6 +136,10 @@ public class ProfileFragment extends Fragment implements View.OnClickListener{
         return view;
     }
 
+
+    /**
+     * Metodo que recibe los datos de la base, los compara con el usuario logueado para asi setear el nombre correspondiente
+     * **/
     private void setName() {
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
@@ -132,20 +148,25 @@ public class ProfileFragment extends Fragment implements View.OnClickListener{
                     String uid = ds.child("uid").getValue(String.class);
                     String name = ds.child("nombre").getValue(String.class);
                     String lastName = ds.child("apellido").getValue(String.class);
+                    String img = ds.child("imgPerfil").getValue(String.class);
                     dbUsers.add(uid);
                     dbName.add(name);
                     dbLastName.add(lastName);
+                    dbImg.add(img);
                     userID = user.getUid();
-
-                    Log.d("TAG ", String.valueOf(user));
 
                     for(String id: dbUsers){
                         if(userID.equals(id)) {
                             position = dbUsers.indexOf(userID);
-                            Log.e(" Nada ", " "+position);
+                            Log.e(" Img ", " "+dbImg.get(position));
                         }
                     }
                     userName.setText(dbName.get(position)+" "+dbLastName.get(position));
+                    Glide.with(context)
+                            .load(dbImg.get(position))
+                            .centerCrop()
+                            .diskCacheStrategy(DiskCacheStrategy.ALL)
+                            .into(imgProfile);
 
                 }
 

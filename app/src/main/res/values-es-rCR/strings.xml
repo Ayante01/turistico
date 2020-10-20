@@ -6,8 +6,8 @@
     <string name="email">Correo Electronico</string>
     <string name="password">Contraseña</string>
     <string name="confirm_pass">Confirmar contraseña</string>
-    <string name="login">Iniciar Sesión</string>
-    <string name="sign_up">Registrarse</string>
+    <string name="login">INICIAR SESÓN</string>
+    <string name="sign_up">REGISTRARSE</string>
 
     <!--errors-->
     <string name="error_email">Tu email es requerido</string>
