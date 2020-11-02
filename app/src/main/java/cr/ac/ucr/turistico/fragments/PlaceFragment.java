@@ -37,6 +37,7 @@ public class PlaceFragment extends Fragment {
     FirebaseDatabase fbDatabase;
     DatabaseReference myRef;
 
+    private ArrayList<Lugar> places = new ArrayList<>();
     private ArrayList<Lugar> auxArray = new ArrayList<>();
     private ArrayList<Lugar> beachesArray = new ArrayList<>();
     private ArrayList<Lugar> hillsArray = new ArrayList<>();
@@ -56,7 +57,8 @@ public class PlaceFragment extends Fragment {
 
     public PlaceFragment(String category) {
         this.category = category;
-    }
+
+    } public PlaceFragment() { }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -102,6 +104,7 @@ public class PlaceFragment extends Fragment {
                     if (ds.child("category").getValue(String.class).equals("Catarata")) {
                         waterfallsArray.add(lugar);
                     }
+                    places.add(lugar);
                 }
                 getPlacesInfo();
             }
@@ -121,6 +124,9 @@ public class PlaceFragment extends Fragment {
         }
         if(category.equals("Catarata")){
             auxArray = waterfallsArray;
+        }
+        if(category.equals("Todos")){
+            auxArray = places;
         }
         placeAdapter.addPlaces(auxArray);
         showPlaces(true);

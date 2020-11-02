@@ -7,9 +7,13 @@
  */
 package cr.ac.ucr.turistico.fragments;
 
+import android.content.Context;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,7 +21,9 @@ import android.view.ViewGroup;
 
 import cr.ac.ucr.turistico.R;
 
-public class FavoritePlacesFragment extends Fragment {
+public class FavoritePlacesFragment extends Fragment implements View.OnClickListener{
+
+    private AppCompatActivity activity;
     /**
      * Constructor
      */
@@ -43,6 +49,16 @@ public class FavoritePlacesFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setupViewPager("Todos");
+    }
+
+    private void setupViewPager(String category) {
+        FragmentTransaction ft = getChildFragmentManager().beginTransaction();
+        Fragment fragment = new PlaceFragment(category);
+        ft.replace(R.id.ly_places , fragment);
+        ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+        ft.addToBackStack(null);
+        ft.commit();
     }
     /**
      * Metodo onCreateView
@@ -56,5 +72,28 @@ public class FavoritePlacesFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_favorite_places, container, false);
         return view;
+    }
+
+    @Override
+    public void onClick(View v) {
+
+    }
+
+    /**
+     * Metodo onAttach
+     * @param context
+     */
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        activity = (AppCompatActivity) context;
+    }
+    /**
+     * Metodo onDetach
+     */
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        activity = null;
     }
 }

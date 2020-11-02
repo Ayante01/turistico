@@ -93,6 +93,7 @@
     <string name="coffee_service">Cafeteria</string>
     <string name="restaurants">Restaurants</string>
     <string name="error_password_length">Password too short, please use at least 6 characters</string>
+    <string name="favorite_places">Your Favorite Places</string>
     <!-- TODO: Remove or change this placeholder text -->
 
 </resources>

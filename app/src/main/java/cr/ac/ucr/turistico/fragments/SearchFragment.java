@@ -31,8 +31,6 @@ public class SearchFragment extends Fragment implements View.OnClickListener{
     private Button btnBeaches;
     private FrameLayout flHeader;
 
-    private PlaceFragment placeFragment;
-
     /**
      * Constructor
      */
@@ -58,7 +56,6 @@ public class SearchFragment extends Fragment implements View.OnClickListener{
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        this.placeFragment = new PlaceFragment("Playa");
         setupViewPager("Playa");
     }
 
