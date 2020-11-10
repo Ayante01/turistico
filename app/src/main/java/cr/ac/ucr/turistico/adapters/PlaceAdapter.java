@@ -2,6 +2,7 @@ package cr.ac.ucr.turistico.adapters;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,12 +18,21 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
 import cr.ac.ucr.turistico.PlaceActivity;
 import cr.ac.ucr.turistico.R;
+import cr.ac.ucr.turistico.fragments.PlaceFragment;
 import cr.ac.ucr.turistico.models.Lugar;
+import cr.ac.ucr.turistico.models.PlacesLiked;
+import cr.ac.ucr.turistico.models.User;
 
 public class PlaceAdapter extends RecyclerView.Adapter<PlaceAdapter.ViewHolder> implements ItemClickListener {
 
@@ -30,6 +40,18 @@ public class PlaceAdapter extends RecyclerView.Adapter<PlaceAdapter.ViewHolder> 
     private ArrayList<Lugar> places = new ArrayList<>();
     boolean liked = false;
     private ArrayList<Button> buttons = new ArrayList<>();
+
+    FirebaseAuth aAuth;
+    FirebaseDatabase fbDatabase;
+    DatabaseReference myRef;
+
+    private String idPlaceDB;
+    String placeLike = "";
+    String uId = "";
+    int position = -1;
+
+    private ArrayList<String> dbLikes = new ArrayList<>();
+    private ArrayList<String> usersDB = new ArrayList<>();
 
     public PlaceAdapter(Context context, ArrayList<Lugar> places) {
         this.context = context;
@@ -45,6 +67,11 @@ public class PlaceAdapter extends RecyclerView.Adapter<PlaceAdapter.ViewHolder> 
     @Override
     public PlaceAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.card_place , parent, false);
+
+        aAuth = FirebaseAuth.getInstance();
+        fbDatabase = FirebaseDatabase.getInstance();
+        myRef = fbDatabase.getReference("UPLikes");
+
         return new ViewHolder(view, this);
     }
 
@@ -74,6 +101,14 @@ public class PlaceAdapter extends RecyclerView.Adapter<PlaceAdapter.ViewHolder> 
         notifyDataSetChanged();
     }
 
+    public void addDBLikes(ArrayList<String> uLikes, ArrayList<String> dbUsers) {
+        this.dbLikes.addAll(uLikes);
+        this.usersDB.addAll(dbUsers);
+        Log.e("Array ", "Likes "+dbLikes+ " usuario "+usersDB);
+
+        notifyDataSetChanged();
+    }
+
     @Override
     public void onClick(View view, int position) {
         switch (view.getId()){
@@ -87,6 +122,9 @@ public class PlaceAdapter extends RecyclerView.Adapter<PlaceAdapter.ViewHolder> 
                 if (liked == false) {
                     buttons.get(position).setBackground(ContextCompat.getDrawable(context, R.drawable.ic_heart_red));
                     liked = true;
+                    Lugar place2 = places.get(position);
+                    idPlaceDB = ""+place2.getId();
+                    addLike();
                 }else {
                     buttons.get(position).setBackground(ContextCompat.getDrawable(context, R.drawable.ic_heart));
                     liked = false;
@@ -95,6 +133,35 @@ public class PlaceAdapter extends RecyclerView.Adapter<PlaceAdapter.ViewHolder> 
             default:
                 break;
         }
+    }
+
+    private void addLike() {
+        uId = aAuth.getCurrentUser().getUid();
+        PlacesLiked placesLiked = new PlacesLiked();
+        placeLike = idPlaceDB;
+        if(searchUser()){
+            String aux = "";
+            aux = dbLikes.get(position)+","+placeLike;
+            placesLiked.setUserID(uId);
+            placesLiked.setPlaces(aux);
+            myRef.child(uId).setValue(placesLiked);
+        }else {
+            placesLiked.setUserID(uId);
+            placesLiked.setPlaces(placeLike);
+            myRef.child(uId).setValue(placesLiked);
+        }
+    }
+
+    private boolean searchUser() {
+        for(String user: usersDB)
+        {
+            if(this.uId.equals(user)){
+                position = usersDB.indexOf(uId);
+                return true;
+            }
+        }
+        return false;
+
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {

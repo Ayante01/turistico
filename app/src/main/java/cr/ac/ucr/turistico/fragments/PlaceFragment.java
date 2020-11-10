@@ -27,6 +27,7 @@ import java.util.ArrayList;
 import cr.ac.ucr.turistico.R;
 import cr.ac.ucr.turistico.adapters.PlaceAdapter;
 import cr.ac.ucr.turistico.models.Lugar;
+import cr.ac.ucr.turistico.models.PlacesLiked;
 
 public class PlaceFragment extends Fragment {
 
@@ -36,12 +37,16 @@ public class PlaceFragment extends Fragment {
 
     FirebaseDatabase fbDatabase;
     DatabaseReference myRef;
+    DatabaseReference refUsersLikes;
 
     private ArrayList<Lugar> places = new ArrayList<>();
     private ArrayList<Lugar> auxArray = new ArrayList<>();
     private ArrayList<Lugar> beachesArray = new ArrayList<>();
     private ArrayList<Lugar> hillsArray = new ArrayList<>();
     private ArrayList<Lugar> waterfallsArray = new ArrayList<>();
+
+    private ArrayList<String> likes = new ArrayList<>();
+    private ArrayList<String> users = new ArrayList<>();
 
     private String category;
 
@@ -66,6 +71,25 @@ public class PlaceFragment extends Fragment {
 
         fbDatabase = FirebaseDatabase.getInstance();
         myRef = fbDatabase.getReference("places");
+        refUsersLikes = fbDatabase.getReference("UPLikes");
+
+        refUsersLikes.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot ds : snapshot.getChildren()) {
+                    String dbPlace = ds.child("places").getValue(String.class);
+                    String dbUserID = ds.child("userID").getValue(String.class);
+
+                    likes.add(dbPlace);
+                    users.add(dbUserID);
+                }
+                getLikesInfo();
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Log.i("DataSnapshot: ", error.getMessage());
+            }
+        });
 
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
@@ -82,6 +106,7 @@ public class PlaceFragment extends Fragment {
                     String place = ds.child("place").getValue(String.class);
                     String province = ds.child("province").getValue(String.class);
                     String ubication = ds.child("ubication").getValue(String.class);
+                    Long id = ds.child("id").getValue(Long.class);
 
                     Lugar lugar = new Lugar();
                     lugar.setPlace(place);
@@ -95,6 +120,8 @@ public class PlaceFragment extends Fragment {
                     lugar.setRestaurant(restaurant);
                     lugar.setWifi(wifi);
                     lugar.setBeach(beach);
+                    lugar.setId(id);
+
                     if (ds.child("category").getValue(String.class).equals("Playa")) {
                         beachesArray.add(lugar);
                     }
@@ -113,6 +140,10 @@ public class PlaceFragment extends Fragment {
                 Log.i("DataSnapshot: ", error.getMessage());
             }
         });
+    }
+
+    public void getLikesInfo() {
+        placeAdapter.addDBLikes(likes, users);
     }
 
     public void getPlacesInfo() {
