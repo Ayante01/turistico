@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -45,7 +46,11 @@ public class PlaceFragment extends Fragment {
     private ArrayList<Lugar> hillsArray = new ArrayList<>();
     private ArrayList<Lugar> waterfallsArray = new ArrayList<>();
 
-    private ArrayList<String> likes = new ArrayList<>();
+    /**
+     * Estas variables son para guardar los usuarios y los likes, por el momento el uso se le da solo
+     * likes, se usan en el metodo getLikesInfo() que está dentro de refUsersLikes
+     * */
+    private ArrayList<Object> likes = new ArrayList<>();
     private ArrayList<String> users = new ArrayList<>();
 
     private String category;
@@ -77,12 +82,12 @@ public class PlaceFragment extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot ds : snapshot.getChildren()) {
-                    String dbPlace = ds.child("places").getValue(String.class);
+                    likes = (ArrayList<Object>) ds.child("likes").getValue();
                     String dbUserID = ds.child("userID").getValue(String.class);
-
-                    likes.add(dbPlace);
                     users.add(dbUserID);
                 }
+
+                /**AQUI EL METODO*/
                 getLikesInfo();
             }
             @Override
@@ -107,6 +112,7 @@ public class PlaceFragment extends Fragment {
                     String province = ds.child("province").getValue(String.class);
                     String ubication = ds.child("ubication").getValue(String.class);
                     Long id = ds.child("id").getValue(Long.class);
+                    int likes = ds.child("likes").getValue(int.class);
 
                     Lugar lugar = new Lugar();
                     lugar.setPlace(place);
@@ -121,6 +127,7 @@ public class PlaceFragment extends Fragment {
                     lugar.setWifi(wifi);
                     lugar.setBeach(beach);
                     lugar.setId(id);
+                    lugar.setLikes(likes);
 
                     if (ds.child("category").getValue(String.class).equals("Playa")) {
                         beachesArray.add(lugar);
@@ -142,6 +149,9 @@ public class PlaceFragment extends Fragment {
         });
     }
 
+    /**
+     * este metodo se encarga de llamar el metodo addDBLikes del placeAdapter, se le pasa un array de objetos y uno de string
+     * */
     public void getLikesInfo() {
         placeAdapter.addDBLikes(likes, users);
     }

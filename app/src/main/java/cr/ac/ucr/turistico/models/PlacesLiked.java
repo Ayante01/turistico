@@ -5,14 +5,14 @@ import java.util.ArrayList;
 public class PlacesLiked {
 
     private String userID;
-    private String places = "";
+    private ArrayList<Object> likes;
 
     public PlacesLiked() {
     }
 
-    public PlacesLiked(String userID, String places) {
+    public PlacesLiked(String userID, ArrayList<Object> likes) {
         this.userID = userID;
-        this.places = places;
+        this.likes = likes;
     }
 
     public String getUserID() {
@@ -23,19 +23,19 @@ public class PlacesLiked {
         this.userID = userID;
     }
 
-    public String getPlaces() {
-        return places;
+    public ArrayList<Object> getLikes() {
+        return likes;
     }
 
-    public void setPlaces(String places) {
-        this.places = places;
+    public void setLikes(ArrayList<Object> likes) {
+        this.likes = likes;
     }
 
     @Override
     public String toString() {
-        return "placesLiked{" +
+        return "PlacesLiked{" +
                 "userID='" + userID + '\'' +
-                ", places=" + places +
+                ", likes=" + likes +
                 '}';
     }
 }

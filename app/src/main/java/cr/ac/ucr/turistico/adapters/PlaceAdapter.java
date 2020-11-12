@@ -26,6 +26,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import cr.ac.ucr.turistico.PlaceActivity;
 import cr.ac.ucr.turistico.R;
@@ -43,15 +45,23 @@ public class PlaceAdapter extends RecyclerView.Adapter<PlaceAdapter.ViewHolder> 
 
     FirebaseAuth aAuth;
     FirebaseDatabase fbDatabase;
-    DatabaseReference myRef;
+    DatabaseReference likesUserRef;
+    DatabaseReference placesRef;
 
+    /**
+     * estas variables son necesarias para la actualización de los likes
+     * para crear la tabla y obtener info del objeto PlacesLiked
+     * también a los array se le asigna lo que el PlaceFragment obtiene de Firebase
+     * */
     private String idPlaceDB;
-    String placeLike = "";
+    private String  namePlace = "";
+    ArrayList<Object> likesPlace = new ArrayList<>();
     String uId = "";
     int position = -1;
 
-    private ArrayList<String> dbLikes = new ArrayList<>();
+    private ArrayList<Object> dbLikes = new ArrayList<>();
     private ArrayList<String> usersDB = new ArrayList<>();
+    private int dbNumLikes = 0;
 
     public PlaceAdapter(Context context, ArrayList<Lugar> places) {
         this.context = context;
@@ -70,7 +80,8 @@ public class PlaceAdapter extends RecyclerView.Adapter<PlaceAdapter.ViewHolder> 
 
         aAuth = FirebaseAuth.getInstance();
         fbDatabase = FirebaseDatabase.getInstance();
-        myRef = fbDatabase.getReference("UPLikes");
+        likesUserRef = fbDatabase.getReference("UPLikes");
+        placesRef = fbDatabase.getReference("places");
 
         return new ViewHolder(view, this);
     }
@@ -101,7 +112,13 @@ public class PlaceAdapter extends RecyclerView.Adapter<PlaceAdapter.ViewHolder> 
         notifyDataSetChanged();
     }
 
-    public void addDBLikes(ArrayList<String> uLikes, ArrayList<String> dbUsers) {
+    /**
+     * Este metodo recibe 2 array, limpia los que ya estan creados para que no se repitan o se
+     * guarden dobles y les asigna los que vienen por parametros
+     * */
+    public void addDBLikes(ArrayList<Object> uLikes, ArrayList<String> dbUsers) {
+        this.dbLikes.clear();
+        this.usersDB.clear();
         this.dbLikes.addAll(uLikes);
         this.usersDB.addAll(dbUsers);
         Log.e("Array ", "Likes "+dbLikes+ " usuario "+usersDB);
@@ -122,12 +139,18 @@ public class PlaceAdapter extends RecyclerView.Adapter<PlaceAdapter.ViewHolder> 
                 if (liked == false) {
                     buttons.get(position).setBackground(ContextCompat.getDrawable(context, R.drawable.ic_heart_red));
                     liked = true;
+
                     Lugar place2 = places.get(position);
                     idPlaceDB = ""+place2.getId();
+                    namePlace = place2.getPlace();
+                    dbNumLikes = place2.getLikes();
                     addLike();
                 }else {
                     buttons.get(position).setBackground(ContextCompat.getDrawable(context, R.drawable.ic_heart));
                     liked = false;
+                    Lugar place2 = places.get(position);
+                    idPlaceDB = ""+place2.getId();
+                    quitLike();
                 }
                 break;
             default:
@@ -135,21 +158,43 @@ public class PlaceAdapter extends RecyclerView.Adapter<PlaceAdapter.ViewHolder> 
         }
     }
 
+    /**
+     * addLike actualizay añade los likes de la tabla places y de la tabla intermedia placesLiked
+     * */
     private void addLike() {
         uId = aAuth.getCurrentUser().getUid();
         PlacesLiked placesLiked = new PlacesLiked();
-        placeLike = idPlaceDB;
+        likesPlace.add(idPlaceDB);
+
+        dbNumLikes = dbNumLikes+1;
+        Map<String, Object> placeUpdate = new HashMap<>();
+        placeUpdate.put(namePlace+"/likes", dbNumLikes);
+        placesRef.updateChildren(placeUpdate);
+
         if(searchUser()){
-            String aux = "";
-            aux = dbLikes.get(position)+","+placeLike;
-            placesLiked.setUserID(uId);
-            placesLiked.setPlaces(aux);
-            myRef.child(uId).setValue(placesLiked);
+            dbLikes.add(idPlaceDB);
+
+            Map<String, Object> userUpdates = new HashMap<>();
+            userUpdates.put(uId+"/likes", dbLikes);
+            likesUserRef.updateChildren(userUpdates);
         }else {
             placesLiked.setUserID(uId);
-            placesLiked.setPlaces(placeLike);
-            myRef.child(uId).setValue(placesLiked);
+            placesLiked.setLikes(likesPlace);
+            likesUserRef.child(uId).setValue(placesLiked);
         }
+    }
+
+    /**
+     * quitLike actualiza y quita los likes de la tabla places y de la tabla intermedia placesLiked
+     * */
+    private void quitLike() {
+        int deleteNum = dbLikes.indexOf(idPlaceDB);
+        dbLikes.remove(deleteNum);
+
+        Map<String, Object> userUpdates = new HashMap<>();
+        userUpdates.put(uId+"/likes", dbLikes);
+        likesUserRef.updateChildren(userUpdates);
+        Log.e("Eliminamos este ", "si este "+ dbLikes);
     }
 
     private boolean searchUser() {
