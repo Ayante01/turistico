@@ -161,6 +161,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener{
                             Log.e(" Img ", " "+dbImg.get(position));
                         }
                     }
+
                     userName.setText(dbName.get(position)+" "+dbLastName.get(position));
                     Glide.with(context)
                             .load(dbImg.get(position))

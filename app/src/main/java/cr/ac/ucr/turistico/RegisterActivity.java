@@ -191,7 +191,6 @@ public class RegisterActivity extends AppCompatActivity implements OnClickListen
                     Intent intent= new Intent(RegisterActivity.this, MainActivity.class);
                     startActivity(intent);
                     finish();
-
                 } else {
                     Toast.makeText(RegisterActivity.this, R.string.no_register, Toast.LENGTH_SHORT).show();
                 }
