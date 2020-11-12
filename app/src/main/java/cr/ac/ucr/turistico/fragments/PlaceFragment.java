@@ -50,7 +50,7 @@ public class PlaceFragment extends Fragment {
      * Estas variables son para guardar los usuarios y los likes, por el momento el uso se le da solo
      * likes, se usan en el metodo getLikesInfo() que está dentro de refUsersLikes
      * */
-    private ArrayList<Object> likes = new ArrayList<>();
+    private ArrayList<Integer> placeID = new ArrayList<>();
     private ArrayList<String> users = new ArrayList<>();
 
     private String category;
@@ -82,9 +82,10 @@ public class PlaceFragment extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot ds : snapshot.getChildren()) {
-                    likes = (ArrayList<Object>) ds.child("likes").getValue();
                     String dbUserID = ds.child("userID").getValue(String.class);
+                    int dbPlaceID = ds.child("placeID").getValue(Integer.class);
                     users.add(dbUserID);
+                    placeID.add(dbPlaceID);
                 }
 
                 /**AQUI EL METODO*/
@@ -111,7 +112,7 @@ public class PlaceFragment extends Fragment {
                     String place = ds.child("place").getValue(String.class);
                     String province = ds.child("province").getValue(String.class);
                     String ubication = ds.child("ubication").getValue(String.class);
-                    Long id = ds.child("id").getValue(Long.class);
+                    int id = ds.child("id").getValue(Integer.class);
                     int likes = ds.child("likes").getValue(int.class);
 
                     Lugar lugar = new Lugar();
@@ -153,7 +154,7 @@ public class PlaceFragment extends Fragment {
      * este metodo se encarga de llamar el metodo addDBLikes del placeAdapter, se le pasa un array de objetos y uno de string
      * */
     public void getLikesInfo() {
-        placeAdapter.addDBLikes(likes, users);
+        placeAdapter.addDBLikes(placeID, users);
     }
 
     public void getPlacesInfo() {

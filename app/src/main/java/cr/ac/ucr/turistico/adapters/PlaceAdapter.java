@@ -53,13 +53,12 @@ public class PlaceAdapter extends RecyclerView.Adapter<PlaceAdapter.ViewHolder> 
      * para crear la tabla y obtener info del objeto PlacesLiked
      * también a los array se le asigna lo que el PlaceFragment obtiene de Firebase
      * */
-    private String idPlaceDB;
+    private int idPlaceDB;
     private String  namePlace = "";
-    ArrayList<Object> likesPlace = new ArrayList<>();
     String uId = "";
     int position = -1;
 
-    private ArrayList<Object> dbLikes = new ArrayList<>();
+    private ArrayList<Integer> dbPlace = new ArrayList<>();
     private ArrayList<String> usersDB = new ArrayList<>();
     private int dbNumLikes = 0;
 
@@ -116,12 +115,12 @@ public class PlaceAdapter extends RecyclerView.Adapter<PlaceAdapter.ViewHolder> 
      * Este metodo recibe 2 array, limpia los que ya estan creados para que no se repitan o se
      * guarden dobles y les asigna los que vienen por parametros
      * */
-    public void addDBLikes(ArrayList<Object> uLikes, ArrayList<String> dbUsers) {
-        this.dbLikes.clear();
+    public void addDBLikes(ArrayList<Integer> dbIdPlace, ArrayList<String> dbUsers) {
+        this.dbPlace.clear();
         this.usersDB.clear();
-        this.dbLikes.addAll(uLikes);
+        this.dbPlace.addAll(dbIdPlace);
         this.usersDB.addAll(dbUsers);
-        Log.e("Array ", "Likes "+dbLikes+ " usuario "+usersDB);
+        Log.e("Array ", "Likes "+dbIdPlace+ " usuario "+usersDB);
 
         notifyDataSetChanged();
     }
@@ -141,15 +140,18 @@ public class PlaceAdapter extends RecyclerView.Adapter<PlaceAdapter.ViewHolder> 
                     liked = true;
 
                     Lugar place2 = places.get(position);
-                    idPlaceDB = ""+place2.getId();
+                    idPlaceDB = place2.getId();
                     namePlace = place2.getPlace();
                     dbNumLikes = place2.getLikes();
                     addLike();
                 }else {
                     buttons.get(position).setBackground(ContextCompat.getDrawable(context, R.drawable.ic_heart));
                     liked = false;
+
                     Lugar place2 = places.get(position);
-                    idPlaceDB = ""+place2.getId();
+                    idPlaceDB = place2.getId();
+                    namePlace = place2.getPlace();
+                    dbNumLikes = place2.getLikes();
                     quitLike();
                 }
                 break;
@@ -164,37 +166,28 @@ public class PlaceAdapter extends RecyclerView.Adapter<PlaceAdapter.ViewHolder> 
     private void addLike() {
         uId = aAuth.getCurrentUser().getUid();
         PlacesLiked placesLiked = new PlacesLiked();
-        likesPlace.add(idPlaceDB);
 
         dbNumLikes = dbNumLikes+1;
         Map<String, Object> placeUpdate = new HashMap<>();
         placeUpdate.put(namePlace+"/likes", dbNumLikes);
         placesRef.updateChildren(placeUpdate);
 
-        if(searchUser()){
-            dbLikes.add(idPlaceDB);
-
-            Map<String, Object> userUpdates = new HashMap<>();
-            userUpdates.put(uId+"/likes", dbLikes);
-            likesUserRef.updateChildren(userUpdates);
-        }else {
-            placesLiked.setUserID(uId);
-            placesLiked.setLikes(likesPlace);
-            likesUserRef.child(uId).setValue(placesLiked);
-        }
+        placesLiked.setUserID(uId);
+        placesLiked.setPlaceID(idPlaceDB);
+        likesUserRef.child(uId+"_"+namePlace).setValue(placesLiked);
     }
 
     /**
      * quitLike actualiza y quita los likes de la tabla places y de la tabla intermedia placesLiked
      * */
     private void quitLike() {
-        int deleteNum = dbLikes.indexOf(idPlaceDB);
-        dbLikes.remove(deleteNum);
-
-        Map<String, Object> userUpdates = new HashMap<>();
-        userUpdates.put(uId+"/likes", dbLikes);
-        likesUserRef.updateChildren(userUpdates);
-        Log.e("Eliminamos este ", "si este "+ dbLikes);
+        dbNumLikes = dbNumLikes-1;
+        Map<String, Object> placeUpdate = new HashMap<>();
+        placeUpdate.put(uId+"_"+namePlace, null);
+        likesUserRef.updateChildren(placeUpdate);
+        placeUpdate.put(namePlace+"/likes", dbNumLikes);
+        placesRef.updateChildren(placeUpdate);
+        return;
     }
 
     private boolean searchUser() {

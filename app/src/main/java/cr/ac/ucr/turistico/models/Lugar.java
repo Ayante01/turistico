@@ -10,7 +10,7 @@ public class Lugar {
     String image;
     String latitude;
     String longitude;
-    Long id;
+    int id;
     int likes;
 
     boolean transport;
@@ -22,7 +22,7 @@ public class Lugar {
     public Lugar() {
     }
 
-    public Lugar(String place, String province, String info, String ubication, String category, String image, String latitude, String longitude, Long id, int likes, boolean transport, boolean wifi, boolean beach, boolean restaurant, boolean coffeeShop) {
+    public Lugar(String place, String province, String info, String ubication, String category, String image, String latitude, String longitude, int id, int likes, boolean transport, boolean wifi, boolean beach, boolean restaurant, boolean coffeeShop) {
         this.place = place;
         this.province = province;
         this.info = info;
@@ -104,11 +104,11 @@ public class Lugar {
         this.longitude = longitude;
     }
 
-    public Long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(int id) {
         this.id = id;
     }
 
