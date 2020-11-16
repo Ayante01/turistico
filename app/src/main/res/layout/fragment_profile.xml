@@ -217,9 +217,9 @@
                     android:id="@+id/btn_waterfall_bronze"
                     android:layout_width="100dp"
                     android:layout_height="80dp"
-                    android:tooltipText="Tranqui"
                     android:background="@drawable/bronze"
-                    android:gravity="center"/>
+                    android:gravity="center"
+                    android:onClick="onClick"/>
                 <Button
                     android:id="@+id/btn_waterfall_silver"
                     android:layout_width="100dp"
@@ -262,17 +262,17 @@
                 android:gravity="center"
                 android:orientation="horizontal">
                 <Button
-                    android:id="@+id/iv_hills_bronze"
+                    android:id="@+id/btn_hills_bronze"
                     android:layout_width="100dp"
                     android:layout_height="80dp"
                     android:background="@drawable/bronze"/>
                 <Button
-                    android:id="@+id/iv_hills_silver"
+                    android:id="@+id/btn_hills_silver"
                     android:layout_width="100dp"
                     android:layout_height="80dp"
                     android:background="@drawable/silver" />
                 <Button
-                    android:id="@+id/iv_hills_gold"
+                    android:id="@+id/btn_hills_gold"
                     android:layout_width="100dp"
                     android:layout_height="80dp"
                     android:background="@drawable/gold"/>
@@ -306,17 +306,17 @@
                 android:gravity="center"
                 android:orientation="horizontal">
                 <Button
-                    android:id="@+id/iv_beaches_bronze"
+                    android:id="@+id/btn_beach_bronze"
                     android:layout_width="100dp"
                     android:layout_height="80dp"
                     android:background="@drawable/bronze"/>
                 <Button
-                    android:id="@+id/iv_beaches_silver"
+                    android:id="@+id/btn_beach_silver"
                     android:layout_width="100dp"
                     android:layout_height="80dp"
                     android:background="@drawable/silver" />
                 <Button
-                    android:id="@+id/iv_beaches_gold"
+                    android:id="@+id/btn_beach_gold"
                     android:layout_width="100dp"
                     android:layout_height="80dp"
                     android:background="@drawable/gold"/>

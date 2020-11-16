@@ -70,29 +70,6 @@ public class PlaceFragment extends Fragment {
         myRef = fbDatabase.getReference("places");
         refUsersLikes = fbDatabase.getReference("UPLikes");
 
-<<<<<<< HEAD
-        refUsersLikes.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for (DataSnapshot ds : snapshot.getChildren()) {
-                    String dbUserID = ds.child("userID").getValue(String.class);
-                //    int dbPlaceID = ds.child("placeID").getValue(Integer.class);
-                    users.add(dbUserID);
-                 //   placeID.add(dbPlaceID);
-                }
-
-                /**AQUI EL METODO*/
-                getLikesInfo();
-            }
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                Log.i("DataSnapshot: ", error.getMessage());
-            }
-        });
-=======
-        placesID = new ArrayList<>();
->>>>>>> e19d32ee1b7370a5dfefbdb5a0e07fcd2a3330c5
-
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {

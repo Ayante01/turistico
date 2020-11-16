@@ -10,6 +10,7 @@ package cr.ac.ucr.turistico.fragments;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -46,6 +47,8 @@ import cr.ac.ucr.turistico.PlaceActivity;
 import cr.ac.ucr.turistico.R;
 import cr.ac.ucr.turistico.utils.AppPreferences;
 
+import static android.content.ContentValues.TAG;
+
 public class ProfileFragment extends Fragment implements View.OnClickListener{
 
     private AppCompatActivity activity;
@@ -54,6 +57,8 @@ public class ProfileFragment extends Fragment implements View.OnClickListener{
     private Button btnLogout;
     private ScrollView scrollViewMedals;
     private ScrollView scrollViewSettings;
+
+    private int counter = 0;
 
     ArrayList<String> dbUsers;
     ArrayList<String> dbName;
@@ -75,6 +80,14 @@ public class ProfileFragment extends Fragment implements View.OnClickListener{
     private Button btnBronzeWaterfall;
     private Button btnSilverWaterfall;
     private Button btnGoldWaterfall;
+    private Button btnBronzeHills;
+    private Button btnSilverHills;
+    private Button btnGoldHills;
+    private Button btnBronzeBeach;
+    private Button btnSilverBeach;
+    private Button btnGoldBeach;
+    private Tooltip tooltip;
+    private Button btn;
 
     /**
      * Constructor
@@ -139,12 +152,24 @@ public class ProfileFragment extends Fragment implements View.OnClickListener{
 
         btnBronzeWaterfall = view.findViewById(R.id.btn_waterfall_bronze);
         btnSilverWaterfall = view.findViewById(R.id.btn_waterfall_silver);
-        btnGoldWaterfall = view.findViewById(R.id.btn_waterfall_bronze);
-
+        btnGoldWaterfall = view.findViewById(R.id.btn_waterfall_gold);
+        btnBronzeHills = view.findViewById(R.id.btn_hills_bronze);
+        btnSilverHills = view.findViewById(R.id.btn_hills_silver);
+        btnGoldHills = view.findViewById(R.id.btn_hills_gold);
+        btnBronzeBeach = view.findViewById(R.id.btn_beach_bronze);
+        btnSilverBeach = view.findViewById(R.id.btn_beach_silver);
+        btnGoldBeach = view.findViewById(R.id.btn_beach_gold);
 
         //Listener
-        //btnBronzeWaterfall.setOnClickListener(this);
-
+        btnBronzeWaterfall.setOnClickListener(this);
+        btnSilverWaterfall.setOnClickListener(this);
+        btnGoldWaterfall.setOnClickListener(this);
+        btnBronzeHills.setOnClickListener(this);
+        btnSilverHills.setOnClickListener(this);
+        btnGoldHills.setOnClickListener(this);
+        btnBronzeBeach.setOnClickListener(this);
+        btnSilverBeach.setOnClickListener(this);
+        btnGoldBeach.setOnClickListener(this);
 
         btnMedals.setOnClickListener(this);
         btnSettings.setOnClickListener(this);
@@ -235,7 +260,33 @@ public class ProfileFragment extends Fragment implements View.OnClickListener{
                 logout();
                 break;
             case R.id.btn_waterfall_bronze:
-                showTooltip(view, Gravity.TOP);
+                showTooltip(view, Gravity.TOP, "1", getString(R.string.tag_wf), getString(R.string.tag_bronze));
+                break;
+            case R.id.btn_waterfall_silver:
+                showTooltip(view, Gravity.TOP, "3", getString(R.string.tag_wf), getString(R.string.tag_silver));
+                break;
+            case R.id.btn_waterfall_gold:
+                showTooltip(view, Gravity.TOP, "6", getString(R.string.tag_wf), getString(R.string.tag_gold));
+                tooltip.dismiss();
+                break;
+            case R.id.btn_hills_bronze:
+                showTooltip(view, Gravity.TOP, "1", getString(R.string.tag_hills), getString(R.string.tag_bronze));
+                break;
+            case R.id.btn_hills_silver:
+                showTooltip(view, Gravity.TOP, "3", getString(R.string.tag_hills), getString(R.string.tag_silver));
+                break;
+            case R.id.btn_hills_gold:
+                showTooltip(view, Gravity.TOP, "6", getString(R.string.tag_hills), getString(R.string.tag_gold));
+                break;
+            case R.id.btn_beach_bronze:
+                showTooltip(view, Gravity.TOP, "1", getString(R.string.tag_beach), getString(R.string.tag_bronze));
+                break;
+            case R.id.btn_beach_silver:
+                showTooltip(view, Gravity.TOP, "3", getString(R.string.tag_beach), getString(R.string.tag_silver));
+                break;
+            case R.id.btn_beach_gold:
+                showTooltip(view, Gravity.TOP, "6", getString(R.string.tag_beach), getString(R.string.tag_gold));
+                tooltip.dismiss();
                 break;
             default:
                 break;
@@ -246,17 +297,22 @@ public class ProfileFragment extends Fragment implements View.OnClickListener{
      * Método para mostrar los tooltips en el área de las medallas en perfil
      *
      */
-    private void showTooltip(View view, int gravity){
-        Button btn= (Button)view;
-        Tooltip tooltip = new Tooltip.Builder(btn)
-                .setText("This")
+        private void showTooltip(View view, int gravity, String value, String lugar, String medalla){
+            btn = (Button)view;
+            tooltip = new Tooltip.Builder(btn)
+                .setText("Visita " + value + " " + lugar + " para obtener la medalla de "+ medalla)
                 .setTextColor(Color.WHITE)
+                .setBackgroundColor(Color.LTGRAY)
                 .setGravity(gravity)
-                .setCornerRadius(8f)
+                .setCornerRadius(20f)
+                .setMaxWidth(590)
+                .setArrowEnabled(true)
+                .setTypeface(Typeface.defaultFromStyle(Typeface.SANS_SERIF.NORMAL))
                 .setDismissOnClick(true)
+                .setPadding(30)
                 .show();
+        }
 
-    }
     /**
      * Metodo changeToSettings
      * Cambia el color de fondo del boton medals o settings y el color de la tipografia

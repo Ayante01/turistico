@@ -93,5 +93,10 @@
     <string name="restaurants">Restaurantes</string>
     <string name="error_password_length"> Contraseña muy corta, debe utilizar al menos 6 caracteres </string>
     <string name="favorite_places">Tus Lugares Favoritos</string>
+    <string name="tag_wf">cataratas</string>
+    <string name="tag_silver">plata</string>
+    <string name="tag_gold">oro</string>
+    <string name="tag_hills">cerros</string>
+    <string name="tag_beach">playas</string>
 
 </resources>

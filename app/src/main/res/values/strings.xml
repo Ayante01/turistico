@@ -96,6 +96,12 @@
     <string name="favorite_places">Your Favorite Places</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="tag_wf">cataratas</string>
+    <string name="tag_bronze">bronce</string>
+    <string name="tag_silver">plata</string>
+    <string name="tag_gold">oro</string>
+    <string name="tag_hills">cerros</string>
+    <string name="tag_beach">playas</string>
     <!-- TODO: Remove or change this placeholder text -->
 
 </resources>
