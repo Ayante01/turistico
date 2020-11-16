@@ -5,12 +5,12 @@ import java.util.ArrayList;
 public class PlacesLiked {
 
     private String userID;
-    private int placeID;
+    private String placeID;
 
     public PlacesLiked() {
     }
 
-    public PlacesLiked(String userID, int placeID) {
+    public PlacesLiked(String userID, String placeID) {
         this.userID = userID;
         this.placeID = placeID;
     }
@@ -23,11 +23,11 @@ public class PlacesLiked {
         this.userID = userID;
     }
 
-    public int getPlaceID() {
+    public String getPlaceID() {
         return placeID;
     }
 
-    public void setPlaceID(int placeID) {
+    public void setPlaceID(String placeID) {
         this.placeID = placeID;
     }
 

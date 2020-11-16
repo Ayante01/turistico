@@ -12,11 +12,15 @@
 package cr.ac.ucr.turistico;
 
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -24,6 +28,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import java.util.ArrayList;
 
 import cr.ac.ucr.turistico.adapters.MainViewPagerAdapter;
+import cr.ac.ucr.turistico.adapters.PlaceAdapter;
 import cr.ac.ucr.turistico.fragments.FavoritePlacesFragment;
 import cr.ac.ucr.turistico.fragments.HomeFragment;
 import cr.ac.ucr.turistico.fragments.ProfileFragment;
@@ -36,6 +41,10 @@ public class MainActivity extends AppCompatActivity{
     private  ViewPager pager;
     private BottomNavigationView bottomNavigationView;
     private MenuItem prevMenuItem;
+
+    SearchFragment searchFragment = new SearchFragment();
+    FavoritePlacesFragment favoritePlacesFragment = new FavoritePlacesFragment();
+
     /**
      * Metodo onCreate
      * Este metodo es ejecutrado al crearse la clase dentro de la aplicación
@@ -64,8 +73,8 @@ public class MainActivity extends AppCompatActivity{
         ArrayList<Fragment> fragments = new ArrayList<>();
 
         fragments.add(HomeFragment.newInstance());
-        fragments.add(SearchFragment.newInstance());
-        fragments.add(FavoritePlacesFragment.newInstance());
+        fragments.add(searchFragment.newInstance());
+        fragments.add(favoritePlacesFragment.newInstance());
         fragments.add(ProfileFragment.newInstance());
 
         MainViewPagerAdapter mainViewPagerAdapter = new MainViewPagerAdapter(getSupportFragmentManager(), fragments);
@@ -121,4 +130,5 @@ public class MainActivity extends AppCompatActivity{
             }
         });
     }
+
 }

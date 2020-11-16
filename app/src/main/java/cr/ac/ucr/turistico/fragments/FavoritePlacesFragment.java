@@ -15,15 +15,20 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+
 import cr.ac.ucr.turistico.R;
+
 
 public class FavoritePlacesFragment extends Fragment implements View.OnClickListener{
 
+    private Context context;
     private AppCompatActivity activity;
+
     /**
      * Constructor
      */
@@ -49,12 +54,14 @@ public class FavoritePlacesFragment extends Fragment implements View.OnClickList
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setupViewPager("Todos");
+        this.context = context;
+        setupViewPager();
+
     }
 
-    private void setupViewPager(String category) {
+    public void setupViewPager() {
         FragmentTransaction ft = getChildFragmentManager().beginTransaction();
-        Fragment fragment = new PlaceFragment(category);
+        Fragment fragment = new FavoritePlaceFragment(this);
         ft.replace(R.id.ly_places , fragment);
         ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
         ft.addToBackStack(null);

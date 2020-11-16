@@ -6,6 +6,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -16,6 +17,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -25,42 +27,39 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 
 import cr.ac.ucr.turistico.R;
-import cr.ac.ucr.turistico.adapters.PlaceAdapter;
+import cr.ac.ucr.turistico.adapters.FavoritePlaceAdapter;
 import cr.ac.ucr.turistico.models.Lugar;
+import cr.ac.ucr.turistico.models.UsuarioLugar;
 
-public class PlaceFragment extends Fragment {
+public class FavoritePlaceFragment extends Fragment {
 
-    private final String TAG = "PlaceFragment";
     private AppCompatActivity activity;
-    private PlaceAdapter placeAdapter;
+    private FavoritePlaceAdapter favoritePlaceAdapter;
+    public FavoritePlacesFragment favoritePlacesFragment;
 
     FirebaseDatabase fbDatabase;
     DatabaseReference myRef;
     DatabaseReference refUsersLikes;
 
-    private ArrayList<Lugar> places = new ArrayList<>();
-    private ArrayList<Lugar> auxArray = new ArrayList<>();
-    private ArrayList<Lugar> beachesArray = new ArrayList<>();
-    private ArrayList<Lugar> hillsArray = new ArrayList<>();
-    private ArrayList<Lugar> waterfallsArray = new ArrayList<>();
-
-    /**
-     * Estas variables son para guardar los usuarios y los likes, por el momento el uso se le da solo
-     * likes, se usan en el metodo getLikesInfo() que está dentro de refUsersLikes
-     * */
-    private ArrayList<String> placesID = new ArrayList<>();
-    private ArrayList<String> users = new ArrayList<>();
-
-    private String category;
+    private ArrayList<Lugar> places;
 
     private ProgressBar pbLoading;
     private RecyclerView rvPlaces;
 
+    private ArrayList<Lugar> placesLiked;
+    FirebaseAuth aAuth;
+    DatabaseReference placesRef;
 
-    public PlaceFragment(String category) {
-        this.category = category;
 
-    } public PlaceFragment() { }
+    private ArrayList<String> placesID = new ArrayList<>();
+
+    private String uId = "";
+
+    private ArrayList<UsuarioLugar> dbUserPlace;
+
+    public FavoritePlaceFragment(FavoritePlacesFragment favoritePlacesFragment) {
+        this.favoritePlacesFragment = favoritePlacesFragment;
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -70,7 +69,17 @@ public class PlaceFragment extends Fragment {
         myRef = fbDatabase.getReference("places");
         refUsersLikes = fbDatabase.getReference("UPLikes");
 
-        placesID = new ArrayList<>();
+        this.places = new ArrayList<>();
+
+        fbDatabase = FirebaseDatabase.getInstance();
+        refUsersLikes = fbDatabase.getReference("UPLikes");
+        placesRef = fbDatabase.getReference("places");
+
+        this.dbUserPlace = new ArrayList<>();
+        this.placesLiked = new ArrayList<>();
+
+        aAuth = FirebaseAuth.getInstance();
+        fbDatabase = FirebaseDatabase.getInstance();
 
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
@@ -105,16 +114,28 @@ public class PlaceFragment extends Fragment {
                     lugar.setId(id);
                     lugar.setLikes(likes);
 
-                    if (ds.child("category").getValue(String.class).equals("Playa")) {
-                        beachesArray.add(lugar);
-                    }
-                    if (ds.child("category").getValue(String.class).equals("Cerro")) {
-                        hillsArray.add(lugar);
-                    }
-                    if (ds.child("category").getValue(String.class).equals("Catarata")) {
-                        waterfallsArray.add(lugar);
-                    }
                     places.add(lugar);
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Log.i("DataSnapshot: ", error.getMessage());
+            }
+        });
+
+        refUsersLikes.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                placesID.clear();
+                dbUserPlace.clear();
+                for (DataSnapshot ds : snapshot.getChildren()) {
+                    String idUser = ds.child("userID").getValue(String.class);
+                    String dbPlaceID = ds.child("placeID").getValue(String.class);
+                    placesID.add(dbPlaceID);
+                    UsuarioLugar userPlace = new UsuarioLugar();
+                    userPlace.setIdPlace(dbPlaceID);
+                    userPlace.setIdUser(idUser);
+                    dbUserPlace.add(userPlace);
                 }
                 getPlacesInfo();
             }
@@ -123,24 +144,43 @@ public class PlaceFragment extends Fragment {
                 Log.i("DataSnapshot: ", error.getMessage());
             }
         });
+    }
 
+    public void refreshDb() {
+        refUsersLikes.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                dbUserPlace.clear();
+                placesID.clear();
+                for (DataSnapshot ds : snapshot.getChildren()) {
+                    String idUser = ds.child("userID").getValue(String.class);
+                    String dbPlaceID = ds.child("placeID").getValue(String.class);
+                    placesID.add(dbPlaceID);
+                    UsuarioLugar userPlace = new UsuarioLugar();
+                    userPlace.setIdPlace(dbPlaceID);
+                    userPlace.setIdUser(idUser);
+                    dbUserPlace.add(userPlace);
+                }
+                getPlacesInfo();
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Log.i("DataSnapshot: ", error.getMessage());
+            }
+        });
     }
 
     public void getPlacesInfo() {
-        auxArray.clear();
-        if(category.equals("Playa")){
-            auxArray = beachesArray;
+        uId = aAuth.getCurrentUser().getUid();
+        placesLiked.clear();
+        for(UsuarioLugar userPlace : dbUserPlace){
+            for(Lugar place : places){
+                if(userPlace.getIdUser().equals(uId) && Integer.toString(place.getId()).equals(userPlace.getIdPlace())){
+                    placesLiked.add(place);
+                }
+            }
         }
-        if(category.equals("Cerro")){
-            auxArray = hillsArray;
-        }
-        if(category.equals("Catarata")){
-            auxArray = waterfallsArray;
-        }
-        if(category.equals("Likes")){
-            auxArray = places;
-        }
-        placeAdapter.addPlaces(auxArray);
+        favoritePlaceAdapter.addPlaces(placesLiked);
         showPlaces(true);
     }
 
@@ -153,9 +193,9 @@ public class PlaceFragment extends Fragment {
 
         rvPlaces = view.findViewById(R.id.rv_places);
 
-        placeAdapter = new PlaceAdapter(activity);
+        favoritePlaceAdapter = new FavoritePlaceAdapter(activity, this);
 
-        rvPlaces.setAdapter(placeAdapter);
+        rvPlaces.setAdapter(favoritePlaceAdapter);
         rvPlaces.setHasFixedSize(true);
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(activity);

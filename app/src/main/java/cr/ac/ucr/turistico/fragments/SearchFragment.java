@@ -59,7 +59,7 @@ public class SearchFragment extends Fragment implements View.OnClickListener{
         setupViewPager("Playa");
     }
 
-    private void setupViewPager(String category) {
+    public void setupViewPager(String category) {
         FragmentTransaction ft = getChildFragmentManager().beginTransaction();
         Fragment fragment = new PlaceFragment(category);
         ft.replace(R.id.ly_places , fragment);
