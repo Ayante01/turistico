@@ -95,5 +95,7 @@
     <string name="error_password_length">Password too short, please use at least 6 characters</string>
     <string name="favorite_places">Your Favorite Places</string>
     <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <!-- TODO: Remove or change this placeholder text -->
 
 </resources>

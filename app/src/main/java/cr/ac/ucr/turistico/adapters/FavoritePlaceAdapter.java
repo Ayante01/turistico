@@ -30,17 +30,16 @@ import java.util.Map;
 
 import cr.ac.ucr.turistico.PlaceActivity;
 import cr.ac.ucr.turistico.R;
-import cr.ac.ucr.turistico.fragments.PlaceFragment;
+import cr.ac.ucr.turistico.fragments.FavoritePlaceFragment;
 import cr.ac.ucr.turistico.models.Lugar;
-import cr.ac.ucr.turistico.models.PlacesLiked;
 import cr.ac.ucr.turistico.models.UsuarioLugar;
 
-public class PlaceAdapter extends RecyclerView.Adapter<PlaceAdapter.ViewHolder> implements ItemClickListener {
+public class FavoritePlaceAdapter extends RecyclerView.Adapter<FavoritePlaceAdapter.ViewHolder> implements ItemClickListener {
 
     private Context context;
     private ArrayList<Lugar> places;
+    FavoritePlaceFragment favoritePlaceFragment;
     private ArrayList<Button> buttons = new ArrayList<>();
-    PlaceFragment placeFragment;
 
     FirebaseAuth aAuth;
     FirebaseDatabase fbDatabase;
@@ -49,88 +48,38 @@ public class PlaceAdapter extends RecyclerView.Adapter<PlaceAdapter.ViewHolder> 
     DatabaseReference refUsersLikes;
     private ArrayList<String> placesID = new ArrayList<>();
 
-    /**
-     * estas variables son necesarias para la actualización de los likes
-     * para crear la tabla y obtener info del objeto PlacesLiked
-     * también a los array se le asigna lo que el PlaceFragment obtiene de Firebase
-     */
-
     private String uId = "";
 
     private int dbNumLikes;
     private ArrayList<UsuarioLugar> dbUserPlace;
 
-    public PlaceAdapter(Context context) {
+    public FavoritePlaceAdapter(Context context, FavoritePlaceFragment favoritePlaceFragment) {
         this.places = new ArrayList<>();
         this.context = context;
-        this.placeFragment = placeFragment;
+        this.favoritePlaceFragment = favoritePlaceFragment;
 
         fbDatabase = FirebaseDatabase.getInstance();
         refUsersLikes = fbDatabase.getReference("UPLikes");
         placesRef = fbDatabase.getReference("places");
-        dbUserPlace = new ArrayList<>();
+        aAuth = FirebaseAuth.getInstance();
 
-        refUsersLikes.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for (DataSnapshot ds : snapshot.getChildren()) {
-                    String idUser = ds.child("userID").getValue(String.class);
-                    String dbPlaceID = ds.child("placeID").getValue(String.class);
-                    placesID.add(dbPlaceID);
-                    UsuarioLugar userPlace = new UsuarioLugar();
-                    userPlace.setIdPlace(dbPlaceID);
-                    userPlace.setIdUser(idUser);
-                    dbUserPlace.add(userPlace);
-                }
-            }
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                Log.i("DataSnapshot: ", error.getMessage());
-            }
-        });
-    }
-
-    public void refreshDb() {
-        refUsersLikes.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                dbUserPlace.clear();
-                placesID.clear();
-                for (DataSnapshot ds : snapshot.getChildren()) {
-                    String idUser = ds.child("userID").getValue(String.class);
-                    String dbPlaceID = ds.child("placeID").getValue(String.class);
-                    placesID.add(dbPlaceID);
-                    UsuarioLugar userPlace = new UsuarioLugar();
-                    userPlace.setIdPlace(dbPlaceID);
-                    userPlace.setIdUser(idUser);
-                    dbUserPlace.add(userPlace);
-                }
-            }
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                Log.i("DataSnapshot: ", error.getMessage());
-            }
-        });
+        this.dbUserPlace = new ArrayList<>();
     }
 
     @NonNull
     @Override
-    public PlaceAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public FavoritePlaceAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.card_place, parent, false);
-
-        aAuth = FirebaseAuth.getInstance();
-        fbDatabase = FirebaseDatabase.getInstance();
-
         return new ViewHolder(view, this);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull PlaceAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull FavoritePlaceAdapter.ViewHolder holder, int position) {
         Lugar place = places.get(position);
 
         holder.tvPlaceName.setText(place.getPlace());
         holder.tvProvince.setText(place.getProvince());
-        holder.tvLikes.setText(""+place.getLikes());
+        holder.tvLikes.setText("" + place.getLikes());
 
         Glide.with(context)
                 .load(place.getImage())
@@ -138,13 +87,7 @@ public class PlaceAdapter extends RecyclerView.Adapter<PlaceAdapter.ViewHolder> 
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(holder.ivPlace);
 
-        uId = aAuth.getCurrentUser().getUid();
-        refreshDb();
-        for(UsuarioLugar userPlace : dbUserPlace){
-            if(uId.equals(userPlace.getIdUser()) && Integer.toString(place.getId()).equals(userPlace.getIdPlace())){
-                holder.btnLike.setBackground(ContextCompat.getDrawable(context, R.drawable.ic_heart_red));
-            }
-        }
+        holder.btnLike.setBackground(ContextCompat.getDrawable(context, R.drawable.ic_heart_red));
     }
 
     @Override
@@ -154,7 +97,6 @@ public class PlaceAdapter extends RecyclerView.Adapter<PlaceAdapter.ViewHolder> 
 
     public void addPlaces(ArrayList<Lugar> places) {
         this.places.addAll(places);
-
         notifyDataSetChanged();
     }
 
@@ -169,57 +111,16 @@ public class PlaceAdapter extends RecyclerView.Adapter<PlaceAdapter.ViewHolder> 
                 break;
             case R.id.btn_like:
                 Lugar place2 = places.get(position);
-                if(consultDbPlaces(place2).equals("empty") || consultDbPlaces(place2).equals("add") ){
-                    buttons.get(position).setBackground(ContextCompat.getDrawable(context, R.drawable.ic_heart_red));
-                    addLike(place2);
-                    refreshDb();
-                }if(consultDbPlaces(place2).equals("delete")) {
+
                     buttons.get(position).setBackground(ContextCompat.getDrawable(context, R.drawable.ic_heart));
                     quitLike(place2);
-                    refreshDb();
-                }
                 break;
             default:
                 break;
         }
     }
 
-    private String consultDbPlaces(Lugar place) {
-        if(placesID.size() > 0){
-            for (String id : placesID) {
-                if (id.equals(Integer.toString(place.getId()))) {
-                    return "delete";
-                }
-            }
-            return "add";
-        }
-        return "empty";
-    }
 
-    /**
-     * addLike actualizay añade los likes de la tabla places y de la tabla intermedia placesLiked
-     */
-    private void addLike(Lugar place) {
-        uId = aAuth.getCurrentUser().getUid();
-        PlacesLiked placesLiked = new PlacesLiked();
-
-        dbNumLikes = 0;
-        dbNumLikes = place.getLikes() + 1;
-        place.setLikes(dbNumLikes);
-
-        Map<String, Object> placeUpdate = new HashMap<>();
-        placeUpdate.put(place.getPlace() + "/likes", dbNumLikes);
-        placesRef.updateChildren(placeUpdate);
-
-        placesLiked.setUserID(uId);
-        placesLiked.setPlaceID(Integer.toString(place.getId()));
-        refUsersLikes.child(uId + "_" + place.getPlace()).setValue(placesLiked);
-
-    }
-
-    /**
-     * quitLike actualiza y quita los likes de la tabla places y de la tabla intermedia placesLiked
-     */
     private void quitLike(Lugar place) {
         uId = aAuth.getCurrentUser().getUid();
         dbNumLikes = 0;
@@ -231,6 +132,8 @@ public class PlaceAdapter extends RecyclerView.Adapter<PlaceAdapter.ViewHolder> 
         refUsersLikes.updateChildren(placeUpdate);
         placeUpdate.put(place.getPlace() + "/likes", dbNumLikes);
         placesRef.updateChildren(placeUpdate);
+
+        favoritePlaceFragment.favoritePlacesFragment.setupViewPager();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
@@ -259,14 +162,10 @@ public class PlaceAdapter extends RecyclerView.Adapter<PlaceAdapter.ViewHolder> 
             cvPlaceCard.setOnClickListener(this);
             btnLike.setOnClickListener(this);
         }
+
         @Override
         public void onClick(View view) {
             listener.onClick(view, getLayoutPosition());
         }
     }
 }
-
-interface ItemClickListener {
-    void onClick(View view, int position);
-}
-

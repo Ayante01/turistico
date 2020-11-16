@@ -176,15 +176,16 @@ public class PlaceActivity extends AppCompatActivity implements OnMapReadyCallba
                         longitude = ds.child("longitude").getValue(Double.class);
 
                         mapRefresh(placeName);
+                        if(ds.child("image").getValue(String.class) != null){
+                            Glide.with(context)
+                                    .load(ds.child("image").getValue(String.class))
+                                    .centerCrop()
+                                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                                    .into(placeImg);
 
-                        Glide.with(context)
-                                .load(ds.child("image").getValue(String.class))
-                                .centerCrop()
-                                .diskCacheStrategy(DiskCacheStrategy.ALL)
-                                .into(placeImg);
-
-                        headerTitle.setText(ds.child("place").getValue(String.class));
-                        informationBody.setText(ds.child("info").getValue(String.class));
+                            headerTitle.setText(ds.child("place").getValue(String.class));
+                            informationBody.setText(ds.child("info").getValue(String.class));
+                        }
 
                         if (ds.child("transport").getValue(boolean.class) == false) {
                             firstService.setVisibility(View.GONE);
