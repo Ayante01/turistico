@@ -83,9 +83,9 @@ public class PlaceFragment extends Fragment {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot ds : snapshot.getChildren()) {
                     String dbUserID = ds.child("userID").getValue(String.class);
-                    int dbPlaceID = ds.child("placeID").getValue(Integer.class);
+                //    int dbPlaceID = ds.child("placeID").getValue(Integer.class);
                     users.add(dbUserID);
-                    placeID.add(dbPlaceID);
+                 //   placeID.add(dbPlaceID);
                 }
 
                 /**AQUI EL METODO*/

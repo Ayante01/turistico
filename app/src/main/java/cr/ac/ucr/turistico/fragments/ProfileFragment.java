@@ -9,8 +9,11 @@ package cr.ac.ucr.turistico.fragments;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,6 +29,7 @@ import androidx.fragment.app.Fragment;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.google.android.material.tooltip.TooltipDrawable;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -33,6 +37,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.tooltip.Tooltip;
 
 import java.util.ArrayList;
 
@@ -67,6 +72,9 @@ public class ProfileFragment extends Fragment implements View.OnClickListener{
     private ProfileFragment context;
 
     private int position = 0;
+    private Button btnBronzeWaterfall;
+    private Button btnSilverWaterfall;
+    private Button btnGoldWaterfall;
 
     /**
      * Constructor
@@ -105,6 +113,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener{
         dbName = new ArrayList<>();
         dbLastName = new ArrayList<>();
         dbImg = new ArrayList<>();
+
     }
 
     /**
@@ -128,12 +137,21 @@ public class ProfileFragment extends Fragment implements View.OnClickListener{
         userName = view.findViewById(R.id.tv_user_name);
         imgProfile = view.findViewById(R.id.iv_image_profile);
 
+        btnBronzeWaterfall = view.findViewById(R.id.btn_waterfall_bronze);
+        btnSilverWaterfall = view.findViewById(R.id.btn_waterfall_silver);
+        btnGoldWaterfall = view.findViewById(R.id.btn_waterfall_bronze);
+
+
         //Listener
+        //btnBronzeWaterfall.setOnClickListener(this);
+
+
         btnMedals.setOnClickListener(this);
         btnSettings.setOnClickListener(this);
         btnLogout.setOnClickListener(this);
         setName();
         return view;
+
     }
 
 
@@ -216,9 +234,28 @@ public class ProfileFragment extends Fragment implements View.OnClickListener{
             case R.id.btn_logout:
                 logout();
                 break;
+            case R.id.btn_waterfall_bronze:
+                showTooltip(view, Gravity.TOP);
+                break;
             default:
                 break;
         }
+    }
+
+    /**
+     * Método para mostrar los tooltips en el área de las medallas en perfil
+     *
+     */
+    private void showTooltip(View view, int gravity){
+        Button btn= (Button)view;
+        Tooltip tooltip = new Tooltip.Builder(btn)
+                .setText("This")
+                .setTextColor(Color.WHITE)
+                .setGravity(gravity)
+                .setCornerRadius(8f)
+                .setDismissOnClick(true)
+                .show();
+
     }
     /**
      * Metodo changeToSettings
