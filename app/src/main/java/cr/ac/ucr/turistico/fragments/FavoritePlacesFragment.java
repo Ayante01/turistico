@@ -13,6 +13,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 
@@ -21,14 +22,16 @@ import android.view.View;
 import android.view.ViewGroup;
 
 
+import com.google.firestore.v1.StructuredQuery;
+
 import cr.ac.ucr.turistico.R;
 
 
 public class FavoritePlacesFragment extends Fragment implements View.OnClickListener{
 
+    private static FavoritePlacesFragment fragment;
     private Context context;
     private AppCompatActivity activity;
-
     /**
      * Constructor
      */
@@ -54,9 +57,7 @@ public class FavoritePlacesFragment extends Fragment implements View.OnClickList
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        this.context = context;
         setupViewPager();
-
     }
 
     public void setupViewPager() {
@@ -67,6 +68,8 @@ public class FavoritePlacesFragment extends Fragment implements View.OnClickList
         ft.addToBackStack(null);
         ft.commit();
     }
+
+
     /**
      * Metodo onCreateView
      * @param inflater

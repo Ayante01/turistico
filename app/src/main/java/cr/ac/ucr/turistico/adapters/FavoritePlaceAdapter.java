@@ -110,7 +110,7 @@ public class FavoritePlaceAdapter extends RecyclerView.Adapter<FavoritePlaceAdap
                 context.startActivity(intent);
                 break;
             case R.id.btn_like:
-                Lugar place2 = places.get(position);
+                    Lugar place2 = places.get(position);
 
                     buttons.get(position).setBackground(ContextCompat.getDrawable(context, R.drawable.ic_heart));
                     quitLike(place2);

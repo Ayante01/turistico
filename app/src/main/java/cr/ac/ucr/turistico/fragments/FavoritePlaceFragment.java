@@ -46,7 +46,7 @@ public class FavoritePlaceFragment extends Fragment {
     private ProgressBar pbLoading;
     private RecyclerView rvPlaces;
 
-    private ArrayList<Lugar> placesLiked;
+
     FirebaseAuth aAuth;
     DatabaseReference placesRef;
 
@@ -76,7 +76,6 @@ public class FavoritePlaceFragment extends Fragment {
         placesRef = fbDatabase.getReference("places");
 
         this.dbUserPlace = new ArrayList<>();
-        this.placesLiked = new ArrayList<>();
 
         aAuth = FirebaseAuth.getInstance();
         fbDatabase = FirebaseDatabase.getInstance();
@@ -84,6 +83,7 @@ public class FavoritePlaceFragment extends Fragment {
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+                places.clear();
                 for (DataSnapshot ds : snapshot.getChildren()) {
                     boolean beach = ds.child("beach").getValue(boolean.class);
                     boolean wifi = ds.child("wifi").getValue(boolean.class);
@@ -126,30 +126,6 @@ public class FavoritePlaceFragment extends Fragment {
         refUsersLikes.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                placesID.clear();
-                dbUserPlace.clear();
-                for (DataSnapshot ds : snapshot.getChildren()) {
-                    String idUser = ds.child("userID").getValue(String.class);
-                    String dbPlaceID = ds.child("placeID").getValue(String.class);
-                    placesID.add(dbPlaceID);
-                    UsuarioLugar userPlace = new UsuarioLugar();
-                    userPlace.setIdPlace(dbPlaceID);
-                    userPlace.setIdUser(idUser);
-                    dbUserPlace.add(userPlace);
-                }
-                getPlacesInfo();
-            }
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                Log.i("DataSnapshot: ", error.getMessage());
-            }
-        });
-    }
-
-    public void refreshDb() {
-        refUsersLikes.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
                 dbUserPlace.clear();
                 placesID.clear();
                 for (DataSnapshot ds : snapshot.getChildren()) {
@@ -172,7 +148,7 @@ public class FavoritePlaceFragment extends Fragment {
 
     public void getPlacesInfo() {
         uId = aAuth.getCurrentUser().getUid();
-        placesLiked.clear();
+        ArrayList<Lugar> placesLiked = new ArrayList<>();;
         for(UsuarioLugar userPlace : dbUserPlace){
             for(Lugar place : places){
                 if(userPlace.getIdUser().equals(uId) && Integer.toString(place.getId()).equals(userPlace.getIdPlace())){

@@ -12,15 +12,12 @@
 package cr.ac.ucr.turistico;
 
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
+
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -28,7 +25,6 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import java.util.ArrayList;
 
 import cr.ac.ucr.turistico.adapters.MainViewPagerAdapter;
-import cr.ac.ucr.turistico.adapters.PlaceAdapter;
 import cr.ac.ucr.turistico.fragments.FavoritePlacesFragment;
 import cr.ac.ucr.turistico.fragments.HomeFragment;
 import cr.ac.ucr.turistico.fragments.ProfileFragment;
@@ -42,9 +38,11 @@ public class MainActivity extends AppCompatActivity{
     private BottomNavigationView bottomNavigationView;
     private MenuItem prevMenuItem;
 
-    SearchFragment searchFragment = new SearchFragment();
-    FavoritePlacesFragment favoritePlacesFragment = new FavoritePlacesFragment();
-
+    ArrayList<Fragment> fragments = new ArrayList<>();
+    SearchFragment searchFragment = SearchFragment.newInstance();
+    FavoritePlacesFragment favoritePlacesFragment = FavoritePlacesFragment.newInstance();
+    private int c = 0;
+    private int i = 0;
     /**
      * Metodo onCreate
      * Este metodo es ejecutrado al crearse la clase dentro de la aplicación
@@ -70,11 +68,9 @@ public class MainActivity extends AppCompatActivity{
      * ademas se crea un MainViewPagerAdapter y se agrega como adapter por medio de pager
      */
     private void setUpViewPager(){
-        ArrayList<Fragment> fragments = new ArrayList<>();
-
         fragments.add(HomeFragment.newInstance());
-        fragments.add(searchFragment.newInstance());
-        fragments.add(favoritePlacesFragment.newInstance());
+        fragments.add(searchFragment);
+        fragments.add(favoritePlacesFragment);
         fragments.add(ProfileFragment.newInstance());
 
         MainViewPagerAdapter mainViewPagerAdapter = new MainViewPagerAdapter(getSupportFragmentManager(), fragments);
@@ -95,9 +91,17 @@ public class MainActivity extends AppCompatActivity{
                         return true;
                     case R.id.search:
                         pager.setCurrentItem(1);
+                        if(c>0){
+                            searchFragment.changeToBeaches();
+                        }
+                        c++;
                         return true;
                     case R.id.favorites:
                         pager.setCurrentItem(2);
+                        if(i>0){
+                            favoritePlacesFragment.setupViewPager();
+                        }
+                        i++;
                         return true;
                     case R.id.profile:
                         pager.setCurrentItem(3);

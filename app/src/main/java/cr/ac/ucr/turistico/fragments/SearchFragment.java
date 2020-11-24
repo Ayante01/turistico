@@ -140,7 +140,7 @@ public class SearchFragment extends Fragment implements View.OnClickListener{
      * Metodo changeToWaterFall
      * Cambia el color de los botones y la tipografia
      */
-    private void changeToWaterFall() {
+    public void changeToWaterFall() {
         setupViewPager("Catarata");
         btnWaterfalls.setBackground(ContextCompat.getDrawable(activity, R.drawable.button));
         btnWaterfalls.setTextColor(ContextCompat.getColor(activity.getApplicationContext(), R.color.white));
@@ -154,7 +154,7 @@ public class SearchFragment extends Fragment implements View.OnClickListener{
      * Metodo changeToHills
      * Cambia el color de los botones y la tipografia
      */
-    private void changeToHills() {
+    public void changeToHills() {
         setupViewPager("Cerro");
         btnWaterfalls.setBackground(ContextCompat.getDrawable(activity, R.drawable.text_area));
         btnWaterfalls.setTextColor(ContextCompat.getColor(activity.getApplicationContext(), R.color.black));
@@ -162,14 +162,13 @@ public class SearchFragment extends Fragment implements View.OnClickListener{
         btnHills.setTextColor(ContextCompat.getColor(activity.getApplicationContext(), R.color.white));
         btnBeaches.setBackground(ContextCompat.getDrawable(activity, R.drawable.text_area));
         btnBeaches.setTextColor(ContextCompat.getColor(activity.getApplicationContext(), R.color.black));
-
     }
 
     /**
      * Metodo changeToBeaches
      * Cambia el color de los botones y la tipografia
      */
-    private void changeToBeaches() {
+    public void changeToBeaches() {
         setupViewPager("Playa");
         btnWaterfalls.setBackground(ContextCompat.getDrawable(activity, R.drawable.text_area));
         btnWaterfalls.setTextColor(ContextCompat.getColor(activity.getApplicationContext(), R.color.black));

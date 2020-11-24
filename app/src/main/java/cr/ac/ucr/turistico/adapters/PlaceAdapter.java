@@ -173,6 +173,7 @@ public class PlaceAdapter extends RecyclerView.Adapter<PlaceAdapter.ViewHolder> 
                     buttons.get(position).setBackground(ContextCompat.getDrawable(context, R.drawable.ic_heart_red));
                     addLike(place2);
                     refreshDb();
+
                 }if(consultDbPlaces(place2).equals("delete")) {
                     buttons.get(position).setBackground(ContextCompat.getDrawable(context, R.drawable.ic_heart));
                     quitLike(place2);
