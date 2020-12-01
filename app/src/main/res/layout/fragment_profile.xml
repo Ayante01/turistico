@@ -5,23 +5,15 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     tools:context=".fragments.ProfileFragment">
-    <androidx.cardview.widget.CardView
-        android:id="@+id/cv_user_image"
-        android:layout_width="140dp"
-        android:layout_height="140dp"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="55dp"
-        app:cardCornerRadius="75dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        >
-        <ImageView
-            android:id="@+id/iv_image_profile"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:src="@drawable/round_icon" />
-    </androidx.cardview.widget.CardView>
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/profile_image"
+            android:layout_width="110dp"
+            android:layout_height="110dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
+            android:src="@drawable/round_icon"
+            />
 
     <ImageView
         android:id="@+id/iv_watermark"
@@ -35,7 +27,7 @@
         android:id="@+id/tv_user_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/cv_user_image"
+        android:layout_below="@id/profile_image"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="8dp"
         android:fontFamily="@font/poppins_medium"

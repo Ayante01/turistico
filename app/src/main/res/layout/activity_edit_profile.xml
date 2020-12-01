@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".EditProfile">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/profile_image"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:src="@drawable/round_icon"
+        />
+
+    <EditText
+        android:id="@+id/ed_edit_name"
+        android:layout_width="wrap_content"
+        android:layout_height="55dp"
+        android:layout_marginBottom="5dp"
+        android:background="@drawable/text_area"
+        android:ems="16"
+        android:layout_centerHorizontal="true"
+        android:fontFamily="@font/poppins_bold"
+        android:hint="Edit your name"
+        android:inputType="textPersonName"
+        android:layout_below="@+id/change_profile_btn"
+        android:paddingLeft="25dp"
+        android:paddingRight="25dp"
+        android:textSize="14sp"/>
+
+    <TextView
+        android:id="@+id/change_profile_btn"
+        android:layout_below="@+id/profile_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Change Profile"
+        android:layout_centerHorizontal="true"
+        android:textSize="16dp"
+        android:fontFamily="@font/poppins_bold"
+        android:layout_marginTop="6dp"/>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_below="@id/ed_edit_name"
+        android:weightSum="2"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="16dp">
+
+        <Button
+            android:id="@+id/btn_cancel"
+            android:layout_width="wrap_content"
+            android:ems="6"
+            android:layout_height="wrap_content"
+            android:background="@drawable/button_cancel"
+            android:fontFamily="@font/poppins_semibold"
+            android:onClick="onClick"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:text="CANCEL"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="16sp"/>
+        <Button
+            android:id="@+id/btn_save"
+            android:layout_width="wrap_content"
+            android:ems="6"
+            android:layout_height="wrap_content"
+            android:background="@drawable/button"
+            android:fontFamily="@font/poppins_semibold"
+            android:onClick="onClick"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:text="SAVE"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="16sp"/>
+    </LinearLayout>
+
+</RelativeLayout>

@@ -102,6 +102,7 @@
     <string name="tag_gold">oro</string>
     <string name="tag_hills">cerros</string>
     <string name="tag_beach">playas</string>
+    <string name="title_activity_edit_profile">EditProfile</string>
     <!-- TODO: Remove or change this placeholder text -->
 
 </resources>

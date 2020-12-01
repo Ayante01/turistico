@@ -38,18 +38,22 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
 import com.tooltip.Tooltip;
 
 import java.util.ArrayList;
 
+import cr.ac.ucr.turistico.EditProfile;
+import cr.ac.ucr.turistico.FullImageActivity;
 import cr.ac.ucr.turistico.LoginActivity;
 import cr.ac.ucr.turistico.PlaceActivity;
 import cr.ac.ucr.turistico.R;
 import cr.ac.ucr.turistico.utils.AppPreferences;
+import de.hdodenhof.circleimageview.CircleImageView;
 
 import static android.content.ContentValues.TAG;
 
-public class ProfileFragment extends Fragment implements View.OnClickListener{
+public class ProfileFragment extends Fragment implements View.OnClickListener {
 
     private AppCompatActivity activity;
     private Button btnMedals;
@@ -57,6 +61,11 @@ public class ProfileFragment extends Fragment implements View.OnClickListener{
     private Button btnLogout;
     private ScrollView scrollViewMedals;
     private ScrollView scrollViewSettings;
+    private Button btnEditProfile;
+
+    private CircleImageView profileImageView;
+    private DatabaseReference databaseReference;
+
 
     private int counter = 0;
 
@@ -95,8 +104,10 @@ public class ProfileFragment extends Fragment implements View.OnClickListener{
     public ProfileFragment() {
         // Required empty public constructor
     }
+
     /**
-     *ProfileFragment newInstance
+     * ProfileFragment newInstance
+     *
      * @return fragment
      */
     public static ProfileFragment newInstance() {
@@ -105,6 +116,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener{
         fragment.setArguments(args);
         return fragment;
     }
+
     /**
      * Metodo onCreate
      * Este metodo es ejecutrado al crearse la clase dentro de la aplicación
@@ -119,7 +131,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener{
         fbDatabase = FirebaseDatabase.getInstance();
         myRef = fbDatabase.getReference("users");
         user = FirebaseAuth.getInstance().getCurrentUser();
-
+        databaseReference = FirebaseDatabase.getInstance().getReference().child("User");
         context = this;
 
         dbUsers = new ArrayList<>();
@@ -127,10 +139,12 @@ public class ProfileFragment extends Fragment implements View.OnClickListener{
         dbLastName = new ArrayList<>();
         dbImg = new ArrayList<>();
 
+
     }
 
     /**
      * Metodo onCreateView
+     *
      * @param inflater
      * @param container
      * @param savedInstanceState
@@ -146,9 +160,10 @@ public class ProfileFragment extends Fragment implements View.OnClickListener{
         scrollViewMedals = view.findViewById(R.id.sv_medals);
         scrollViewSettings = view.findViewById(R.id.sv_settings);
         scrollViewSettings.setVisibility(View.GONE);
+        btnEditProfile = view.findViewById(R.id.btn_edit_profile);
 
         userName = view.findViewById(R.id.tv_user_name);
-        imgProfile = view.findViewById(R.id.iv_image_profile);
+        profileImageView = view.findViewById(R.id.profile_image);
 
         btnBronzeWaterfall = view.findViewById(R.id.btn_waterfall_bronze);
         btnSilverWaterfall = view.findViewById(R.id.btn_waterfall_silver);
@@ -174,6 +189,8 @@ public class ProfileFragment extends Fragment implements View.OnClickListener{
         btnMedals.setOnClickListener(this);
         btnSettings.setOnClickListener(this);
         btnLogout.setOnClickListener(this);
+
+        getUserInfo();
         setName();
         return view;
 
@@ -182,7 +199,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener{
 
     /**
      * Metodo que recibe los datos de la base, los compara con el usuario logueado para asi setear el nombre correspondiente
-     * **/
+     **/
     private void setName() {
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
@@ -198,14 +215,14 @@ public class ProfileFragment extends Fragment implements View.OnClickListener{
                     dbImg.add(img);
                     userID = user.getUid();
 
-                    for(String id: dbUsers){
-                        if(userID.equals(id)) {
+                    for (String id : dbUsers) {
+                        if (userID.equals(id)) {
                             position = dbUsers.indexOf(userID);
-                            Log.e(" Img ", " "+dbImg.get(position));
+                            Log.e(" Img ", " " + dbImg.get(position));
                         }
                     }
 
-                    userName.setText(dbName.get(position)+" "+dbLastName.get(position));
+                    userName.setText(dbName.get(position) + " " + dbLastName.get(position));
                     Glide.with(context)
                             .load(dbImg.get(position))
                             .centerCrop()
@@ -226,6 +243,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener{
 
     /**
      * Metodo onAttach
+     *
      * @param context
      */
     @Override
@@ -233,6 +251,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener{
         super.onAttach(context);
         activity = (AppCompatActivity) context;
     }
+
     /**
      * Metodo onDetach
      */
@@ -241,15 +260,17 @@ public class ProfileFragment extends Fragment implements View.OnClickListener{
         super.onDetach();
         activity = null;
     }
+
     /**
      * Metodo onClick
      * Este metodo sera utilizado para escuchar a los botones creados en el XML y realizar acciones dependiendo
      * de cual boton sea seleccionado
+     *
      * @param view
      */
     @Override
-    public void onClick(View view){
-        switch (view.getId()){
+    public void onClick(View view) {
+        switch (view.getId()) {
             case R.id.btn_medals:
                 changeToMedals();
                 break;
@@ -258,6 +279,10 @@ public class ProfileFragment extends Fragment implements View.OnClickListener{
                 break;
             case R.id.btn_logout:
                 logout();
+                break;
+            case R.id.btn_edit_profile:
+                Intent intent = new Intent(getActivity(), EditProfile.class);
+                startActivity(intent);
                 break;
             case R.id.btn_waterfall_bronze:
                 showTooltip(view, Gravity.TOP, "1", getString(R.string.tag_wf), getString(R.string.tag_bronze));
@@ -293,14 +318,35 @@ public class ProfileFragment extends Fragment implements View.OnClickListener{
         }
     }
 
+    private void getUserInfo(){
+        databaseReference.child(aAuth.getCurrentUser().getUid()).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if(snapshot.exists() && snapshot.getChildrenCount() > 0){
+                    String name = snapshot.child("name").getValue().toString();
+                    userName.setText(name);
+
+                    if(snapshot.hasChild("image")){
+                        String image = snapshot.child("image").getValue().toString();
+                        Picasso.get().load(image).into(profileImageView);
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
     /**
      * Método para mostrar los tooltips en el área de las medallas en perfil
-     *
      */
-        private void showTooltip(View view, int gravity, String value, String lugar, String medalla){
-            btn = (Button)view;
-            tooltip = new Tooltip.Builder(btn)
-                .setText("Visita " + value + " " + lugar + " para obtener la medalla de "+ medalla)
+    private void showTooltip(View view, int gravity, String value, String lugar, String medalla) {
+        btn = (Button) view;
+        tooltip = new Tooltip.Builder(btn)
+                .setText("Visita " + value + " " + lugar + " para obtener la medalla de " + medalla)
                 .setTextColor(Color.WHITE)
                 .setBackgroundColor(Color.LTGRAY)
                 .setGravity(gravity)
@@ -311,7 +357,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener{
                 .setDismissOnClick(true)
                 .setPadding(30)
                 .show();
-        }
+    }
 
     /**
      * Metodo changeToSettings
@@ -325,6 +371,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener{
         scrollViewMedals.setVisibility(View.GONE);
         scrollViewSettings.setVisibility(View.VISIBLE);
     }
+
     /**
      * Metodo changeToMedals
      * Cambia el color de fondo del boton medals o settings y el color de la tipografia
@@ -337,6 +384,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener{
         scrollViewMedals.setVisibility(View.VISIBLE);
         scrollViewSettings.setVisibility(View.GONE);
     }
+
     /**
      * Metodo Logout
      * Cierra la sesion del usuario que se encuentre activo y redirige la aplicacion al Login Activity
@@ -348,4 +396,5 @@ public class ProfileFragment extends Fragment implements View.OnClickListener{
         startActivity(intent);
         activity.finish();
     }
+
 }
