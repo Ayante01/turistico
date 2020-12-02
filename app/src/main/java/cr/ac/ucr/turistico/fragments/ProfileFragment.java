@@ -131,7 +131,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
         fbDatabase = FirebaseDatabase.getInstance();
         myRef = fbDatabase.getReference("users");
         user = FirebaseAuth.getInstance().getCurrentUser();
-        databaseReference = FirebaseDatabase.getInstance().getReference().child("User");
+        databaseReference = FirebaseDatabase.getInstance().getReference().child("users");
         context = this;
 
         dbUsers = new ArrayList<>();
@@ -323,11 +323,11 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if(snapshot.exists() && snapshot.getChildrenCount() > 0){
-                    String name = snapshot.child("name").getValue().toString();
+                    String name = snapshot.child("nombre").getValue().toString();
                     userName.setText(name);
 
-                    if(snapshot.hasChild("image")){
-                        String image = snapshot.child("image").getValue().toString();
+                    if(snapshot.hasChild("imgPerfil")){
+                        String image = snapshot.child("imgPerfil").getValue().toString();
                         Picasso.get().load(image).into(profileImageView);
                     }
                 }
