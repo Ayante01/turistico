@@ -80,7 +80,6 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
     FirebaseUser user;
 
     TextView userName;
-    ImageView imgProfile;
     String userID = "";
 
     private ProfileFragment context;
@@ -227,7 +226,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
                             .load(dbImg.get(position))
                             .centerCrop()
                             .diskCacheStrategy(DiskCacheStrategy.ALL)
-                            .into(imgProfile);
+                            .into(profileImageView);
 
                 }
 

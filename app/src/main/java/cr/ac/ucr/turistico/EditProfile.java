@@ -57,6 +57,8 @@ public class EditProfile extends AppCompatActivity {
         aAuth = FirebaseAuth.getInstance();
         databaseReference = FirebaseDatabase.getInstance().getReference().child("users");
         storageProfilePicsRef = FirebaseStorage.getInstance().getReference().child("imgPerfil");
+        storageProfilePicsRef = FirebaseStorage.getInstance().getReference();
+
 
         profileImageView = findViewById(R.id.profile_image);
         cancelButton = findViewById(R.id.btn_cancel);
