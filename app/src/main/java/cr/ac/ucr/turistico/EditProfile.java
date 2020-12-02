@@ -40,7 +40,11 @@ public class EditProfile extends AppCompatActivity {
     private Button cancelButton;
     private Button saveButton;
     private TextView changeProfile;
+
     private EditText editName;
+    private EditText editLastName;
+    String newName = "";
+    String newLastName = "";
 
     private DatabaseReference databaseReference;
     private FirebaseAuth aAuth;
@@ -59,6 +63,8 @@ public class EditProfile extends AppCompatActivity {
         storageProfilePicsRef = FirebaseStorage.getInstance().getReference().child("imgPerfil");
         storageProfilePicsRef = FirebaseStorage.getInstance().getReference();
 
+        editName = findViewById(R.id.ed_edit_name);
+        editLastName = findViewById(R.id.ed_edit_last);
 
         profileImageView = findViewById(R.id.profile_image);
         cancelButton = findViewById(R.id.btn_cancel);
@@ -124,6 +130,8 @@ public class EditProfile extends AppCompatActivity {
 
     private void  uploadProfileInfo(){
         final ProgressDialog progressDialog = new ProgressDialog(this);
+        newName = editName.getText().toString().trim();
+        newLastName = editLastName.getText().toString().trim();
         progressDialog.setTitle("Set your profile");
         progressDialog.setMessage("Please wait while your data is being setting");
         progressDialog.show();
@@ -151,6 +159,8 @@ public class EditProfile extends AppCompatActivity {
 
                         HashMap<String, Object> userMap = new HashMap<>();
                         userMap.put("imgPerfil", myUri);
+                        userMap.put("nombre", newName);
+                        userMap.put("apellido", newLastName);
                         databaseReference.child(aAuth.getCurrentUser().getUid()).updateChildren(userMap);
                         progressDialog.dismiss();
                     }

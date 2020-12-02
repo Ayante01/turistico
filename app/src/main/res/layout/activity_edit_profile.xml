@@ -31,6 +31,22 @@
         android:paddingRight="25dp"
         android:textSize="14sp"/>
 
+    <EditText
+        android:id="@+id/ed_edit_last"
+        android:layout_width="wrap_content"
+        android:layout_height="55dp"
+        android:layout_marginBottom="5dp"
+        android:background="@drawable/text_area"
+        android:ems="16"
+        android:layout_centerHorizontal="true"
+        android:fontFamily="@font/poppins_bold"
+        android:hint="Edit your last name"
+        android:inputType="textPersonName"
+        android:layout_below="@+id/ed_edit_name"
+        android:paddingLeft="25dp"
+        android:paddingRight="25dp"
+        android:textSize="14sp"/>
+
     <TextView
         android:id="@+id/change_profile_btn"
         android:layout_below="@+id/profile_image"
@@ -46,7 +62,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_below="@id/ed_edit_name"
+        android:layout_below="@id/ed_edit_last"
         android:weightSum="2"
         android:layout_centerHorizontal="true"
         android:layout_margin="16dp">
@@ -58,7 +74,6 @@
             android:layout_height="wrap_content"
             android:background="@drawable/button_cancel"
             android:fontFamily="@font/poppins_semibold"
-            android:onClick="onClick"
             android:layout_marginStart="10dp"
             android:layout_marginEnd="10dp"
             android:text="CANCEL"
@@ -72,7 +87,6 @@
             android:layout_height="wrap_content"
             android:background="@drawable/button"
             android:fontFamily="@font/poppins_semibold"
-            android:onClick="onClick"
             android:layout_marginStart="10dp"
             android:layout_marginEnd="10dp"
             android:text="SAVE"

@@ -59,6 +59,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
     private Button btnMedals;
     private Button btnSettings;
     private Button btnLogout;
+    private Button btnEdit;
     private ScrollView scrollViewMedals;
     private ScrollView scrollViewSettings;
     private Button btnEditProfile;
@@ -159,7 +160,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
         scrollViewMedals = view.findViewById(R.id.sv_medals);
         scrollViewSettings = view.findViewById(R.id.sv_settings);
         scrollViewSettings.setVisibility(View.GONE);
-        btnEditProfile = view.findViewById(R.id.btn_edit_profile);
+        btnEdit = view.findViewById(R.id.btn_edit_profile);
 
         userName = view.findViewById(R.id.tv_user_name);
         profileImageView = view.findViewById(R.id.profile_image);
@@ -188,6 +189,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
         btnMedals.setOnClickListener(this);
         btnSettings.setOnClickListener(this);
         btnLogout.setOnClickListener(this);
+        btnEdit.setOnClickListener(this);
 
         getUserInfo();
         setName();
@@ -280,7 +282,8 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
                 logout();
                 break;
             case R.id.btn_edit_profile:
-                Intent intent = new Intent(getActivity(), EditProfile.class);
+                AppPreferences.getInstance(activity).clear();
+                Intent intent = new Intent(activity, EditProfile.class);
                 startActivity(intent);
                 break;
             case R.id.btn_waterfall_bronze:
