@@ -137,7 +137,7 @@ public class EditProfile extends AppCompatActivity {
         progressDialog.show();
 
         if(imageUri != null){
-            final StorageReference fileRef = storageProfilePicsRef
+            final StorageReference fileRef = storageProfilePicsRef.child("fotosPerfil")
                     .child(aAuth.getCurrentUser().getUid()+".jpg");
             uploadTask = fileRef.putFile(imageUri);
 
