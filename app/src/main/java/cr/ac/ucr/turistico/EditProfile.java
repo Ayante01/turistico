@@ -56,7 +56,7 @@ public class EditProfile extends AppCompatActivity {
 
         aAuth = FirebaseAuth.getInstance();
         databaseReference = FirebaseDatabase.getInstance().getReference().child("User");
-        storageProfilePicsRef = FirebaseStorage.getInstance().getReference().child("Profile Pic");
+        storageProfilePicsRef = FirebaseStorage.getInstance().getReference().child("imgPerfil");
 
         profileImageView = findViewById(R.id.profile_image);
         cancelButton = findViewById(R.id.btn_cancel);
@@ -92,8 +92,8 @@ public class EditProfile extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if(snapshot.exists() && snapshot.getChildrenCount() > 0){
-                    if(snapshot.hasChild("image")){
-                        String image = snapshot.child("image").getValue().toString();
+                    if(snapshot.hasChild("imgPerfil")){
+                        String image = snapshot.child("imgPerfil").getValue().toString();
                         Picasso.get().load(image).into(profileImageView);
                     }
                 }

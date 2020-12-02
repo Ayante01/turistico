@@ -4,7 +4,6 @@
     package="cr.ac.ucr.turistico">
 
     <uses-permission android:name="android.permission.WAKE_LOCK" />
-    <uses-feature android:name="android.hardware.type.watch" />
     <!--
          The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
          Google Maps Android API v2, but you must specify either coarse or fine
@@ -37,9 +36,9 @@
             </intent-filter>
         </activity>
 
-        <uses-library
+        <!-- <uses-library
             android:name="com.google.android.wearable"
-            android:required="true" />
+            android:required="true" />-->
         <!--
                Set to true if your app is Standalone, that is, it does not require the handheld
                app to run.

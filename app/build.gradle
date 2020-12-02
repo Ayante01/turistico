@@ -52,7 +52,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-database:19.4.0'
     implementation 'com.google.firebase:firebase-firestore:21.2.1'
     implementation 'com.google.firebase:firebase-core:17.0.0'
-    implementation 'com.google.firebase:firebase-storage:11.0.4'
+    implementation 'com.google.firebase:firebase-storage:19.2.0'
 
     implementation 'com.github.bumptech.glide:glide:4.11.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.11.0'
@@ -63,7 +63,7 @@ dependencies {
     compileOnly 'com.google.android.wearable:wearable:2.6.0'
 
     //form dialog implementations
-    implementation 'com.theartofdev.edmodo:android-image-cropper:2.4.+'
+    implementation 'com.theartofdev.edmodo:android-image-cropper:2.8.+'
     implementation 'com.squareup.picasso:picasso:2.71828'
 
 
