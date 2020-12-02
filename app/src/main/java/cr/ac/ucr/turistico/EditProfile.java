@@ -150,7 +150,7 @@ public class EditProfile extends AppCompatActivity {
                         myUri = downloadUrl.toString();
 
                         HashMap<String, Object> userMap = new HashMap<>();
-                        userMap.put("image", myUri);
+                        userMap.put("imgPerfil", myUri);
                         databaseReference.child(aAuth.getCurrentUser().getUid()).updateChildren(userMap);
                         progressDialog.dismiss();
                     }
