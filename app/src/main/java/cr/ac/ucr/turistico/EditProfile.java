@@ -3,6 +3,7 @@ package cr.ac.ucr.turistico;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -32,9 +33,12 @@ import com.theartofdev.edmodo.cropper.CropImage;
 import java.util.HashMap;
 
 import cr.ac.ucr.turistico.fragments.ProfileFragment;
+import cr.ac.ucr.turistico.utils.AppPreferences;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class EditProfile extends AppCompatActivity implements View.OnClickListener {
+
+    private static final int SECOND_ACTIVITY_REQUEST_CODE = 0;
 
     private CircleImageView profileImageView;
     private Button cancelButton;
@@ -158,12 +162,12 @@ public class EditProfile extends AppCompatActivity implements View.OnClickListen
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btn_cancel:
-                Intent cancel = new Intent(EditProfile.this, ProfileFragment.class);
+                Intent cancel = new Intent(EditProfile.this, MainActivity.class);
                 startActivity(cancel);
                 break;
             case R.id.btn_save:
                 uploadProfileInfo();
-                Intent save = new Intent(EditProfile.this, ProfileFragment.class);
+                Intent save = new Intent(EditProfile.this, MainActivity.class);
                 startActivity(save);
                 break;
             case R.id.change_profile_btn:
