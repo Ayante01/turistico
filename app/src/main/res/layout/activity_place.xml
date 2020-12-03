@@ -163,6 +163,17 @@
                 android:paddingBottom="20dp"
                 android:stretchMode="columnWidth"
                 android:verticalSpacing="9dp" />
+            <Button
+                android:id="@+id/btn_forgot_password"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_gravity="center"
+                android:background="@android:color/transparent"
+                android:fontFamily="@font/poppins_semibold"
+                android:text="@string/btn_upload_gallery"
+                android:textAllCaps="false"
+                android:textColor="@color/purple"
+                android:textSize="16sp" />
             <ImageView
                 android:id="@+id/iv_line"
                 android:layout_width="wrap_content"
@@ -173,6 +184,7 @@
                 android:background="@drawable/line"
                 android:contentDescription="@string/divisor_line"
                 tools:ignore="DuplicateIds" />
+
 
             <TextView
                 android:id="@+id/tv_services_subtitle"

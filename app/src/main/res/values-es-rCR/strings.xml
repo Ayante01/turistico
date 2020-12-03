@@ -98,5 +98,6 @@
     <string name="tag_gold">oro</string>
     <string name="tag_hills">cerros</string>
     <string name="tag_beach">playas</string>
+    <string name="btn_upload_gallery">Sube tus propias fotos</string>
 
 </resources>

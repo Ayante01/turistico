@@ -95,7 +95,6 @@
     <string name="error_password_length">Password too short, please use at least 6 characters</string>
     <string name="favorite_places">Your Favorite Places</string>
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="tag_wf">cataratas</string>
     <string name="tag_bronze">bronce</string>
     <string name="tag_silver">plata</string>
@@ -103,6 +102,7 @@
     <string name="tag_hills">cerros</string>
     <string name="tag_beach">playas</string>
     <string name="title_activity_edit_profile">EditProfile</string>
+    <string name="btn_upload_gallery">Upload your own photos</string>
     <!-- TODO: Remove or change this placeholder text -->
 
 </resources>
