@@ -8,18 +8,24 @@
 package cr.ac.ucr.turistico;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import android.app.ProgressDialog;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
@@ -29,11 +35,21 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.tasks.Continuation;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.StorageTask;
+import com.squareup.picasso.Picasso;
+import com.theartofdev.edmodo.cropper.CropImage;
+
+import java.util.HashMap;
 
 import cr.ac.ucr.turistico.adapters.ImageAdapter;
 
@@ -66,6 +82,14 @@ public class PlaceActivity extends AppCompatActivity implements OnMapReadyCallba
 
     private PlaceActivity context;
     private Toolbar tToolbar;
+    private Button btnUpload;
+
+    private DatabaseReference databaseReference;
+    private FirebaseAuth aAuth;
+    private Uri imageUri;
+    private String myUri = "";
+    private StorageTask uploadTask;
+    private StorageReference storageProfilePicsRef;
 
     /**
      * Método onCreate
@@ -77,6 +101,7 @@ public class PlaceActivity extends AppCompatActivity implements OnMapReadyCallba
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_place);
+
 
         firstService = findViewById(R.id.ly_first_service);
         secondService = findViewById(R.id.ly_second_service);
@@ -94,6 +119,18 @@ public class PlaceActivity extends AppCompatActivity implements OnMapReadyCallba
         placeImg = findViewById(R.id.iv_place_img);
         headerTitle = findViewById(R.id.tv_header_title);
         informationBody = findViewById(R.id.tv_information_body);
+
+        btnUpload = findViewById(R.id.btn_upload_gallery);
+
+        btnUpload.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                uploadGalleryPic();
+            }
+        });
+
+        getPlaceInfo();
+
 
         Intent intent = getIntent();
 
@@ -215,5 +252,78 @@ public class PlaceActivity extends AppCompatActivity implements OnMapReadyCallba
                 Log.i("DataSnapshot: ", error.getMessage());
             }
         });
+    }
+
+    private void getPlaceInfo() {
+        databaseReference.child(aAuth.getCurrentUser().getUid()).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists() && snapshot.getChildrenCount() > 0) {
+                    if (snapshot.hasChild("imgLugar")) {
+                        String image = snapshot.child("imgLugar").getValue().toString();
+                       // Picasso.get().load(image).into(profileImageView);
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE && resultCode == RESULT_OK && data != null) {
+            CropImage.ActivityResult result = CropImage.getActivityResult(data);
+            imageUri = result.getUri();
+
+         //   profileImageView.setImageURI(imageUri);
+        } else {
+            Toast.makeText(this, "Error, Try again", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void uploadGalleryPic() {
+        final ProgressDialog progressDialog = new ProgressDialog(this);
+
+        progressDialog.setTitle("Upload your photo");
+        progressDialog.setMessage("Please wait while your photo is uploading");
+        progressDialog.show();
+
+        if (imageUri != null) {
+            final StorageReference fileRef = storageProfilePicsRef.child("fotosLugar")
+                    .child(aAuth.getCurrentUser().getUid() + ".jpg");
+            uploadTask = fileRef.putFile(imageUri);
+            uploadTask.continueWithTask(new Continuation() {
+                @Override
+                public Object then(@NonNull Task task) throws Exception {
+                    if (!task.isSuccessful()) {
+                        throw task.getException();
+                    }
+                    return fileRef.getDownloadUrl();
+                }
+            }).addOnCompleteListener(new OnCompleteListener<Uri>() {
+                @Override
+                public void onComplete(@NonNull Task<Uri> task) {
+                    if (task.isSuccessful()) {
+                        Uri downloadUrl = task.getResult();
+                        myUri = downloadUrl.toString();
+
+                        HashMap<String, Object> userMap = new HashMap<>();
+                        userMap.put("imgLugar", myUri);
+
+                        databaseReference.child(aAuth.getCurrentUser().getUid()).updateChildren(userMap);
+                        progressDialog.dismiss();
+                    }
+                }
+            });
+        } else {
+            progressDialog.dismiss();
+            Toast.makeText(this, "Image not selected", Toast.LENGTH_SHORT).show();
+        }
     }
 }

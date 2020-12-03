@@ -39,8 +39,6 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class EditProfile extends AppCompatActivity implements View.OnClickListener {
 
-    private static final int SECOND_ACTIVITY_REQUEST_CODE = 0;
-
     private CircleImageView profileImageView;
     private Button cancelButton;
     private Button saveButton;

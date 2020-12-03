@@ -164,7 +164,7 @@
                 android:stretchMode="columnWidth"
                 android:verticalSpacing="9dp" />
             <Button
-                android:id="@+id/btn_forgot_password"
+                android:id="@+id/btn_upload_gallery"
                 android:layout_width="wrap_content"
                 android:layout_height="30dp"
                 android:layout_gravity="center"
