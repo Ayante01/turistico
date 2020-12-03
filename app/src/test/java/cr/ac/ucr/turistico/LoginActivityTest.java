@@ -19,10 +19,10 @@ public class LoginActivityTest {
 
     @Test
     public void readString_Login(){
-        LoginActivity loginTest = new LoginActivity(mMockContext);
+        LoginActivity loginTest = new LoginActivity();
 
-        //String result = loginTest.validate("user", "passwod");
+        String result = loginTest.validate("user", "password");
 
-        //assertThat(result, is(FAKE_STRING));
+        assertThat(result, is(FAKE_STRING));
     }
 }

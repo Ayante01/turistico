@@ -44,23 +44,23 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.StorageTask;
 import com.squareup.picasso.Picasso;
 import com.theartofdev.edmodo.cropper.CropImage;
 
 import java.util.HashMap;
+import java.util.Random;
 
 import cr.ac.ucr.turistico.adapters.ImageAdapter;
+import cr.ac.ucr.turistico.fragments.PlaceFragment;
 
 public class PlaceActivity extends AppCompatActivity implements OnMapReadyCallback {
     /**
      * Variable tipo GoogleMap
      */
     private GoogleMap mMap;
-    private FirebaseDatabase fbDatabase;
-
-    private DatabaseReference myRef;
 
     private ImageView placeImg;
     private TextView headerTitle;
@@ -84,12 +84,15 @@ public class PlaceActivity extends AppCompatActivity implements OnMapReadyCallba
     private Toolbar tToolbar;
     private Button btnUpload;
 
-    private DatabaseReference databaseReference;
     private FirebaseAuth aAuth;
     private Uri imageUri;
     private String myUri = "";
+    private String placeTitle = "";
     private StorageTask uploadTask;
-    private StorageReference storageProfilePicsRef;
+    private FirebaseDatabase fbDatabase;
+    private DatabaseReference myRefUser;
+    private DatabaseReference myRefPlace;
+    private StorageReference storagePicPlace;
 
     /**
      * Método onCreate
@@ -122,15 +125,18 @@ public class PlaceActivity extends AppCompatActivity implements OnMapReadyCallba
 
         btnUpload = findViewById(R.id.btn_upload_gallery);
 
+        fbDatabase = FirebaseDatabase.getInstance();
+        aAuth = FirebaseAuth.getInstance();
+        myRefUser = fbDatabase.getReference("users");
+        myRefPlace = fbDatabase.getReference("places");
+        storagePicPlace = FirebaseStorage.getInstance().getReference();
+
         btnUpload.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                uploadGalleryPic();
+                CropImage.activity().setAspectRatio(1, 1).start(PlaceActivity.this);
             }
         });
-
-        getPlaceInfo();
-
 
         Intent intent = getIntent();
 
@@ -172,6 +178,7 @@ public class PlaceActivity extends AppCompatActivity implements OnMapReadyCallba
 
         setSupportActionBar(tToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
     }
 
     /**
@@ -203,8 +210,8 @@ public class PlaceActivity extends AppCompatActivity implements OnMapReadyCallba
 
     public void setPlaceInfo(final String placeName) {
         fbDatabase = FirebaseDatabase.getInstance();
-        myRef = fbDatabase.getReference("places");
-        myRef.addValueEventListener(new ValueEventListener() {
+        myRefUser = fbDatabase.getReference("places");
+        myRefUser.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot ds : snapshot.getChildren()) {
@@ -221,6 +228,7 @@ public class PlaceActivity extends AppCompatActivity implements OnMapReadyCallba
                                     .into(placeImg);
 
                             headerTitle.setText(ds.child("place").getValue(String.class));
+                            placeTitle = ""+ds.child("place").getValue(String.class);
                             informationBody.setText(ds.child("info").getValue(String.class));
                         }
 
@@ -254,25 +262,6 @@ public class PlaceActivity extends AppCompatActivity implements OnMapReadyCallba
         });
     }
 
-    private void getPlaceInfo() {
-        databaseReference.child(aAuth.getCurrentUser().getUid()).addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if (snapshot.exists() && snapshot.getChildrenCount() > 0) {
-                    if (snapshot.hasChild("imgLugar")) {
-                        String image = snapshot.child("imgLugar").getValue().toString();
-                       // Picasso.get().load(image).into(profileImageView);
-                    }
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-    }
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -280,7 +269,7 @@ public class PlaceActivity extends AppCompatActivity implements OnMapReadyCallba
         if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE && resultCode == RESULT_OK && data != null) {
             CropImage.ActivityResult result = CropImage.getActivityResult(data);
             imageUri = result.getUri();
-
+            uploadGalleryPic();
          //   profileImageView.setImageURI(imageUri);
         } else {
             Toast.makeText(this, "Error, Try again", Toast.LENGTH_SHORT).show();
@@ -289,14 +278,14 @@ public class PlaceActivity extends AppCompatActivity implements OnMapReadyCallba
 
     private void uploadGalleryPic() {
         final ProgressDialog progressDialog = new ProgressDialog(this);
-
         progressDialog.setTitle("Upload your photo");
         progressDialog.setMessage("Please wait while your photo is uploading");
         progressDialog.show();
-
+        Random rand = new Random();
+        int n = rand.nextInt(200000);
         if (imageUri != null) {
-            final StorageReference fileRef = storageProfilePicsRef.child("fotosLugar")
-                    .child(aAuth.getCurrentUser().getUid() + ".jpg");
+            final StorageReference fileRef = storagePicPlace.child("fotosLugar")
+                    .child(""+n);
             uploadTask = fileRef.putFile(imageUri);
             uploadTask.continueWithTask(new Continuation() {
                 @Override
@@ -316,7 +305,7 @@ public class PlaceActivity extends AppCompatActivity implements OnMapReadyCallba
                         HashMap<String, Object> userMap = new HashMap<>();
                         userMap.put("imgLugar", myUri);
 
-                        databaseReference.child(aAuth.getCurrentUser().getUid()).updateChildren(userMap);
+                        myRefPlace.child(placeTitle).updateChildren(userMap);
                         progressDialog.dismiss();
                     }
                 }
