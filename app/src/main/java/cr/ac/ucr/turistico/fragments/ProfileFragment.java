@@ -201,7 +201,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
     /**
      * Metodo que recibe los datos de la base, los compara con el usuario logueado para asi setear el nombre correspondiente
      **/
-    private void setName() {
+    public void setName() {
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -320,7 +320,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
         }
     }
 
-    private void getUserInfo(){
+    public void getUserInfo(){
         databaseReference.child(aAuth.getCurrentUser().getUid()).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {

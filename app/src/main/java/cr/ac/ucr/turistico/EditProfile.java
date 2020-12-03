@@ -9,6 +9,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -64,7 +65,6 @@ public class EditProfile extends AppCompatActivity implements View.OnClickListen
 
         aAuth = FirebaseAuth.getInstance();
         databaseReference = FirebaseDatabase.getInstance().getReference().child("users");
-        storageProfilePicsRef = FirebaseStorage.getInstance().getReference().child("imgPerfil");
         storageProfilePicsRef = FirebaseStorage.getInstance().getReference();
 
         editName = findViewById(R.id.ed_edit_name);
@@ -127,7 +127,6 @@ public class EditProfile extends AppCompatActivity implements View.OnClickListen
             final StorageReference fileRef = storageProfilePicsRef.child("fotosPerfil")
                     .child(aAuth.getCurrentUser().getUid() + ".jpg");
             uploadTask = fileRef.putFile(imageUri);
-
             uploadTask.continueWithTask(new Continuation() {
                 @Override
                 public Object then(@NonNull Task task) throws Exception {
