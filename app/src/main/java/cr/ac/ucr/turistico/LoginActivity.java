@@ -11,6 +11,7 @@ package cr.ac.ucr.turistico;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -33,6 +34,10 @@ import java.util.ArrayList;
 import cr.ac.ucr.turistico.utils.AppPreferences;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener{
+
+    /**public LoginActivity(Context context) {
+
+    }**/
 
     /**
      * Variables
@@ -158,4 +163,22 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         startActivity(intent);
         finish();
     }
+
+    public String validate(String userName, String password) {
+        if (userName.equals("user") && password.equals("password"))
+            return "Login was successful";
+        if (userName.equals("user") && password!="password")
+            return "User or passwword incorrect";
+        if (userName!="user" && password.equals("password"))
+            return "User or passwword incorrect";
+        if (userName.equals("user") && password.equals(""))
+            return "Please enter a password";
+        if (userName.equals("") && password.equals("password"))
+            return "Please enter an user";
+        if (userName.equals("") && password.equals(""))
+            return "Void";
+        else
+            return "Invalid login!";
+    }
+
 }
