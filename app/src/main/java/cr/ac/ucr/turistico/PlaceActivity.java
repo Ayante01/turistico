@@ -80,6 +80,13 @@ public class PlaceActivity extends AppCompatActivity implements OnMapReadyCallba
     private ImageView lineThirdService;
     private ImageView lineFourthService;
 
+    private ImageView gallery1;
+    private ImageView gallery2;
+    private ImageView gallery3;
+    private ImageView gallery4;
+    private ImageView gallery5;
+    private ImageView gallery6;
+
     private double latitude;
     private double longitude;
 
@@ -123,6 +130,13 @@ public class PlaceActivity extends AppCompatActivity implements OnMapReadyCallba
         lineSecondService = findViewById(R.id.iv_line_second_service);
         lineThirdService = findViewById(R.id.iv_line_third_service);
         lineFourthService = findViewById(R.id.iv_line_fourth_service);
+
+        gallery1 = findViewById(R.id.img_view1);
+        gallery2 = findViewById(R.id.img_view2);
+        gallery3 = findViewById(R.id.img_view3);
+        gallery4 = findViewById(R.id.img_view4);
+        gallery5 = findViewById(R.id.img_view5);
+        gallery6 = findViewById(R.id.img_view6);
 
         context = this;
 
@@ -252,6 +266,7 @@ public class PlaceActivity extends AppCompatActivity implements OnMapReadyCallba
                             headerTitle.setText(ds.child("place").getValue(String.class));
                             placeTitle = ""+ds.child("place").getValue(String.class);
                             searchPlace();
+                            loadGalleryPic();
                             informationBody.setText(ds.child("info").getValue(String.class));
                         }
 
@@ -285,6 +300,39 @@ public class PlaceActivity extends AppCompatActivity implements OnMapReadyCallba
         });
     }
 
+    private void loadGalleryPic() {
+        Glide.with(context)
+                .load(localImages.get(0))
+                .centerCrop()
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .into(gallery1);
+        Glide.with(context)
+                .load(localImages.get(1))
+                .centerCrop()
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .into(gallery2);
+        Glide.with(context)
+                .load(localImages.get(2))
+                .centerCrop()
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .into(gallery3);
+        Glide.with(context)
+                .load(localImages.get(3))
+                .centerCrop()
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .into(gallery4);
+        Glide.with(context)
+                .load(localImages.get(4))
+                .centerCrop()
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .into(gallery5);
+        Glide.with(context)
+                .load(localImages.get(5))
+                .centerCrop()
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .into(gallery6);
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -304,10 +352,10 @@ public class PlaceActivity extends AppCompatActivity implements OnMapReadyCallba
         progressDialog.setMessage("Please wait while your photo is uploading");
         progressDialog.show();
         Random rand = new Random();
-        int n = rand.nextInt(200000);
+        int randNumPic = rand.nextInt(200000);
         if (imageUri != null) {
             final StorageReference fileRef = storagePicPlace.child("fotosLugar")
-                    .child(""+n);
+                    .child(placeTitle+"_"+randNumPic);
             uploadTask = fileRef.putFile(imageUri);
             uploadTask.continueWithTask(new Continuation() {
                 @Override
