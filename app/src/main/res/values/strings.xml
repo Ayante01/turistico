@@ -111,6 +111,13 @@
 
     <string name="title_activity_edit_profile">EditProfile</string>
     <string name="btn_upload_gallery">Upload your own photos</string>
+    <string name="your_favorite_places">Your favorite places</string>
+    <string name="medallas">Medals : 0</string>
+    <string name="edit_your_name">Edit your name</string>
+    <string name="edit_your_last_name">Edit your last name</string>
+    <string name="cancel">CANCEL</string>
+    <string name="save">SAVE</string>
+    <string name="change_profile">Change avatar</string>
     <!-- TODO: Remove or change this placeholder text -->
 
 </resources>

@@ -107,5 +107,13 @@
 
     <string name="title_activity_edit_profile">Editar Perfil</string>
     <string name="btn_upload_gallery">Sube tus propias fotos</string>
+    <string name="your_favorite_places">Tus lugares favoritos</string>
+    <string name="medallas">Medallas : 0</string>
+
+    <string name="edit_your_name">Edita tu nombre</string>
+    <string name="edit_your_last_name">Edita tu apellido</string>
+    <string name="cancel">CANCELAR</string>
+    <string name="save">GUARDAR</string>
+    <string name="change_profile">Cambiar avatar</string>
 
 </resources>

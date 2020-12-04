@@ -48,7 +48,7 @@
         android:text="@string/login"
         android:textColor="@color/white"
         android:fontFamily="@font/poppins_semibold"
-        android:textAllCaps="false"/>
+        android:textAllCaps="true"/>
 
     <Button
         android:id="@+id/btn_go_to_register_one"
@@ -64,7 +64,7 @@
         android:text="@string/sign_up"
         android:textColor="@color/white"
         android:fontFamily="@font/poppins_semibold"
-        android:textAllCaps="false"/>
+        android:textAllCaps="true"/>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"

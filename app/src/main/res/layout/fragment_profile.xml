@@ -42,7 +42,7 @@
         android:layout_below="@id/tv_user_name"
         android:layout_centerHorizontal="true"
         android:fontFamily="@font/poppins_medium"
-        android:text="Medallas : 0"
+        android:text="@string/medallas"
         android:textColor="@color/black"
         android:textSize="16dp"/>
 

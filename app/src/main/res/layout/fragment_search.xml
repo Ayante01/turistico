@@ -39,8 +39,8 @@
                         android:orientation="horizontal">
 
                         <Button
-                            style="?android:attr/buttonBarButtonStyle"
                             android:id="@+id/btn_beach"
+                            style="?android:attr/buttonBarButtonStyle"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:layout_marginEnd="8dp"
@@ -54,8 +54,8 @@
                             android:textSize="16sp" />
 
                         <Button
-                            style="?android:attr/buttonBarButtonStyle"
                             android:id="@+id/btn_hill"
+                            style="?android:attr/buttonBarButtonStyle"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:layout_marginEnd="8dp"
@@ -68,8 +68,8 @@
                             android:textColor="@color/black"
                             android:textSize="16sp"/>
                         <Button
-                            style="?android:attr/buttonBarButtonStyle"
                             android:id="@+id/btn_waterfall"
+                            style="?android:attr/buttonBarButtonStyle"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:layout_marginEnd="8dp"
@@ -89,8 +89,8 @@
                 android:id="@+id/ly_places"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
                 android:layout_below="@+id/hsv_buttons"
+                android:orientation="vertical"
                 android:paddingBottom="50dp">
 
             </LinearLayout>
