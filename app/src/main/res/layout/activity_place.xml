@@ -185,8 +185,8 @@
 
                 <ImageView
                     android:id="@+id/img_view1"
-                    android:layout_width="110dp"
-                    android:layout_height="110dp"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
                     android:background="@drawable/manzanillo"
                     />
             </androidx.cardview.widget.CardView>
@@ -205,8 +205,8 @@
 
                 <ImageView
                     android:id="@+id/img_view2"
-                    android:layout_width="110dp"
-                    android:layout_height="110dp"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
                     android:background="@drawable/manzanillo"
                     />
             </androidx.cardview.widget.CardView>
@@ -225,8 +225,8 @@
 
                 <ImageView
                     android:id="@+id/img_view3"
-                    android:layout_width="110dp"
-                    android:layout_height="110dp"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
                     android:background="@drawable/manzanillo"
                     />
             </androidx.cardview.widget.CardView>
@@ -252,8 +252,8 @@
 
                     <ImageView
                         android:id="@+id/img_view4"
-                        android:layout_width="110dp"
-                        android:layout_height="110dp"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
                         android:background="@drawable/manzanillo"
                         />
                 </androidx.cardview.widget.CardView>
@@ -272,8 +272,8 @@
 
                     <ImageView
                         android:id="@+id/img_view5"
-                        android:layout_width="110dp"
-                        android:layout_height="110dp"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
                         android:background="@drawable/manzanillo"
                         />
                 </androidx.cardview.widget.CardView>
@@ -292,8 +292,8 @@
 
                     <ImageView
                         android:id="@+id/img_view6"
-                        android:layout_width="110dp"
-                        android:layout_height="110dp"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
                         android:background="@drawable/manzanillo"
                         />
                 </androidx.cardview.widget.CardView>
@@ -312,7 +312,7 @@
                 android:text="@string/btn_upload_gallery"
                 android:textAllCaps="true"
                 android:textColor="@color/white"
-                android:textSize="16sp" />
+                android:textSize="14sp" />
             <ImageView
                 android:id="@+id/iv_line"
                 android:layout_width="wrap_content"
