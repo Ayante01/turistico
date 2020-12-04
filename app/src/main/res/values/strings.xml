@@ -17,6 +17,8 @@
     <string name="error_last_name">Last Name required</string>
     <string name="logged_in">Logged in</string>
     <string name="no_match">Incorrect email or password</string>
+    <string name="error_password_length">Password too short, please use at least 6 characters</string>
+
 
     <string name="forgot_password">Forgot your password?</string>
     <string name="dont_have_account">Don´t have account?</string>
@@ -55,10 +57,12 @@
     <string name="protocol_subtitle">Find out about the protocols governed by the Ministry of Health</string>
     <string name="owner_text">By @daniela.alarcon</string>
     <string name="bestphoto_subtitle">We will publish the best photos taken by users</string>
+
     <string name="instructionfour">You can see the medals you have earned on your profile.</string>
     <string name="instructionthree">Our team will verify that the photo is from the same place and that it of your property.</string>
     <string name="instructiontwo">Click on the + in the gallery and upload a photo of the place.</string>
     <string name="instructionone">Go to the Discover section of each place you have visited.</string>
+
     <string name="silver">Silver</string>
     <string name="bronze">Bronze</string>
     <string name="gold">Gold</string>
@@ -83,24 +87,28 @@
 
     <string name="place_information">The Nauyaca Falls are located in a canyon of approximately eighty meters wide. One of the falls is 45 meters high in free fall and the other is 20 meters high in staggered fall, forming at the foot of it, a pool of 1,000 square meters and six meters deep. There are also other smaller natural pools.</string>
     <string name="information_title">The Nauyaca Falls</string>
+
     <string name="information">Information</string>
     <string name="ubication">Ubication</string>
     <string name="gallery">Gallery</string>
+
     <string name="near_services">Near services</string>
     <string name="transport">Transport</string>
     <string name="wi_fi">Wi-fi</string>
     <string name="near_beaches">Beaches</string>
     <string name="coffee_service">Cafeteria</string>
     <string name="restaurants">Restaurants</string>
-    <string name="error_password_length">Password too short, please use at least 6 characters</string>
     <string name="favorite_places">Your Favorite Places</string>
+
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="tag_wf">cataratas</string>
-    <string name="tag_bronze">bronce</string>
-    <string name="tag_silver">plata</string>
-    <string name="tag_gold">oro</string>
-    <string name="tag_hills">cerros</string>
-    <string name="tag_beach">playas</string>
+    <string name="tag_wf">waterfalls</string>
+    <string name="tag_hills">hills</string>
+    <string name="tag_beach">beaches</string>
+
+    <string name="tag_bronze">bronze</string>
+    <string name="tag_silver">silver</string>
+    <string name="tag_gold">gold</string>
+
     <string name="title_activity_edit_profile">EditProfile</string>
     <string name="btn_upload_gallery">Upload your own photos</string>
     <!-- TODO: Remove or change this placeholder text -->

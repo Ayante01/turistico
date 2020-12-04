@@ -17,6 +17,8 @@
     <string name="error_last_name">Tu apellido es requerido</string>
     <string name="logged_in">Logueado</string>
     <string name="no_match">Correo o contraseña incorrectos</string>
+    <string name="error_password_length"> Contraseña muy corta, debe utilizar al menos 6 caracteres </string>
+
 
     <string name="forgot_password">Olvidaste tu contraseña?</string>
     <string name="dont_have_account">No tienes cuenta?</string>
@@ -55,14 +57,16 @@
     <string name="protocol_subtitle">Infórmate acerca de los protocolos regidos por el Ministerio de Salud</string>
     <string name="owner_text">Por @daniela.alarcon</string>
     <string name="bestphoto_subtitle">Publicaremos las mejores fotos tomadas por los usuarios</string>
+
     <string name="instructionfour">Puedes ver las medallas que has ganado en tu perfil.</string>
     <string name="instructionthree">Nuestro equipo verificará que la fotografía sea del mismo lugar y que sea de tu propiedad.</string>
     <string name="instructiontwo">Da click al + en la galería y sube una fotografía del lugar.</string>
     <string name="instructionone">Ve a la seccion Descubre de cada lugar que hayas visitado.</string>
+
     <string name="silver">Plata</string>
     <string name="bronze">Bronce</string>
     <string name="gold">Oro</string>
-    <string name="divisor_line">Linea divisora</string>
+    <string name="divisor_line">Línea divisora</string>
     <string name="best_photo">Mejor foto</string>
     <string name="toucan_bullet_point">Viñeta de tucán</string>
     <string name="gold_medal_content">Medalla de oro</string>
@@ -91,13 +95,17 @@
     <string name="near_beaches">Playas</string>
     <string name="coffee_service">Cafeterías</string>
     <string name="restaurants">Restaurantes</string>
-    <string name="error_password_length"> Contraseña muy corta, debe utilizar al menos 6 caracteres </string>
     <string name="favorite_places">Tus Lugares Favoritos</string>
+
     <string name="tag_wf">cataratas</string>
-    <string name="tag_silver">plata</string>
-    <string name="tag_gold">oro</string>
     <string name="tag_hills">cerros</string>
     <string name="tag_beach">playas</string>
+
+    <string name="tag_bronze">bronce</string>
+    <string name="tag_silver">plata</string>
+    <string name="tag_gold">oro</string>
+
+    <string name="title_activity_edit_profile">Editar Perfil</string>
     <string name="btn_upload_gallery">Sube tus propias fotos</string>
 
 </resources>
