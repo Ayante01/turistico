@@ -12,6 +12,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -50,10 +51,12 @@ import com.google.firebase.storage.StorageTask;
 import com.squareup.picasso.Picasso;
 import com.theartofdev.edmodo.cropper.CropImage;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
 
 import cr.ac.ucr.turistico.adapters.ImageAdapter;
+import cr.ac.ucr.turistico.adapters.PlaceAdapter;
 import cr.ac.ucr.turistico.fragments.PlaceFragment;
 
 public class PlaceActivity extends AppCompatActivity implements OnMapReadyCallback {
@@ -94,6 +97,11 @@ public class PlaceActivity extends AppCompatActivity implements OnMapReadyCallba
     private DatabaseReference myRefPlace;
     private StorageReference storagePicPlace;
 
+    ArrayList<Object> dbImages = new ArrayList<>();
+    ArrayList<String> localImages = new ArrayList<>();
+    ArrayList<String> placeDB = new ArrayList<>();
+    int position = 0;
+
     /**
      * Método onCreate
      * Este metodo es ejecutado al crearse la clase dentro de la aplicación
@@ -104,7 +112,6 @@ public class PlaceActivity extends AppCompatActivity implements OnMapReadyCallba
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_place);
-
 
         firstService = findViewById(R.id.ly_first_service);
         secondService = findViewById(R.id.ly_second_service);
@@ -130,6 +137,22 @@ public class PlaceActivity extends AppCompatActivity implements OnMapReadyCallba
         myRefUser = fbDatabase.getReference("users");
         myRefPlace = fbDatabase.getReference("places");
         storagePicPlace = FirebaseStorage.getInstance().getReference();
+        myRefPlace.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for(DataSnapshot ds : snapshot.getChildren()){
+                    String place = ds.child("place").getValue(String.class);
+                    dbImages.add((ArrayList<Object>) ds.child("imgsPlace").getValue());
+                    placeDB.add(place);
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Log.i("DataSnapshot: ", error.getMessage());
+            }
+        });
 
         btnUpload.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -175,7 +198,6 @@ public class PlaceActivity extends AppCompatActivity implements OnMapReadyCallba
 
         tToolbar = findViewById(R.id.t_toolbar);
         tToolbar.setTitle("");
-
         setSupportActionBar(tToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
@@ -229,6 +251,7 @@ public class PlaceActivity extends AppCompatActivity implements OnMapReadyCallba
 
                             headerTitle.setText(ds.child("place").getValue(String.class));
                             placeTitle = ""+ds.child("place").getValue(String.class);
+                            searchPlace();
                             informationBody.setText(ds.child("info").getValue(String.class));
                         }
 
@@ -270,7 +293,6 @@ public class PlaceActivity extends AppCompatActivity implements OnMapReadyCallba
             CropImage.ActivityResult result = CropImage.getActivityResult(data);
             imageUri = result.getUri();
             uploadGalleryPic();
-         //   profileImageView.setImageURI(imageUri);
         } else {
             Toast.makeText(this, "Error, Try again", Toast.LENGTH_SHORT).show();
         }
@@ -301,9 +323,10 @@ public class PlaceActivity extends AppCompatActivity implements OnMapReadyCallba
                     if (task.isSuccessful()) {
                         Uri downloadUrl = task.getResult();
                         myUri = downloadUrl.toString();
-
+                        searchPlace();
+                        localImages.add(myUri);
                         HashMap<String, Object> userMap = new HashMap<>();
-                        userMap.put("imgLugar", myUri);
+                        userMap.put("imgsPlace", localImages);
 
                         myRefPlace.child(placeTitle).updateChildren(userMap);
                         progressDialog.dismiss();
@@ -313,6 +336,15 @@ public class PlaceActivity extends AppCompatActivity implements OnMapReadyCallba
         } else {
             progressDialog.dismiss();
             Toast.makeText(this, "Image not selected", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void searchPlace() {
+        for (String placeName : placeDB) {
+            if (placeName.equals(placeTitle)) {
+                position = placeDB.indexOf(placeTitle);
+                localImages = (ArrayList<String>) dbImages.get(position);
+            }
         }
     }
 }
