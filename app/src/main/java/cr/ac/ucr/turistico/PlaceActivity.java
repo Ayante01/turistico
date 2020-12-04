@@ -8,18 +8,25 @@
 package cr.ac.ucr.turistico;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import android.app.ProgressDialog;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
@@ -29,22 +36,34 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.tasks.Continuation;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.StorageTask;
+import com.squareup.picasso.Picasso;
+import com.theartofdev.edmodo.cropper.CropImage;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Random;
 
 import cr.ac.ucr.turistico.adapters.ImageAdapter;
+import cr.ac.ucr.turistico.adapters.PlaceAdapter;
+import cr.ac.ucr.turistico.fragments.PlaceFragment;
 
 public class PlaceActivity extends AppCompatActivity implements OnMapReadyCallback {
     /**
      * Variable tipo GoogleMap
      */
     private GoogleMap mMap;
-    private FirebaseDatabase fbDatabase;
-
-    private DatabaseReference myRef;
 
     private ImageView placeImg;
     private TextView headerTitle;
@@ -66,6 +85,22 @@ public class PlaceActivity extends AppCompatActivity implements OnMapReadyCallba
 
     private PlaceActivity context;
     private Toolbar tToolbar;
+    private Button btnUpload;
+
+    private FirebaseAuth aAuth;
+    private Uri imageUri;
+    private String myUri = "";
+    private String placeTitle = "";
+    private StorageTask uploadTask;
+    private FirebaseDatabase fbDatabase;
+    private DatabaseReference myRefUser;
+    private DatabaseReference myRefPlace;
+    private StorageReference storagePicPlace;
+
+    ArrayList<Object> dbImages = new ArrayList<>();
+    ArrayList<String> localImages = new ArrayList<>();
+    ArrayList<String> placeDB = new ArrayList<>();
+    int position = 0;
 
     /**
      * Método onCreate
@@ -94,6 +129,37 @@ public class PlaceActivity extends AppCompatActivity implements OnMapReadyCallba
         placeImg = findViewById(R.id.iv_place_img);
         headerTitle = findViewById(R.id.tv_header_title);
         informationBody = findViewById(R.id.tv_information_body);
+
+        btnUpload = findViewById(R.id.btn_upload_gallery);
+
+        fbDatabase = FirebaseDatabase.getInstance();
+        aAuth = FirebaseAuth.getInstance();
+        myRefUser = fbDatabase.getReference("users");
+        myRefPlace = fbDatabase.getReference("places");
+        storagePicPlace = FirebaseStorage.getInstance().getReference();
+        myRefPlace.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for(DataSnapshot ds : snapshot.getChildren()){
+                    String place = ds.child("place").getValue(String.class);
+                    dbImages.add((ArrayList<Object>) ds.child("imgsPlace").getValue());
+                    placeDB.add(place);
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Log.i("DataSnapshot: ", error.getMessage());
+            }
+        });
+
+        btnUpload.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                CropImage.activity().setAspectRatio(1, 1).start(PlaceActivity.this);
+            }
+        });
 
         Intent intent = getIntent();
 
@@ -132,9 +198,9 @@ public class PlaceActivity extends AppCompatActivity implements OnMapReadyCallba
 
         tToolbar = findViewById(R.id.t_toolbar);
         tToolbar.setTitle("");
-
         setSupportActionBar(tToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
     }
 
     /**
@@ -166,8 +232,8 @@ public class PlaceActivity extends AppCompatActivity implements OnMapReadyCallba
 
     public void setPlaceInfo(final String placeName) {
         fbDatabase = FirebaseDatabase.getInstance();
-        myRef = fbDatabase.getReference("places");
-        myRef.addValueEventListener(new ValueEventListener() {
+        myRefUser = fbDatabase.getReference("places");
+        myRefUser.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot ds : snapshot.getChildren()) {
@@ -184,6 +250,8 @@ public class PlaceActivity extends AppCompatActivity implements OnMapReadyCallba
                                     .into(placeImg);
 
                             headerTitle.setText(ds.child("place").getValue(String.class));
+                            placeTitle = ""+ds.child("place").getValue(String.class);
+                            searchPlace();
                             informationBody.setText(ds.child("info").getValue(String.class));
                         }
 
@@ -215,5 +283,68 @@ public class PlaceActivity extends AppCompatActivity implements OnMapReadyCallba
                 Log.i("DataSnapshot: ", error.getMessage());
             }
         });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE && resultCode == RESULT_OK && data != null) {
+            CropImage.ActivityResult result = CropImage.getActivityResult(data);
+            imageUri = result.getUri();
+            uploadGalleryPic();
+        } else {
+            Toast.makeText(this, "Error, Try again", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void uploadGalleryPic() {
+        final ProgressDialog progressDialog = new ProgressDialog(this);
+        progressDialog.setTitle("Upload your photo");
+        progressDialog.setMessage("Please wait while your photo is uploading");
+        progressDialog.show();
+        Random rand = new Random();
+        int n = rand.nextInt(200000);
+        if (imageUri != null) {
+            final StorageReference fileRef = storagePicPlace.child("fotosLugar")
+                    .child(""+n);
+            uploadTask = fileRef.putFile(imageUri);
+            uploadTask.continueWithTask(new Continuation() {
+                @Override
+                public Object then(@NonNull Task task) throws Exception {
+                    if (!task.isSuccessful()) {
+                        throw task.getException();
+                    }
+                    return fileRef.getDownloadUrl();
+                }
+            }).addOnCompleteListener(new OnCompleteListener<Uri>() {
+                @Override
+                public void onComplete(@NonNull Task<Uri> task) {
+                    if (task.isSuccessful()) {
+                        Uri downloadUrl = task.getResult();
+                        myUri = downloadUrl.toString();
+                        searchPlace();
+                        localImages.add(myUri);
+                        HashMap<String, Object> userMap = new HashMap<>();
+                        userMap.put("imgsPlace", localImages);
+
+                        myRefPlace.child(placeTitle).updateChildren(userMap);
+                        progressDialog.dismiss();
+                    }
+                }
+            });
+        } else {
+            progressDialog.dismiss();
+            Toast.makeText(this, "Image not selected", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void searchPlace() {
+        for (String placeName : placeDB) {
+            if (placeName.equals(placeTitle)) {
+                position = placeDB.indexOf(placeTitle);
+                localImages = (ArrayList<String>) dbImages.get(position);
+            }
+        }
     }
 }

@@ -48,6 +48,7 @@ public class PlaceAdapter extends RecyclerView.Adapter<PlaceAdapter.ViewHolder> 
 
     DatabaseReference refUsersLikes;
     private ArrayList<String> placesID = new ArrayList<>();
+    private ArrayList<String> userID = new ArrayList<>();
 
     /**
      * estas variables son necesarias para la actualización de los likes
@@ -77,6 +78,7 @@ public class PlaceAdapter extends RecyclerView.Adapter<PlaceAdapter.ViewHolder> 
                     String idUser = ds.child("userID").getValue(String.class);
                     String dbPlaceID = ds.child("placeID").getValue(String.class);
                     placesID.add(dbPlaceID);
+                    userID.add(idUser);
                     UsuarioLugar userPlace = new UsuarioLugar();
                     userPlace.setIdPlace(dbPlaceID);
                     userPlace.setIdUser(idUser);
@@ -96,10 +98,12 @@ public class PlaceAdapter extends RecyclerView.Adapter<PlaceAdapter.ViewHolder> 
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 dbUserPlace.clear();
                 placesID.clear();
+                userID.clear();
                 for (DataSnapshot ds : snapshot.getChildren()) {
                     String idUser = ds.child("userID").getValue(String.class);
                     String dbPlaceID = ds.child("placeID").getValue(String.class);
                     placesID.add(dbPlaceID);
+                    userID.add(idUser);
                     UsuarioLugar userPlace = new UsuarioLugar();
                     userPlace.setIdPlace(dbPlaceID);
                     userPlace.setIdUser(idUser);
@@ -169,6 +173,7 @@ public class PlaceAdapter extends RecyclerView.Adapter<PlaceAdapter.ViewHolder> 
                 break;
             case R.id.btn_like:
                 Lugar place2 = places.get(position);
+                refreshDb();
                 if(consultDbPlaces(place2).equals("empty") || consultDbPlaces(place2).equals("add") ){
                     buttons.get(position).setBackground(ContextCompat.getDrawable(context, R.drawable.ic_heart_red));
                     addLike(place2);
@@ -179,6 +184,7 @@ public class PlaceAdapter extends RecyclerView.Adapter<PlaceAdapter.ViewHolder> 
                     quitLike(place2);
                     refreshDb();
                 }
+                refreshDb();
                 break;
             default:
                 break;
@@ -188,7 +194,8 @@ public class PlaceAdapter extends RecyclerView.Adapter<PlaceAdapter.ViewHolder> 
     private String consultDbPlaces(Lugar place) {
         if(placesID.size() > 0){
             for (String id : placesID) {
-                if (id.equals(Integer.toString(place.getId()))) {
+                int position = placesID.indexOf(id);
+                if (id.equals(Integer.toString(place.getId())) && aAuth.getCurrentUser().getUid().equals(userID.get(position))) {
                     return "delete";
                 }
             }

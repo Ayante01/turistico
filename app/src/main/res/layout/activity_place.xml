@@ -162,6 +162,7 @@
                 android:numColumns="auto_fit"
                 android:paddingBottom="20dp"
                 android:stretchMode="columnWidth"
+<<<<<<< HEAD
                 android:verticalSpacing="9dp" /> -->
         <LinearLayout
             android:layout_width="match_parent"
@@ -171,6 +172,11 @@
             android:orientation="horizontal">
             <androidx.cardview.widget.CardView
                 android:id="@+id/cv_gallery"
+=======
+                android:verticalSpacing="9dp" />
+            <Button
+                android:id="@+id/btn_upload_gallery"
+>>>>>>> 5d490a1e4352d38e4141359d1b9b5ca2b4c52995
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
