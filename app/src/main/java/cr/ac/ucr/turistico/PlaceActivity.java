@@ -173,7 +173,7 @@ public class PlaceActivity extends AppCompatActivity implements OnMapReadyCallba
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
-        GridView gridView = (GridView) findViewById(R.id.gridView);
+        /**GridView gridView = (GridView) findViewById(R.id.gridView);
         gridView.setAdapter(new ImageAdapter(this));
         gridView.setVerticalScrollBarEnabled(false);
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -187,14 +187,14 @@ public class PlaceActivity extends AppCompatActivity implements OnMapReadyCallba
              * @param i
              * @param l
              *
-             */
+
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Intent intent = new Intent(getApplicationContext(), FullImageActivity.class);
                 intent.putExtra("id", i);
                 startActivity(intent);
             }
-        });
+        });**/
 
         tToolbar = findViewById(R.id.t_toolbar);
         tToolbar.setTitle("");
