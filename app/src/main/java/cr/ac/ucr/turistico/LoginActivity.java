@@ -164,13 +164,13 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         finish();
     }
 
-    public String validate(String userName, String password) {
+    public String validateUser(String userName, String password) {
         if (userName.equals("user") && password.equals("password"))
             return "Login was successful";
         if (userName.equals("user") && password!="password")
-            return "User or passwword incorrect";
+            return "User or password incorrect";
         if (userName!="user" && password.equals("password"))
-            return "User or passwword incorrect";
+            return "User or password incorrect";
         if (userName.equals("user") && password.equals(""))
             return "Please enter a password";
         if (userName.equals("") && password.equals("password"))

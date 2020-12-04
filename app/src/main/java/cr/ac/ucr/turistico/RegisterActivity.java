@@ -217,4 +217,21 @@ public class RegisterActivity extends AppCompatActivity implements OnClickListen
         startActivity(intent);
         finish();
     }
+
+    public String validateRegister(String mail, String password) {
+        String registeredMail = "test@gmail.com";
+
+        if (mail!=registeredMail && password.length()>=6)
+            return "Sign up was successful";
+        if (mail.equals(registeredMail) && password.length()>=6)
+            return "Email already exist";
+        if (mail!=registeredMail && password.length()<6)
+            return "Password too short";
+        if (mail.equals("") && password.length()>=6)
+            return "Please enter an Email";
+        if (mail.equals("") && password.equals(""))
+            return "Void";
+        else
+            return "Invalid sign up!";
+    }
 }

@@ -61,6 +61,9 @@ public class PlaceAdapter extends RecyclerView.Adapter<PlaceAdapter.ViewHolder> 
     private int dbNumLikes;
     private ArrayList<UsuarioLugar> dbUserPlace;
 
+    public PlaceAdapter() {
+    }
+
     public PlaceAdapter(Context context) {
         this.places = new ArrayList<>();
         this.context = context;
@@ -222,7 +225,6 @@ public class PlaceAdapter extends RecyclerView.Adapter<PlaceAdapter.ViewHolder> 
         placesLiked.setUserID(uId);
         placesLiked.setPlaceID(Integer.toString(place.getId()));
         refUsersLikes.child(uId + "_" + place.getPlace()).setValue(placesLiked);
-
     }
 
     /**
@@ -271,6 +273,16 @@ public class PlaceAdapter extends RecyclerView.Adapter<PlaceAdapter.ViewHolder> 
         public void onClick(View view) {
             listener.onClick(view, getLayoutPosition());
         }
+    }
+
+    public String likeValidate(boolean likeExist){
+        if(likeExist!=true){
+            return "Add like";
+        }
+        if(likeExist!=false){
+            return "Delete like";
+        }
+        return "Null";
     }
 }
 

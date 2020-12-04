@@ -170,13 +170,15 @@
             android:layout_marginTop="8dp"
             android:gravity="center_horizontal"
             android:orientation="horizontal">
+
             <androidx.cardview.widget.CardView
                 android:id="@+id/cv_gallery"
-=======
-                android:verticalSpacing="9dp" />
+                android:verticalSpacing="9dp"
+                android:layout_height="match_parent"
+                android:layout_width="match_parent">
+
             <Button
                 android:id="@+id/btn_upload_gallery"
->>>>>>> 5d490a1e4352d38e4141359d1b9b5ca2b4c52995
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
@@ -186,7 +188,8 @@
                 app:cardCornerRadius="10dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="MissingPrefix" />
 
                 <ImageView
                     android:layout_width="110dp"
