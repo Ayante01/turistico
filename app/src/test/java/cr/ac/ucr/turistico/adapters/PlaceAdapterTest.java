@@ -21,11 +21,20 @@ public class PlaceAdapterTest {
     @Mock
     Context mMockContext;
 
+    /**
+     * Con esta validación se busca comprobar el funcionamiento del boton de like
+     * le pasamos un true si queremos simular que existe un lugar con like
+     * le pasamos false si queremos simular que no existe un like
+     * **/
     @Test
     public void readValidateLike(){
         PlaceAdapter placeAdapter = new PlaceAdapter();
 
+        /**existe like**/
         String result = placeAdapter.likeValidate(true);
+
+        /**no existe like**/
+        //String result = placeAdapter.likeValidate(false);
 
         assertThat(result, is(EXPECTED_RESULT));
     }

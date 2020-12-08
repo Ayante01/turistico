@@ -75,6 +75,10 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
     ArrayList<String> dbLastName;
     ArrayList<String> dbImg;
 
+    ArrayList<Long> dbUploadPicsCatarata;
+    ArrayList<Long> dbUploadPicsCerro;
+    ArrayList<Long> dbUploadPicsPlaya;
+
     DatabaseReference myRef;
     FirebaseDatabase fbDatabase;
     FirebaseAuth aAuth;
@@ -139,6 +143,9 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
         dbLastName = new ArrayList<>();
         dbImg = new ArrayList<>();
 
+        dbUploadPicsCatarata = new ArrayList<>();
+        dbUploadPicsCerro = new ArrayList<>();
+        dbUploadPicsPlaya = new ArrayList<>();
 
     }
 
@@ -194,7 +201,36 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
         getUserInfo();
         setName();
         return view;
+    }
 
+    private void setMedals() {
+        if (dbUploadPicsPlaya.get(position)>=1){
+            btnBronzeBeach.setBackground(ContextCompat.getDrawable(activity, R.drawable.bronze_checked));
+        }
+        if (dbUploadPicsCerro.get(position)>=1){
+            btnBronzeHills.setBackground(ContextCompat.getDrawable(activity, R.drawable.bronze_checked));
+        }
+        if (dbUploadPicsCatarata.get(position)>=1){
+            btnBronzeWaterfall.setBackground(ContextCompat.getDrawable(activity, R.drawable.bronze_checked));
+        }
+        if (dbUploadPicsPlaya.get(position)>=3){
+            btnSilverBeach.setBackground(ContextCompat.getDrawable(activity, R.drawable.silver_checked));
+        }
+        if (dbUploadPicsCerro.get(position)>=3){
+            btnSilverHills.setBackground(ContextCompat.getDrawable(activity, R.drawable.silver_checked));
+        }
+        if (dbUploadPicsCatarata.get(position)>=3){
+            btnSilverWaterfall.setBackground(ContextCompat.getDrawable(activity, R.drawable.silver_checked));
+        }
+        if (dbUploadPicsPlaya.get(position)>=6){
+            btnGoldBeach.setBackground(ContextCompat.getDrawable(activity, R.drawable.gold_checked));
+        }
+        if (dbUploadPicsCerro.get(position)>=6){
+            btnGoldHills.setBackground(ContextCompat.getDrawable(activity, R.drawable.gold_checked));
+        }
+        if (dbUploadPicsCatarata.get(position)>=6){
+            btnGoldWaterfall.setBackground(ContextCompat.getDrawable(activity, R.drawable.gold_checked));
+        }
     }
 
 
@@ -210,10 +246,17 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
                     String name = ds.child("nombre").getValue(String.class);
                     String lastName = ds.child("apellido").getValue(String.class);
                     String img = ds.child("imgPerfil").getValue(String.class);
+                    Long picsBeach = ds.child("uploadPicsPlaya").getValue(Long.class);
+                    Long picsHill = ds.child("uploadPicsCerro").getValue(Long.class);
+                    Long picsWaterfall = ds.child("uploadPicsCatarata").getValue(Long.class);
+
                     dbUsers.add(uid);
                     dbName.add(name);
                     dbLastName.add(lastName);
                     dbImg.add(img);
+                    dbUploadPicsCatarata.add(picsWaterfall);
+                    dbUploadPicsCerro.add(picsHill);
+                    dbUploadPicsPlaya.add(picsBeach);
                     userID = user.getUid();
 
                     for (String id : dbUsers) {
@@ -222,13 +265,9 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
                             Log.e(" Img ", " " + dbImg.get(position));
                         }
                     }
-
                     userName.setText(dbName.get(position) + " " + dbLastName.get(position));
-                    Glide.with(context)
-                            .load(dbImg.get(position))
-                            .centerCrop()
-                            .diskCacheStrategy(DiskCacheStrategy.ALL)
-                            .into(profileImageView);
+                    setMedals();
+                    Picasso.get().load(dbImg.get(position)).into(profileImageView);
 
                 }
 
@@ -285,6 +324,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
                 AppPreferences.getInstance(activity).clear();
                 Intent intent = new Intent(activity, EditProfile.class);
                 startActivity(intent);
+                activity.finish();
                 break;
             case R.id.btn_waterfall_bronze:
                 showTooltip(view, Gravity.TOP, "1", getString(R.string.tag_wf), getString(R.string.tag_bronze));

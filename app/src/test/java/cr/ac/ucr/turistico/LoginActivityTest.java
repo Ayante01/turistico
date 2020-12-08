@@ -12,9 +12,10 @@ import static org.junit.Assert.*;
 @RunWith(MockitoJUnitRunner.class)
 
 public class LoginActivityTest {
-    private static final String EXPECTED_RESULT = "Login was successful";
-    //private static final String EXPECTED_RESULT = "User or password incorrect";
-    //private static final String EXPECTED_RESULT = "User or password incorrect";
+
+    /**Login correcto**/
+    //private static final String EXPECTED_RESULT = "Login was successful";
+    private static final String EXPECTED_RESULT = "User or password incorrect";
     //private static final String EXPECTED_RESULT = "Please enter a password";
     //private static final String EXPECTED_RESULT = "Please enter an user";
     //private static final String EXPECTED_RESULT = "Void";
@@ -27,7 +28,20 @@ public class LoginActivityTest {
     public void readString_Login(){
         LoginActivity loginTest = new LoginActivity();
 
-        String result = loginTest.validateUser("user", "password");
+        /**Login correcto**/
+        String result = loginTest.validateUser("user", "paword");
+
+        /**Usuario o contrasena incorrectos**/
+        //String result = loginTest.validateUser("userFail", "password");
+
+        /**No hay contrasena**/
+        //String result = loginTest.validateUser("user", "");
+
+        /**No hay email/usuario**/
+        //String result = loginTest.validateUser("", "password");
+
+        /**Campos vacios**/
+        //String result = loginTest.validateUser("", "");
 
         assertThat(result, is(EXPECTED_RESULT));
     }

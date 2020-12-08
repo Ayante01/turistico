@@ -117,9 +117,9 @@ public class EditProfile extends AppCompatActivity implements View.OnClickListen
         final ProgressDialog progressDialog = new ProgressDialog(this);
         newName = editName.getText().toString().trim();
         newLastName = editLastName.getText().toString().trim();
-        progressDialog.setTitle("Set your profile");
-        progressDialog.setMessage("Please wait while your data is being setting");
-        progressDialog.show();
+        //progressDialog.setTitle("Set your profile");
+        //progressDialog.setMessage("Please wait while your data is being setting");
+        //progressDialog.show();
 
         if (imageUri != null) {
             final StorageReference fileRef = storageProfilePicsRef.child("fotosPerfil")
@@ -145,12 +145,12 @@ public class EditProfile extends AppCompatActivity implements View.OnClickListen
                         userMap.put("nombre", newName);
                         userMap.put("apellido", newLastName);
                         databaseReference.child(aAuth.getCurrentUser().getUid()).updateChildren(userMap);
-                        progressDialog.dismiss();
+                        //progressDialog.cancel();
                     }
                 }
             });
         } else {
-            progressDialog.dismiss();
+            //progressDialog.dismiss();
             Toast.makeText(this, "Image not selected", Toast.LENGTH_SHORT).show();
         }
     }
@@ -166,6 +166,7 @@ public class EditProfile extends AppCompatActivity implements View.OnClickListen
                 uploadProfileInfo();
                 Intent save = new Intent(EditProfile.this, MainActivity.class);
                 startActivity(save);
+                finish();
                 break;
             case R.id.change_profile_btn:
                 CropImage.activity().setAspectRatio(1, 1).start(EditProfile.this);

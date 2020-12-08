@@ -38,9 +38,11 @@ public class SelectActivity extends AppCompatActivity implements View.OnClickLis
         switch (view.getId()){
             case R.id.btn_go_to_login:
                 goToLogin();
+                finish();
                 break;
             case R.id.btn_go_to_register_one:
                 goToRegister();
+                finish();
                 break;
             case R.id.btn_guest:
                 break;

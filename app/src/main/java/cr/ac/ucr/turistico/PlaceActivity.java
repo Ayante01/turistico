@@ -98,11 +98,14 @@ public class PlaceActivity extends AppCompatActivity implements OnMapReadyCallba
     private Uri imageUri;
     private String myUri = "";
     private String placeTitle = "";
+    String category = "";
     private StorageTask uploadTask;
     private FirebaseDatabase fbDatabase;
     private DatabaseReference myRefUser;
     private DatabaseReference myRefPlace;
     private StorageReference storagePicPlace;
+
+    Long uploadedPics;
 
     ArrayList<Object> dbImages = new ArrayList<>();
     ArrayList<String> localImages = new ArrayList<>();
@@ -182,33 +185,27 @@ public class PlaceActivity extends AppCompatActivity implements OnMapReadyCallba
             setPlaceInfo(placeName);
         }
 
+        myRefUser.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for(DataSnapshot ds : snapshot.getChildren()){
+                    if (ds.child("uid").getValue(String.class).equals(aAuth.getCurrentUser().getUid())) {
+                        uploadedPics = ds.child("uploadPics" + category).getValue(Long.class);
+                    }
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Log.i("DataSnapshot: ", error.getMessage());
+            }
+        });
+
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
-
-        /**GridView gridView = (GridView) findViewById(R.id.gridView);
-        gridView.setAdapter(new ImageAdapter(this));
-        gridView.setVerticalScrollBarEnabled(false);
-        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-
-            /**
-             * Método onItemClick
-             * Este método abre la imagen en grande al darle click en la galería
-             *
-             * @param adapterView
-             * @param view
-             * @param i
-             * @param l
-             *
-
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Intent intent = new Intent(getApplicationContext(), FullImageActivity.class);
-                intent.putExtra("id", i);
-                startActivity(intent);
-            }
-        });**/
 
         tToolbar = findViewById(R.id.t_toolbar);
         tToolbar.setTitle("");
@@ -246,18 +243,18 @@ public class PlaceActivity extends AppCompatActivity implements OnMapReadyCallba
 
     public void setPlaceInfo(final String placeName) {
         fbDatabase = FirebaseDatabase.getInstance();
-        myRefUser = fbDatabase.getReference("places");
-        myRefUser.addValueEventListener(new ValueEventListener() {
+        myRefPlace.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot ds : snapshot.getChildren()) {
                     if (ds.child("place").getValue(String.class).equals(placeName)) {
                         latitude =  ds.child("latitude").getValue(Double.class);
                         longitude = ds.child("longitude").getValue(Double.class);
+                        category = ds.child("category").getValue(String.class);
 
                         mapRefresh(placeName);
                         if(ds.child("image").getValue(String.class) != null){
-                            Glide.with(context)
+                            Glide.with(getApplicationContext())
                                     .load(ds.child("image").getValue(String.class))
                                     .centerCrop()
                                     .diskCacheStrategy(DiskCacheStrategy.ALL)
@@ -301,32 +298,32 @@ public class PlaceActivity extends AppCompatActivity implements OnMapReadyCallba
     }
 
     private void loadGalleryPic() {
-        Glide.with(context)
+        Glide.with(getApplicationContext())
                 .load(localImages.get(0))
                 .centerCrop()
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(gallery1);
-        Glide.with(context)
+        Glide.with(getApplicationContext())
                 .load(localImages.get(1))
                 .centerCrop()
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(gallery2);
-        Glide.with(context)
+        Glide.with(getApplicationContext())
                 .load(localImages.get(2))
                 .centerCrop()
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(gallery3);
-        Glide.with(context)
+        Glide.with(getApplicationContext())
                 .load(localImages.get(3))
                 .centerCrop()
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(gallery4);
-        Glide.with(context)
+        Glide.with(getApplicationContext())
                 .load(localImages.get(4))
                 .centerCrop()
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(gallery5);
-        Glide.with(context)
+        Glide.with(getApplicationContext())
                 .load(localImages.get(5))
                 .centerCrop()
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
@@ -373,10 +370,16 @@ public class PlaceActivity extends AppCompatActivity implements OnMapReadyCallba
                         myUri = downloadUrl.toString();
                         searchPlace();
                         localImages.add(myUri);
-                        HashMap<String, Object> userMap = new HashMap<>();
-                        userMap.put("imgsPlace", localImages);
 
-                        myRefPlace.child(placeTitle).updateChildren(userMap);
+                        HashMap<String, Object> placeMap = new HashMap<>();
+                        placeMap.put("imgsPlace", localImages);
+
+                        HashMap<String, Object> userMap = new HashMap<>();
+                        uploadedPics = uploadedPics+1;
+                        userMap.put("uploadPics"+category, uploadedPics);
+
+                        myRefUser.child(aAuth.getCurrentUser().getUid()).updateChildren(userMap);
+                        myRefPlace.child(placeTitle).updateChildren(placeMap);
                         progressDialog.dismiss();
                     }
                 }
