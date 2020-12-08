@@ -388,7 +388,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
     private void showTooltip(View view, int gravity, String value, String lugar, String medalla) {
         btn = (Button) view;
         tooltip = new Tooltip.Builder(btn)
-                .setText("Visita " + value + " " + lugar + " para obtener la medalla de " + medalla)
+                .setText(getString(R.string.upload) + value + getString(R.string.tooltip_resourcer) + lugar + getString(R.string.tooltip_resource2) + medalla)
                 .setTextColor(Color.WHITE)
                 .setBackgroundColor(Color.LTGRAY)
                 .setGravity(gravity)

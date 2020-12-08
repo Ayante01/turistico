@@ -118,6 +118,11 @@
     <string name="cancel">CANCEL</string>
     <string name="save">SAVE</string>
     <string name="change_profile">Change avatar</string>
+
+    //tooltips of medals
+    <string name="upload">\"Upload \"</string>
+    <string name="tooltip_resourcer">\" pics in the category of \"</string>
+    <string name="tooltip_resource2">\" to get the medal of \"</string>
     <!-- TODO: Remove or change this placeholder text -->
 
 </resources>

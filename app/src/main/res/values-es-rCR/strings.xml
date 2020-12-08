@@ -6,7 +6,7 @@
     <string name="email">Correo Electronico</string>
     <string name="password">Contraseña</string>
     <string name="confirm_pass">Confirmar contraseña</string>
-    <string name="login">INICIAR SESÓN</string>
+    <string name="login">INICIAR SESIÓN</string>
     <string name="sign_up">REGISTRARSE</string>
 
     <!--errors-->
@@ -115,5 +115,10 @@
     <string name="cancel">CANCELAR</string>
     <string name="save">GUARDAR</string>
     <string name="change_profile">Cambiar avatar</string>
+
+    //tooltips of medals
+    <string name="upload">\"Sube \"</string>
+    <string name="tooltip_resourcer">\" fotos en la categoría\"</string>
+    <string name="tooltip_resource2">\" para obtener la medalla de \"</string>
 
 </resources>
